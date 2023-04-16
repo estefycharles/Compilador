@@ -6,79 +6,127 @@ tokens = [
   'MINUS',
   'DIVIDE',
   'MULTIPLY',
+  'EXP',
   'ASSIGNMENT',
-  'DIFFERENT',
   'EOF',
-  'LP',
-  'RP',
-  'OBR',
-  'CBR',
+  'OPAREN',
+  'CPAREN',
+  'OBRACKET',
+  'CBRACKET',
+  'OSQUAREBR',
+  'CSQUAREBR',
   'COMMA',
   'EQUAL',
-  'GT',
-  'GET',
-  'LT',
-  'LET',
-  'NOTES',
+  'DIFFERENT',
+  'GREATERTHAN',
+  'GREATERTHANEQ',
+  'LESSTHAN',
+  'LESSTHANEQ',
+  'ID',
 ]
 
-
-#Reserved words
+#Palabras reservadas
 reserved = {
-   'begin' : 'BEGIN',
-   'end' : 'END',
-   'fx' : 'FX',
+  'begin' : 'BEGIN',
+  'end' : 'END',
+  'fx' : 'FX',
   'return' : 'RETURN',
   'void' : 'VOID',
   'var' : 'VAR',
   'int' : 'INT',
   'dec' : 'DEC',
   'string' : 'STRING',
-  'char' : 'CHAR',
   'bool' : 'BOOL',
   'and' : 'AND',
   'or' : 'OR',
   'input' : 'INPUT',
   'output' : 'OUTPUT',
-  'true' : 'TRUE',
-  'false' : 'FALSE',
+  'for': 'FOR',
+  'if': 'IF',
+  'else': 'ELSE',
+  'do': 'DO',
+  'while': 'WHILE',
 }
 
-
-# Define regular expressions for each token
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_DIVIDE = r'/'
 t_MULTIPLY = r'\*'
-t_ASSIGNMENT = r'='
-t_DIFFERENT = r'!='
-t_EOF = r';'
-t_LP = r'\('
-t_RP = r'\)'
-t_OBR = r'\{'
-t_CBR = r'\}'
+t_ASSIGNMENT = r'\='
+t_EOF = r'\;'
+t_OPAREN = r'\('
+t_CPAREN = r'\)'
+t_OBRACKET = r'\{'
+t_CBRACKET = r'\}'
+t_OSQUAREBR = r'\['
+t_CSQUAREBR = r'\]'
 t_COMMA = r','
-t_EQUAL = r'=='
-t_GT = r'>'
-t_GET = r'>='
-t_LT = r'<'
-t_LET = r'<='
-t_NOTES = r'//'
-t_INT = r'\d+'
-t_DEC = r'\d+\.\d+'
-#t_STRING = r'\"([^\\\"]|\\.)*\"'
-t_STRING = r'^\"[^\"]*\"$'
+#t_EQUAL = r'=='
+t_DIFFERENT = r'!='
+t_GREATERTHAN = r'>'
+t_GREATERTHANEQ = r'>='
+t_LESSTHAN = r'<'
+t_LESSTHANEQ = r'<='
 
+tokens = tokens + list(reserved.values())
 
-# Define any required helper functions
+#Expersiones Regulares
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z_0-9_]*'
+    t.type = reserved.get(t.value, 'ID')
+    return t
+
+def t_EQUAL(t):
+    r'=='
+    return t
+
+def t_BOOL(t):
+    r'True|False'
+    t.type = reserved.get(t.value, 'BOOL')
+    if t.value == 'False':
+        t.value=0
+    t.value = bool(t.value)
+    return t
+
+def t_STRING(t):
+    r'"[^"]*"'
+    t.type = reserved.get(t.value, 'STRING')
+    t.value = (t.value, 'string')
+    return t
+
+def t_DEC(t):
+     r'[0-9]+\.[0-9]+'
+     t.type = reserved.get(t.value, 'DEC')
+     t.value = float(t.value)    
+     return t
+
+def t_INT(t):
+     r'[0-9]+'
+     t.type = reserved.get(t.value, 'INT')
+     t.value = int(t.value)    
+     return t
+
+def t_notes(t):
+    r'//(.)*?\n'
+    t.lexer.lineno += 1
+
 def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+     r'\n+'
+     t.lexer.lineno += len(t.value)
 
-# Create the lexer
+t_ignore  = ' \t'
+ 
+#Manejo de error lexico
+def t_error(t):
+     print("ERROR: Illegal character '%s'" % t.value[0])
+     t.lexer.skip(1)
+
 lexer = lex.lex()
 
-# Test the lexer
-lexer.input('3 + 4 * 2 - 1')
+#Leer archivo
+f = open('../Compilador/test/prueba.dua')
+data = f.read()
+f.close()
+lexer.input(data)
 for token in lexer:
-    print(token)
+   print(token)
