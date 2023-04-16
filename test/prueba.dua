@@ -1,0 +1,37 @@
+begin(programa_prueba)
+
+//Definicion de funciones
+//Funcion que regresa
+int fx nombre_funcion(int atributo){
+var dec nombre_variable, nombre_variable2;
+var string nombre_variable3;
+nombre_variable = nombre_variable + nombre_variable2;
+return nombre_variable;
+}
+
+//Funcion sin valor de retorno
+void nombre_funcion2(string atributo){
+	var string nom_var;
+	nom_var = nom_var + atributo;
+}
+
+//Main
+main(){
+var dec x, y;
+x = 3.14;
+var bool z;
+z = true;
+input(x);
+if(x==0 and x<=5  ){
+	output("Pass");
+}
+for(y=0, y<4, y++){
+	output(y )
+}
+while(x<6){
+	x++;
+}
+}
+
+end(programa_prueba)
+$
