@@ -1,0 +1,95 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    ASSIGNMENT
+    BOOL
+    CBRACKET
+    COMMA
+    CSQUAREBR
+    DEC
+    DIFFERENT
+    DIVIDE
+    DO
+    ELSE
+    END
+    EOF
+    EQUAL
+    EXP
+    FOR
+    FX
+    GREATERTHAN
+    GREATERTHANEQ
+    IF
+    INPUT
+    INT
+    LESSTHAN
+    LESSTHANEQ
+    MINUS
+    MULTIPLY
+    OBRACKET
+    OR
+    OSQUAREBR
+    OUTPUT
+    PLUS
+    RETURN
+    STRING
+    VAR
+    VOID
+    WHILE
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> BEGIN OPAREN ID CPAREN bloque
+
+Terminals, with rules where they appear
+
+AND                  : 
+ASSIGNMENT           : 
+BEGIN                : 1
+BOOL                 : 
+CBRACKET             : 
+COMMA                : 
+CPAREN               : 1
+CSQUAREBR            : 
+DEC                  : 
+DIFFERENT            : 
+DIVIDE               : 
+DO                   : 
+ELSE                 : 
+END                  : 
+EOF                  : 
+EQUAL                : 
+EXP                  : 
+FOR                  : 
+FX                   : 
+GREATERTHAN          : 
+GREATERTHANEQ        : 
+ID                   : 1
+IF                   : 
+INPUT                : 
+INT                  : 
+LESSTHAN             : 
+LESSTHANEQ           : 
+MINUS                : 
+MULTIPLY             : 
+OBRACKET             : 
+OPAREN               : 1
+OR                   : 
+OSQUAREBR            : 
+OUTPUT               : 
+PLUS                 : 
+RETURN               : 
+STRING               : 
+VAR                  : 
+VOID                 : 
+WHILE                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+bloque               : 1
+programa             : 0
+

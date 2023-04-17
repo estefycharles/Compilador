@@ -1,0 +1,4 @@
+begin(programa_prueba)
+
+var int a;
+a = (5 + 4) * 5 + 7;

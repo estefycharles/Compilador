@@ -70,7 +70,7 @@ t_LESSTHANEQ = r'<='
 
 tokens = tokens + list(reserved.values())
 
-#Expersiones Regulares
+#Expresiones Regulares
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9_]*'
     t.type = reserved.get(t.value, 'ID')
@@ -124,7 +124,7 @@ def t_error(t):
 lexer = lex.lex()
 
 #Leer archivo
-f = open('../Compilador/test/prueba.dua')
+f = open('../Compilador/test/prueba1.dua')
 data = f.read()
 f.close()
 lexer.input(data)
