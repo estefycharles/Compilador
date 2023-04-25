@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND ASSIGNMENT BEGIN BOOL CBRACKET COMMA CPAREN CSQUAREBR DEC DIFFERENT DIVIDE DO ELSE END EOF EQUAL EXP FOR FX GREATERTHAN GREATERTHANEQ ID IF INPUT INT LESSTHAN LESSTHANEQ MINUS MULTIPLY OBRACKET OPAREN OR OSQUAREBR OUTPUT PLUS RETURN STRING VAR VOID WHILE begin : BEGIN OPAREN ID CPAREN bloque  bloque : declaracionVar estatuto declaracionVar : VAR vars  vars : tipo var EOF  var : ID\n            | ID COMMA var  tipo : INT\n            | DEC\n            | STRING\n            | BOOL  asignacion : ID ASSIGNMENT expresion EOF expresion : exp  exp : termino \n            | termino PLUS exp\n            | termino MINUS exp  termino : factor\n                | factor MULTIPLY termino\n                | factor DIVIDE termino  factor : varCTE\n                | OPAREN expresion CPAREN\n                | PLUS varCTE\n                | MINUS varCTE varCTE : ID\n                | INT\n                | DEC\n                | STRING\n                | BOOL  estatuto : asignacion\n                | epsilon  epsilon : '
+_lr_signature = 'AND ASSIGNMENT BEGIN BOOL CBRACKET COMMA CPAREN CSQUAREBR DEC DIFFERENT DIVIDE DO ELSE END EOF EQUAL EXP FOR FX GREATERTHAN GREATERTHANEQ ID IF INPUT INT LESSTHAN LESSTHANEQ MAIN MINUS MULTIPLY OBRACKET OPAREN OR OSQUAREBR OUTPUT PLUS RETURN STRING VAR VOID WHILE begin : BEGIN OPAREN ID CPAREN bloque main end  main : MAIN OPAREN CPAREN OBRACKET bloque CBRACKET  bloque : declaracionVarAux estatutoAux\n                | estatutoAux   declaracionVarAux : declaracionVar \n                        | declaracionVarAux declaracionVarAux declaracionVar : VAR vars  vars : tipo var EOF  var : ID \n            | ID COMMA var  tipo : INT\n            | DEC\n            | STRING\n            | BOOL  estatutoAux : estatuto \n                    | estatutoAux estatutoAux estatuto : asignacion\n                | funcion\n                | epsilon  funcion : VOID FX ID OPAREN parametros CPAREN OBRACKET bloque CBRACKET \n                | tipo FX ID OPAREN parametros CPAREN OBRACKET bloque return CBRACKET  return : RETURN ID EOF  parametros : tipo ID\n                    | tipo ID COMMA parametros\n                    | epsilon  asignacion : ID ASSIGNMENT expresion EOF  expresion : exp exp : termino \n            | termino PLUS exp\n            | termino MINUS exp  termino : factor\n                | factor MULTIPLY termino\n                | factor DIVIDE termino  factor : varCTE \n                | OPAREN expresion CPAREN \n                | PLUS varCTE\n                | MINUS varCTE  varCTE : ID \n                | INT\n                | DEC\n                | STRING\n                | BOOL  end : END OPAREN ID CPAREN  epsilon : '
     
-_lr_action_items = {'BEGIN':([0,],[2,]),'$end':([1,6,7,9,10,11,13,35,37,],[0,-1,-30,-2,-28,-29,-3,-4,-11,]),'OPAREN':([2,19,30,38,39,42,43,],[3,30,30,30,30,30,30,]),'ID':([3,7,13,14,15,16,17,18,19,26,27,30,35,36,38,39,42,43,],[4,12,-3,21,-7,-8,-9,-10,22,22,22,22,-4,21,22,22,22,22,]),'CPAREN':([4,22,24,25,28,29,31,32,33,34,40,41,44,46,47,48,49,50,],[5,-23,-12,-13,-16,-19,-24,-25,-26,-27,-21,-22,50,-14,-15,-17,-18,-20,]),'VAR':([5,],[8,]),'INT':([8,19,26,27,30,38,39,42,43,],[15,31,31,31,31,31,31,31,31,]),'DEC':([8,19,26,27,30,38,39,42,43,],[16,32,32,32,32,32,32,32,32,]),'STRING':([8,19,26,27,30,38,39,42,43,],[17,33,33,33,33,33,33,33,33,]),'BOOL':([8,19,26,27,30,38,39,42,43,],[18,34,34,34,34,34,34,34,34,]),'ASSIGNMENT':([12,],[19,]),'PLUS':([19,22,25,28,29,30,31,32,33,34,38,39,40,41,42,43,48,49,50,],[26,-23,38,-16,-19,26,-24,-25,-26,-27,26,26,-21,-22,26,26,-17,-18,-20,]),'MINUS':([19,22,25,28,29,30,31,32,33,34,38,39,40,41,42,43,48,49,50,],[27,-23,39,-16,-19,27,-24,-25,-26,-27,27,27,-21,-22,27,27,-17,-18,-20,]),'EOF':([20,21,22,23,24,25,28,29,31,32,33,34,40,41,45,46,47,48,49,50,],[35,-5,-23,37,-12,-13,-16,-19,-24,-25,-26,-27,-21,-22,-6,-14,-15,-17,-18,-20,]),'COMMA':([21,],[36,]),'MULTIPLY':([22,28,29,31,32,33,34,40,41,50,],[-23,42,-19,-24,-25,-26,-27,-21,-22,-20,]),'DIVIDE':([22,28,29,31,32,33,34,40,41,50,],[-23,43,-19,-24,-25,-26,-27,-21,-22,-20,]),}
+_lr_action_items = {'BEGIN':([0,],[2,]),'$end':([1,45,78,],[0,-1,-43,]),'OPAREN':([2,22,24,40,46,50,51,53,54,57,58,],[3,40,47,40,60,64,65,40,40,40,40,]),'ID':([3,5,8,9,10,11,13,14,15,18,19,20,21,22,25,26,27,28,29,30,31,36,37,40,52,53,54,57,58,60,62,63,72,75,84,86,90,92,93,],[4,6,6,6,-5,-15,-17,-18,-19,-11,-12,-13,-14,32,-6,6,6,-7,49,50,51,32,32,32,-26,32,32,32,32,71,-8,49,6,81,6,6,-20,94,-21,]),'CPAREN':([4,32,34,35,38,39,41,42,43,44,47,55,56,59,64,65,66,67,68,69,70,71,74,76,77,81,85,88,],[5,-38,-27,-28,-31,-34,-39,-40,-41,-42,61,-36,-37,70,-44,-44,-29,-30,-32,-33,-35,78,80,-25,82,-23,-44,-24,]),'VAR':([5,8,10,25,28,62,72,84,86,],[12,12,-5,12,-7,-8,12,12,12,]),'VOID':([5,8,9,10,11,13,14,15,25,26,27,28,52,62,72,84,86,90,93,],[16,16,16,-5,-15,-17,-18,-19,-6,16,16,-7,-26,-8,16,16,16,-20,-21,]),'INT':([5,8,9,10,11,12,13,14,15,22,25,26,27,28,36,37,40,52,53,54,57,58,62,64,65,72,84,85,86,90,93,],[18,18,18,-5,-15,18,-17,-18,-19,41,-6,18,18,-7,41,41,41,-26,41,41,41,41,-8,18,18,18,18,18,18,-20,-21,]),'DEC':([5,8,9,10,11,12,13,14,15,22,25,26,27,28,36,37,40,52,53,54,57,58,62,64,65,72,84,85,86,90,93,],[19,19,19,-5,-15,19,-17,-18,-19,42,-6,19,19,-7,42,42,42,-26,42,42,42,42,-8,19,19,19,19,19,19,-20,-21,]),'STRING':([5,8,9,10,11,12,13,14,15,22,25,26,27,28,36,37,40,52,53,54,57,58,62,64,65,72,84,85,86,90,93,],[20,20,20,-5,-15,20,-17,-18,-19,43,-6,20,20,-7,43,43,43,-26,43,43,43,43,-8,20,20,20,20,20,20,-20,-21,]),'BOOL':([5,8,9,10,11,12,13,14,15,22,25,26,27,28,36,37,40,52,53,54,57,58,62,64,65,72,84,85,86,90,93,],[21,21,21,-5,-15,21,-17,-18,-19,44,-6,21,21,-7,44,44,44,-26,44,44,44,44,-8,21,21,21,21,21,21,-20,-21,]),'MAIN':([5,7,8,9,10,11,13,14,15,25,26,27,28,52,62,90,93,],[-44,24,-44,-4,-5,-15,-17,-18,-19,-6,-3,-16,-7,-26,-8,-20,-21,]),'ASSIGNMENT':([6,],[22,]),'CBRACKET':([8,9,10,11,13,14,15,25,26,27,28,52,62,72,79,84,87,90,91,93,95,],[-44,-4,-5,-15,-17,-18,-19,-6,-3,-16,-7,-26,-8,-44,83,-44,90,-20,93,-21,-22,]),'RETURN':([8,9,10,11,13,14,15,25,26,27,28,52,62,86,89,90,93,],[-44,-4,-5,-15,-17,-18,-19,-6,-3,-16,-7,-26,-8,-44,92,-20,-21,]),'FX':([16,17,18,19,20,21,],[30,31,-11,-12,-13,-14,]),'PLUS':([22,32,35,38,39,40,41,42,43,44,53,54,55,56,57,58,68,69,70,],[36,-38,53,-31,-34,36,-39,-40,-41,-42,36,36,-36,-37,36,36,-32,-33,-35,]),'MINUS':([22,32,35,38,39,40,41,42,43,44,53,54,55,56,57,58,68,69,70,],[37,-38,54,-31,-34,37,-39,-40,-41,-42,37,37,-36,-37,37,37,-32,-33,-35,]),'END':([23,83,],[46,-2,]),'MULTIPLY':([32,38,39,41,42,43,44,55,56,70,],[-38,57,-34,-39,-40,-41,-42,-36,-37,-35,]),'DIVIDE':([32,38,39,41,42,43,44,55,56,70,],[-38,58,-34,-39,-40,-41,-42,-36,-37,-35,]),'EOF':([32,33,34,35,38,39,41,42,43,44,48,49,55,56,66,67,68,69,70,73,94,],[-38,52,-27,-28,-31,-34,-39,-40,-41,-42,62,-9,-36,-37,-29,-30,-32,-33,-35,-10,95,]),'COMMA':([49,81,],[63,85,]),'OBRACKET':([61,80,82,],[72,84,86,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'begin':([0,],[1,]),'bloque':([5,],[6,]),'declaracionVar':([5,],[7,]),'estatuto':([7,],[9,]),'asignacion':([7,],[10,]),'epsilon':([7,],[11,]),'vars':([8,],[13,]),'tipo':([8,],[14,]),'var':([14,36,],[20,45,]),'expresion':([19,30,],[23,44,]),'exp':([19,30,38,39,],[24,24,46,47,]),'termino':([19,30,38,39,42,43,],[25,25,25,25,48,49,]),'factor':([19,30,38,39,42,43,],[28,28,28,28,28,28,]),'varCTE':([19,26,27,30,38,39,42,43,],[29,40,41,29,29,29,29,29,]),}
+_lr_goto_items = {'begin':([0,],[1,]),'bloque':([5,72,84,86,],[7,79,87,89,]),'declaracionVarAux':([5,8,25,72,84,86,],[8,25,25,8,8,8,]),'estatutoAux':([5,8,9,26,27,72,84,86,],[9,26,27,27,27,9,9,9,]),'declaracionVar':([5,8,25,72,84,86,],[10,10,10,10,10,10,]),'estatuto':([5,8,9,26,27,72,84,86,],[11,11,11,11,11,11,11,11,]),'asignacion':([5,8,9,26,27,72,84,86,],[13,13,13,13,13,13,13,13,]),'funcion':([5,8,9,26,27,72,84,86,],[14,14,14,14,14,14,14,14,]),'epsilon':([5,8,9,26,27,64,65,72,84,85,86,],[15,15,15,15,15,76,76,15,15,76,15,]),'tipo':([5,8,9,12,26,27,64,65,72,84,85,86,],[17,17,17,29,17,17,75,75,17,17,75,17,]),'main':([7,],[23,]),'vars':([12,],[28,]),'expresion':([22,40,],[33,59,]),'exp':([22,40,53,54,],[34,34,66,67,]),'termino':([22,40,53,54,57,58,],[35,35,35,35,68,69,]),'factor':([22,40,53,54,57,58,],[38,38,38,38,38,38,]),'varCTE':([22,36,37,40,53,54,57,58,],[39,55,56,39,39,39,39,39,]),'end':([23,],[45,]),'var':([29,63,],[48,73,]),'parametros':([64,65,85,],[74,77,88,]),'return':([89,],[91,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,34 +27,48 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> begin","S'",1,None,None,None),
-  ('begin -> BEGIN OPAREN ID CPAREN bloque','begin',5,'p_begin','syntax.py',5),
-  ('bloque -> declaracionVar estatuto','bloque',2,'p_bloque','syntax.py',9),
-  ('declaracionVar -> VAR vars','declaracionVar',2,'p_declaracionVar','syntax.py',13),
-  ('vars -> tipo var EOF','vars',3,'p_vars','syntax.py',17),
-  ('var -> ID','var',1,'p_var','syntax.py',21),
-  ('var -> ID COMMA var','var',3,'p_var','syntax.py',22),
-  ('tipo -> INT','tipo',1,'p_tipo','syntax.py',27),
-  ('tipo -> DEC','tipo',1,'p_tipo','syntax.py',28),
-  ('tipo -> STRING','tipo',1,'p_tipo','syntax.py',29),
-  ('tipo -> BOOL','tipo',1,'p_tipo','syntax.py',30),
-  ('asignacion -> ID ASSIGNMENT expresion EOF','asignacion',4,'p_asignacion','syntax.py',34),
-  ('expresion -> exp','expresion',1,'p_expresion','syntax.py',38),
-  ('exp -> termino','exp',1,'p_exp','syntax.py',42),
-  ('exp -> termino PLUS exp','exp',3,'p_exp','syntax.py',43),
-  ('exp -> termino MINUS exp','exp',3,'p_exp','syntax.py',44),
-  ('termino -> factor','termino',1,'p_termino','syntax.py',48),
-  ('termino -> factor MULTIPLY termino','termino',3,'p_termino','syntax.py',49),
-  ('termino -> factor DIVIDE termino','termino',3,'p_termino','syntax.py',50),
-  ('factor -> varCTE','factor',1,'p_factor','syntax.py',54),
-  ('factor -> OPAREN expresion CPAREN','factor',3,'p_factor','syntax.py',55),
-  ('factor -> PLUS varCTE','factor',2,'p_factor','syntax.py',56),
-  ('factor -> MINUS varCTE','factor',2,'p_factor','syntax.py',57),
-  ('varCTE -> ID','varCTE',1,'p_varCTE','syntax.py',61),
-  ('varCTE -> INT','varCTE',1,'p_varCTE','syntax.py',62),
-  ('varCTE -> DEC','varCTE',1,'p_varCTE','syntax.py',63),
-  ('varCTE -> STRING','varCTE',1,'p_varCTE','syntax.py',64),
-  ('varCTE -> BOOL','varCTE',1,'p_varCTE','syntax.py',65),
-  ('estatuto -> asignacion','estatuto',1,'p_estatuto','syntax.py',69),
-  ('estatuto -> epsilon','estatuto',1,'p_estatuto','syntax.py',70),
-  ('epsilon -> <empty>','epsilon',0,'p_epsilon','syntax.py',74),
+  ('begin -> BEGIN OPAREN ID CPAREN bloque main end','begin',7,'p_begin','parser.py',5),
+  ('main -> MAIN OPAREN CPAREN OBRACKET bloque CBRACKET','main',6,'p_main','parser.py',9),
+  ('bloque -> declaracionVarAux estatutoAux','bloque',2,'p_bloque','parser.py',13),
+  ('bloque -> estatutoAux','bloque',1,'p_bloque','parser.py',14),
+  ('declaracionVarAux -> declaracionVar','declaracionVarAux',1,'p_declaracionVarAux','parser.py',18),
+  ('declaracionVarAux -> declaracionVarAux declaracionVarAux','declaracionVarAux',2,'p_declaracionVarAux','parser.py',19),
+  ('declaracionVar -> VAR vars','declaracionVar',2,'p_declaracionVar','parser.py',23),
+  ('vars -> tipo var EOF','vars',3,'p_vars','parser.py',27),
+  ('var -> ID','var',1,'p_var','parser.py',31),
+  ('var -> ID COMMA var','var',3,'p_var','parser.py',32),
+  ('tipo -> INT','tipo',1,'p_tipo','parser.py',36),
+  ('tipo -> DEC','tipo',1,'p_tipo','parser.py',37),
+  ('tipo -> STRING','tipo',1,'p_tipo','parser.py',38),
+  ('tipo -> BOOL','tipo',1,'p_tipo','parser.py',39),
+  ('estatutoAux -> estatuto','estatutoAux',1,'p_estatutoAux','parser.py',43),
+  ('estatutoAux -> estatutoAux estatutoAux','estatutoAux',2,'p_estatutoAux','parser.py',44),
+  ('estatuto -> asignacion','estatuto',1,'p_estatuto','parser.py',48),
+  ('estatuto -> funcion','estatuto',1,'p_estatuto','parser.py',49),
+  ('estatuto -> epsilon','estatuto',1,'p_estatuto','parser.py',50),
+  ('funcion -> VOID FX ID OPAREN parametros CPAREN OBRACKET bloque CBRACKET','funcion',9,'p_funcion','parser.py',54),
+  ('funcion -> tipo FX ID OPAREN parametros CPAREN OBRACKET bloque return CBRACKET','funcion',10,'p_funcion','parser.py',55),
+  ('return -> RETURN ID EOF','return',3,'p_return','parser.py',59),
+  ('parametros -> tipo ID','parametros',2,'p_parametros','parser.py',62),
+  ('parametros -> tipo ID COMMA parametros','parametros',4,'p_parametros','parser.py',63),
+  ('parametros -> epsilon','parametros',1,'p_parametros','parser.py',64),
+  ('asignacion -> ID ASSIGNMENT expresion EOF','asignacion',4,'p_asignacion','parser.py',67),
+  ('expresion -> exp','expresion',1,'p_expresion','parser.py',71),
+  ('exp -> termino','exp',1,'p_exp','parser.py',75),
+  ('exp -> termino PLUS exp','exp',3,'p_exp','parser.py',76),
+  ('exp -> termino MINUS exp','exp',3,'p_exp','parser.py',77),
+  ('termino -> factor','termino',1,'p_termino','parser.py',81),
+  ('termino -> factor MULTIPLY termino','termino',3,'p_termino','parser.py',82),
+  ('termino -> factor DIVIDE termino','termino',3,'p_termino','parser.py',83),
+  ('factor -> varCTE','factor',1,'p_factor','parser.py',87),
+  ('factor -> OPAREN expresion CPAREN','factor',3,'p_factor','parser.py',88),
+  ('factor -> PLUS varCTE','factor',2,'p_factor','parser.py',89),
+  ('factor -> MINUS varCTE','factor',2,'p_factor','parser.py',90),
+  ('varCTE -> ID','varCTE',1,'p_varCTE','parser.py',94),
+  ('varCTE -> INT','varCTE',1,'p_varCTE','parser.py',95),
+  ('varCTE -> DEC','varCTE',1,'p_varCTE','parser.py',96),
+  ('varCTE -> STRING','varCTE',1,'p_varCTE','parser.py',97),
+  ('varCTE -> BOOL','varCTE',1,'p_varCTE','parser.py',98),
+  ('end -> END OPAREN ID CPAREN','end',4,'p_END','parser.py',102),
+  ('epsilon -> <empty>','epsilon',0,'p_epsilon','parser.py',106),
 ]

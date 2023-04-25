@@ -10,7 +10,7 @@ return nombre_variable;
 }
 
 //Funcion sin valor de retorno
-void nombre_funcion2(string atributo){
+void fx nombre_funcion2(string atributo){
 	var string nom_var;
 	nom_var = nom_var + atributo;
 }

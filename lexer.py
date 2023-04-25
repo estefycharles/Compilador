@@ -46,6 +46,7 @@ reserved = {
   'else': 'ELSE',
   'do': 'DO',
   'while': 'WHILE',
+  'main' : 'MAIN'
 }
 
 t_PLUS = r'\+'
