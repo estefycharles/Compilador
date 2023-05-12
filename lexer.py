@@ -6,9 +6,11 @@ tokens = [
   'MINUS',
   'DIVIDE',
   'MULTIPLY',
-  'EXP',
+# 'EXP',
   'ASSIGNMENT',
   'EOF',
+  'MONEY',
+  'COLON',
   'OPAREN',
   'CPAREN',
   'OBRACKET',
@@ -37,16 +39,19 @@ reserved = {
   'dec' : 'DEC',
   'string' : 'STRING',
   'bool' : 'BOOL',
-  'and' : 'AND',
-  'or' : 'OR',
+  #'and' : 'AND',
+  #'or' : 'OR',
   'input' : 'INPUT',
   'output' : 'OUTPUT',
-  'for': 'FOR',
+  #'for': 'FOR',
   'if': 'IF',
   'else': 'ELSE',
-  'do': 'DO',
+  #'do': 'DO',
   'while': 'WHILE',
-  'main' : 'MAIN'
+  'main' : 'MAIN',
+  'class' : 'CLASS',
+  'methods' : 'METHODS',
+  'attributes' : 'ATTRIBUTES'
 }
 
 t_PLUS = r'\+'
@@ -55,6 +60,8 @@ t_DIVIDE = r'/'
 t_MULTIPLY = r'\*'
 t_ASSIGNMENT = r'\='
 t_EOF = r'\;'
+t_MONEY = r'\$'
+t_COLON = r'\:'
 t_OPAREN = r'\('
 t_CPAREN = r'\)'
 t_OBRACKET = r'\{'
