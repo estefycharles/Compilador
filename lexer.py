@@ -136,5 +136,5 @@ f = open('../Compilador/test/prueba1.dua')
 data = f.read()
 f.close()
 lexer.input(data)
-for token in lexer:
-   print(token)
+#for token in lexer:
+   #print(token)

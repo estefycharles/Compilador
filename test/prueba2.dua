@@ -1,0 +1,15 @@
+begin(programa_prueba)
+
+int fx nombre_funcion1(string atributo, bool a, int b){
+	nom_var = nom_var + atributo;
+    return a;
+}
+
+dec fx nombre_funcion2(bool atributo){
+	nom_var = nom_var + atributo;
+    return a;
+}
+
+main(){
+}
+end(programa_prueba)
