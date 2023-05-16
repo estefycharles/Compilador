@@ -1,11 +1,13 @@
 begin(programa_prueba)
 
 int fx nombre_funcion1(string atributo, bool a, int b){
+    var int nom_var;
 	nom_var = nom_var + atributo;
     return a;
 }
 
 dec fx nombre_funcion2(bool atributo){
+    var int nom_var2;
 	nom_var = nom_var + atributo;
     return a;
 }

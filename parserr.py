@@ -1,13 +1,14 @@
 import ply.yacc as yacc
 from lexer import tokens
-from funcsDir import FuncsDir
-from funcsDir import TypeDir
+from directory import Directory
+from directory import TypeDir
 
-funcsDirectory = FuncsDir()
+funcsDirectory = Directory()
 typesDirectory = TypeDir()
 
 pos=1
 x=-1
+varType = ''
 
 def add_func(x, y):
     return x + y
@@ -23,27 +24,43 @@ def print_control(p, nonterminal: str, max_symbols: int):
     print("")
 
 def p_begin(p):
-    ''' begin : BEGIN OPAREN ID CPAREN classDef fxDef main end '''
+    ''' begin : BEGIN OPAREN ID CPAREN classDef fxDef  main end '''
     print_control(p,"begin",8)
+    print("DICCIONARIO: ", funcsDirectory.print_dict())
+
+#punto neuralgico para identificar el main
+def p_pointMain(p):
+    ''' pointMain : '''
+    funcsDirectory.set_scope('main')
 
 def p_main(p):
-    ''' main : MAIN OPAREN CPAREN OBRACKET body CBRACKET '''
+    ''' main : MAIN pointMain OPAREN CPAREN OBRACKET body CBRACKET '''
     print_control(p,"main",6)
 
-
 def p_fxDef(p):
-    ''' fxDef : VOID FX ID OPAREN param pointFuncParam CPAREN OBRACKET body pointVars CBRACKET pointFuncType fxDef
-                | simpleType FX ID OPAREN param pointFuncParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFuncType fxDef
+    ''' fxDef : VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
+                | simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
                 | epsilon '''
     print_control(p,"fxDef",13)
 
-def p_pointFuncType(p):
-    ''' pointFuncType : '''
+
+#punto neuralgico para identificar funciones
+def p_pointFx(p):
+    ''' pointFx : '''
+    funcsDirectory.set_scope('fx')
+
+def p_pointFxId(p):
+    ''' pointFxId : '''
+    #funcsDirectory.set_functionName(p[-1])
+
+def p_pointFxType(p):
+    ''' pointFxType : '''
     typesDirectory.delete_type()
 
-def p_pointFuncParam(p):
-    ''' pointFuncParam : '''
+def p_pointFxParam(p):
+    ''' pointFxParam : '''
     print("NOMBRE_F",p[-3])
+    funcsDirectory.set_functionName(p[-3])
     func_name = p[-3]
     func_type = typesDirectory.get_type(0)
     print("TIPO_F", func_type)
@@ -58,7 +75,7 @@ def p_pointFuncParam(p):
     typesDirectory.delete_type()
     x = -1
     pos = 1
-    print("DICCIONARIO: ", funcsDirectory.print_dict())
+    #print("DICCIONARIO: ", funcsDirectory.print_dict())
 
 def p_pointVars(p):
     ''' pointVars : '''
@@ -108,8 +125,16 @@ def p_statements(p):
 
 def p_varsDef(p):
     ''' varsDef : VAR objType var EOF 
-                | VAR simpleType var EOF '''
+                | VAR varSimpleType var EOF '''
     print_control(p,"varsDef",4)
+
+def p_varSimpleType(p):
+    ''' varSimpleType : INT
+                      | STRING
+                      | DEC
+                      | BOOL '''
+    global varType
+    varType = p[1]
 
 
 def p_var(p):
@@ -123,6 +148,7 @@ def p_varsType(p):
                 | arrDef
                 | matrixDef '''
     print_control(p,"varsType",1)
+    funcsDirectory.add_var(p[1], varType)
 
 
 def p_arrDef(p):
@@ -182,9 +208,14 @@ def p_expParen(p):
     print_control(p,"assignmentDef",3)
 
 def p_classDef(p):
-    ''' classDef : CLASS ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
+    ''' classDef : CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
                 | epsilon '''
     print_control(p,"classDef",11)
+
+#punto neuralgico para identificar clases
+def p_pointClass(p):
+    ''' pointClass : '''
+    funcsDirectory.set_scope('class')
 
 def p_classCall(p):
     ''' classCall : ID MONEY ID OPAREN paramCall CPAREN EOF '''
@@ -214,12 +245,12 @@ def p_varCte(p):
     print_control(p,"varCte",1)
 
 def p_whileCycle(p):
-    ''' whileCycle : WHILE OPAREN expRelational CPAREN OBRACKET statements CBRACKET '''
+    ''' whileCycle : WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET '''
     print_control(p,"whileCycle",7)
 
 def p_ifCond(p):
-    ''' ifCond : IF OPAREN expRelational CPAREN OBRACKET statements CBRACKET 
-                | ifCond ELSE OBRACKET statements CBRACKET '''
+    ''' ifCond : IF OPAREN expRelational CPAREN OBRACKET body CBRACKET 
+                | ifCond ELSE OBRACKET body CBRACKET '''
     print_control(p,"ifCond",7)
 
 def p_input(p):
