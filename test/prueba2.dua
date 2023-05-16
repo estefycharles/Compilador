@@ -1,12 +1,30 @@
 begin(programa_prueba)
 
+class nombre_clase{
+    attributes:
+    var int atributo1, atributo2;
+
+    methods:
+    int fx nombre_funcion(){
+        var dec nombre_variable, nombre_variable2;
+        var string nombre_variable3;
+        nombre_variable = nombre_variable + nombre_variable2;
+        return nombre_variable;
+    }
+    bool fx nombre_funcion2(bool atributo){
+        var int nom_var2;
+        nom_var = nom_var + atributo;
+        return a;
+    }
+}
+
 int fx nombre_funcion1(string atributo, bool a, int b){
     var int nom_var;
 	nom_var = nom_var + atributo;
     return a;
 }
 
-dec fx nombre_funcion2(bool atributo){
+bool fx nombre_funcion2(bool atributo){
     var int nom_var2;
 	nom_var = nom_var + atributo;
     return a;

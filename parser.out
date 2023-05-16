@@ -7,172 +7,183 @@ Rule 1     begin -> BEGIN OPAREN ID CPAREN classDef fxDef main end
 Rule 2     pointMain -> <empty>
 Rule 3     main -> MAIN pointMain OPAREN CPAREN OBRACKET body CBRACKET
 Rule 4     fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-Rule 5     fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+Rule 5     fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
 Rule 6     fxDef -> epsilon
-Rule 7     pointFx -> <empty>
-Rule 8     pointFxId -> <empty>
-Rule 9     pointFxType -> <empty>
-Rule 10    pointFxParam -> <empty>
-Rule 11    pointVars -> <empty>
-Rule 12    param -> simpleType ID
-Rule 13    param -> simpleType ID COMMA param
-Rule 14    param -> epsilon
-Rule 15    paramCall -> ID
-Rule 16    paramCall -> ID COMMA paramCall
-Rule 17    paramCall -> epsilon
-Rule 18    voidCall -> ID OPAREN paramCall CPAREN EOF
-Rule 19    body -> varsDef body
-Rule 20    body -> statements body
-Rule 21    body -> epsilon
-Rule 22    statements -> assignmentDef
-Rule 23    statements -> input
-Rule 24    statements -> output
-Rule 25    statements -> voidCall
-Rule 26    statements -> whileCycle
-Rule 27    statements -> ifCond
-Rule 28    statements -> classCall
-Rule 29    varsDef -> VAR objType var EOF
-Rule 30    varsDef -> VAR varSimpleType var EOF
-Rule 31    varSimpleType -> INT
-Rule 32    varSimpleType -> STRING
-Rule 33    varSimpleType -> DEC
-Rule 34    varSimpleType -> BOOL
-Rule 35    var -> varsType
-Rule 36    var -> varsType COMMA var
-Rule 37    varsType -> ID
-Rule 38    varsType -> arrDef
-Rule 39    varsType -> matrixDef
-Rule 40    arrDef -> ID OSQUAREBR varCte CSQUAREBR
-Rule 41    matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR
-Rule 42    assignmentDef -> ID ASSIGNMENT expAssignment
-Rule 43    expAssignment -> expRelational EOF
-Rule 44    expAssignment -> returnCall EOF
-Rule 45    expAssignment -> classCall
-Rule 46    returnCall -> ID OPAREN paramCall CPAREN
-Rule 47    expRelational -> plusMinus
-Rule 48    expRelational -> plusMinus opRelational expRelational
-Rule 49    opRelational -> EQUAL
-Rule 50    opRelational -> DIFFERENT
-Rule 51    opRelational -> GREATERTHAN
-Rule 52    opRelational -> GREATERTHANEQ
-Rule 53    opRelational -> LESSTHAN
-Rule 54    opRelational -> LESSTHANEQ
-Rule 55    plusMinus -> multDiv
-Rule 56    plusMinus -> multDiv PLUS plusMinus
-Rule 57    plusMinus -> multDiv MINUS plusMinus
-Rule 58    multDiv -> expParen
-Rule 59    multDiv -> expParen MULTIPLY multDiv
-Rule 60    multDiv -> expParen DIVIDE multDiv
-Rule 61    expParen -> OPAREN expRelational CPAREN
-Rule 62    expParen -> varCte
-Rule 63    classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
-Rule 64    classDef -> epsilon
-Rule 65    pointClass -> <empty>
-Rule 66    classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF
-Rule 67    simpleType -> INT
-Rule 68    simpleType -> STRING
-Rule 69    simpleType -> DEC
-Rule 70    simpleType -> BOOL
-Rule 71    objType -> ID
-Rule 72    varCte -> INT
-Rule 73    varCte -> DEC
-Rule 74    varCte -> STRING
-Rule 75    varCte -> ID
-Rule 76    whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-Rule 77    ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-Rule 78    ifCond -> ifCond ELSE OBRACKET body CBRACKET
-Rule 79    input -> INPUT OPAREN ID CPAREN EOF
-Rule 80    output -> OUTPUT OPAREN expRelational CPAREN EOF
-Rule 81    end -> END OPAREN ID CPAREN
-Rule 82    epsilon -> <empty>
+Rule 7     fxType -> INT
+Rule 8     fxType -> STRING
+Rule 9     fxType -> DEC
+Rule 10    fxType -> BOOL
+Rule 11    pointFx -> <empty>
+Rule 12    pointFxId -> <empty>
+Rule 13    pointFxType -> <empty>
+Rule 14    pointFxParam -> <empty>
+Rule 15    pointVars -> <empty>
+Rule 16    param -> simpleType ID
+Rule 17    param -> simpleType ID COMMA param
+Rule 18    param -> epsilon
+Rule 19    paramCall -> ID
+Rule 20    paramCall -> ID COMMA paramCall
+Rule 21    paramCall -> epsilon
+Rule 22    voidCall -> ID OPAREN paramCall CPAREN EOF
+Rule 23    body -> varsDef body
+Rule 24    body -> statements body
+Rule 25    body -> epsilon
+Rule 26    statements -> assignmentDef
+Rule 27    statements -> input
+Rule 28    statements -> output
+Rule 29    statements -> voidCall
+Rule 30    statements -> whileCycle
+Rule 31    statements -> ifCond
+Rule 32    statements -> classCall
+Rule 33    varsDef -> VAR objType var EOF
+Rule 34    varsDef -> VAR varSimpleType var EOF
+Rule 35    varSimpleType -> INT
+Rule 36    varSimpleType -> STRING
+Rule 37    varSimpleType -> DEC
+Rule 38    varSimpleType -> BOOL
+Rule 39    var -> varsType
+Rule 40    var -> varsType COMMA var
+Rule 41    varsType -> ID
+Rule 42    varsType -> arrDef
+Rule 43    varsType -> matrixDef
+Rule 44    arrDef -> ID OSQUAREBR varCte CSQUAREBR
+Rule 45    matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR
+Rule 46    assignmentDef -> ID ASSIGNMENT expAssignment
+Rule 47    expAssignment -> expRelational EOF
+Rule 48    expAssignment -> returnCall EOF
+Rule 49    expAssignment -> classCall
+Rule 50    returnCall -> ID OPAREN paramCall CPAREN
+Rule 51    expRelational -> plusMinus
+Rule 52    expRelational -> plusMinus opRelational expRelational
+Rule 53    opRelational -> EQUAL
+Rule 54    opRelational -> DIFFERENT
+Rule 55    opRelational -> GREATERTHAN
+Rule 56    opRelational -> GREATERTHANEQ
+Rule 57    opRelational -> LESSTHAN
+Rule 58    opRelational -> LESSTHANEQ
+Rule 59    plusMinus -> multDiv
+Rule 60    plusMinus -> multDiv PLUS plusMinus
+Rule 61    plusMinus -> multDiv MINUS plusMinus
+Rule 62    multDiv -> expParen
+Rule 63    multDiv -> expParen MULTIPLY multDiv
+Rule 64    multDiv -> expParen DIVIDE multDiv
+Rule 65    expParen -> OPAREN expRelational CPAREN
+Rule 66    expParen -> varCte
+Rule 67    classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+Rule 68    classDef -> epsilon
+Rule 69    pointScopeClass -> <empty>
+Rule 70    pointScopeClass2 -> <empty>
+Rule 71    pointClassName -> <empty>
+Rule 72    pointClass -> <empty>
+Rule 73    classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF
+Rule 74    simpleType -> INT
+Rule 75    simpleType -> STRING
+Rule 76    simpleType -> DEC
+Rule 77    simpleType -> BOOL
+Rule 78    objType -> ID
+Rule 79    varCte -> INT
+Rule 80    varCte -> DEC
+Rule 81    varCte -> STRING
+Rule 82    varCte -> ID
+Rule 83    whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+Rule 84    ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+Rule 85    ifCond -> ifCond ELSE OBRACKET body CBRACKET
+Rule 86    input -> INPUT OPAREN ID CPAREN EOF
+Rule 87    output -> OUTPUT OPAREN expRelational CPAREN EOF
+Rule 88    end -> END OPAREN ID CPAREN
+Rule 89    epsilon -> <empty>
 
 Terminals, with rules where they appear
 
-ASSIGNMENT           : 42
-ATTRIBUTES           : 63
+ASSIGNMENT           : 46
+ATTRIBUTES           : 67
 BEGIN                : 1
-BOOL                 : 34 70
-CBRACKET             : 3 4 5 63 76 77 78
-CLASS                : 63
-COLON                : 63 63
-COMMA                : 13 16 36
-CPAREN               : 1 3 4 5 18 46 61 66 76 77 79 80 81
-CSQUAREBR            : 40 41
-DEC                  : 33 69 73
-DIFFERENT            : 50
-DIVIDE               : 60
-ELSE                 : 78
-END                  : 81
-EOF                  : 5 18 29 30 43 44 66 79 80
-EQUAL                : 49
+BOOL                 : 10 38 77
+CBRACKET             : 3 4 5 67 83 84 85
+CLASS                : 67
+COLON                : 67 67
+COMMA                : 17 20 40
+CPAREN               : 1 3 4 5 22 50 65 73 83 84 86 87 88
+CSQUAREBR            : 44 45
+DEC                  : 9 37 76 80
+DIFFERENT            : 54
+DIVIDE               : 64
+ELSE                 : 85
+END                  : 88
+EOF                  : 5 22 33 34 47 48 73 86 87
+EQUAL                : 53
 FX                   : 4 5
-GREATERTHAN          : 51
-GREATERTHANEQ        : 52
-ID                   : 1 4 5 5 12 13 15 16 18 37 40 42 46 63 66 66 71 75 79 81
-IF                   : 77
-INPUT                : 79
-INT                  : 31 67 72
-LESSTHAN             : 53
-LESSTHANEQ           : 54
+GREATERTHAN          : 55
+GREATERTHANEQ        : 56
+ID                   : 1 4 5 5 16 17 19 20 22 41 44 46 50 67 73 73 78 82 86 88
+IF                   : 84
+INPUT                : 86
+INT                  : 7 35 74 79
+LESSTHAN             : 57
+LESSTHANEQ           : 58
 MAIN                 : 3
-METHODS              : 63
-MINUS                : 57
-MONEY                : 66
-MULTIPLY             : 59
-OBRACKET             : 3 4 5 63 76 77 78
-OPAREN               : 1 3 4 5 18 46 61 66 76 77 79 80 81
-OSQUAREBR            : 40 41
-OUTPUT               : 80
-PLUS                 : 56
+METHODS              : 67
+MINUS                : 61
+MONEY                : 73
+MULTIPLY             : 63
+OBRACKET             : 3 4 5 67 83 84 85
+OPAREN               : 1 3 4 5 22 50 65 73 83 84 86 87 88
+OSQUAREBR            : 44 45
+OUTPUT               : 87
+PLUS                 : 60
 RETURN               : 5
-STRING               : 32 68 74
-VAR                  : 29 30
+STRING               : 8 36 75 81
+VAR                  : 33 34
 VOID                 : 4
-WHILE                : 76
+WHILE                : 83
 error                : 
 
 Nonterminals, with rules where they appear
 
-arrDef               : 38 41
-assignmentDef        : 22
+arrDef               : 42 45
+assignmentDef        : 26
 begin                : 0
-body                 : 3 4 5 19 20 76 77 78
-classCall            : 28 45
-classDef             : 1 63
+body                 : 3 4 5 23 24 83 84 85
+classCall            : 32 49
+classDef             : 1 67
 end                  : 1
-epsilon              : 6 14 17 21 64
-expAssignment        : 42
-expParen             : 58 59 60
-expRelational        : 43 48 61 76 77 80
-fxDef                : 1 4 5 63
-ifCond               : 27 78
-input                : 23
+epsilon              : 6 18 21 25 68
+expAssignment        : 46
+expParen             : 62 63 64
+expRelational        : 47 52 65 83 84 87
+fxDef                : 1 4 5 67
+fxType               : 5
+ifCond               : 31 85
+input                : 27
 main                 : 1
-matrixDef            : 39
-multDiv              : 55 56 57 59 60
-objType              : 29
-opRelational         : 48
-output               : 24
-param                : 4 5 13
-paramCall            : 16 18 46 66
-plusMinus            : 47 48 56 57
-pointClass           : 63
+matrixDef            : 43
+multDiv              : 59 60 61 63 64
+objType              : 33
+opRelational         : 52
+output               : 28
+param                : 4 5 17
+paramCall            : 20 22 50 73
+plusMinus            : 51 52 60 61
+pointClass           : 67
+pointClassName       : 67
 pointFx              : 4 5
 pointFxId            : 
 pointFxParam         : 4 5
 pointFxType          : 4 5
 pointMain            : 3
+pointScopeClass      : 67
+pointScopeClass2     : 67
 pointVars            : 4 5
-returnCall           : 44
-simpleType           : 5 12 13
-statements           : 20
-var                  : 29 30 36
-varCte               : 40 41 62
-varSimpleType        : 30
-varsDef              : 19 63
-varsType             : 35 36
-voidCall             : 25
-whileCycle           : 26
+returnCall           : 48
+simpleType           : 16 17
+statements           : 24
+var                  : 33 34 40
+varCte               : 44 45 66
+varSimpleType        : 34
+varsDef              : 23 67
+varsType             : 39 40
+voidCall             : 29
+whileCycle           : 30
 
 Parsing method: LALR
 
@@ -215,17 +226,17 @@ state 4
 state 5
 
     (1) begin -> BEGIN OPAREN ID CPAREN . classDef fxDef main end
-    (63) classDef -> . CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
-    (64) classDef -> . epsilon
-    (82) epsilon -> .
+    (67) classDef -> . CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (68) classDef -> . epsilon
+    (89) epsilon -> .
 
     CLASS           shift and go to state 7
-    VOID            reduce using rule 82 (epsilon -> .)
-    INT             reduce using rule 82 (epsilon -> .)
-    STRING          reduce using rule 82 (epsilon -> .)
-    DEC             reduce using rule 82 (epsilon -> .)
-    BOOL            reduce using rule 82 (epsilon -> .)
-    MAIN            reduce using rule 82 (epsilon -> .)
+    VOID            reduce using rule 89 (epsilon -> .)
+    INT             reduce using rule 89 (epsilon -> .)
+    STRING          reduce using rule 89 (epsilon -> .)
+    DEC             reduce using rule 89 (epsilon -> .)
+    BOOL            reduce using rule 89 (epsilon -> .)
+    MAIN            reduce using rule 89 (epsilon -> .)
 
     classDef                       shift and go to state 6
     epsilon                        shift and go to state 8
@@ -234,44 +245,44 @@ state 6
 
     (1) begin -> BEGIN OPAREN ID CPAREN classDef . fxDef main end
     (4) fxDef -> . VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-    (5) fxDef -> . simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (5) fxDef -> . fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
     (6) fxDef -> . epsilon
-    (67) simpleType -> . INT
-    (68) simpleType -> . STRING
-    (69) simpleType -> . DEC
-    (70) simpleType -> . BOOL
-    (82) epsilon -> .
+    (7) fxType -> . INT
+    (8) fxType -> . STRING
+    (9) fxType -> . DEC
+    (10) fxType -> . BOOL
+    (89) epsilon -> .
 
     VOID            shift and go to state 10
     INT             shift and go to state 13
     STRING          shift and go to state 14
     DEC             shift and go to state 15
     BOOL            shift and go to state 16
-    MAIN            reduce using rule 82 (epsilon -> .)
+    MAIN            reduce using rule 89 (epsilon -> .)
 
     fxDef                          shift and go to state 9
-    simpleType                     shift and go to state 11
+    fxType                         shift and go to state 11
     epsilon                        shift and go to state 12
 
 state 7
 
-    (63) classDef -> CLASS . pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
-    (65) pointClass -> .
+    (67) classDef -> CLASS . pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (72) pointClass -> .
 
-    ID              reduce using rule 65 (pointClass -> .)
+    ID              reduce using rule 72 (pointClass -> .)
 
     pointClass                     shift and go to state 17
 
 state 8
 
-    (64) classDef -> epsilon .
+    (68) classDef -> epsilon .
 
-    VOID            reduce using rule 64 (classDef -> epsilon .)
-    INT             reduce using rule 64 (classDef -> epsilon .)
-    STRING          reduce using rule 64 (classDef -> epsilon .)
-    DEC             reduce using rule 64 (classDef -> epsilon .)
-    BOOL            reduce using rule 64 (classDef -> epsilon .)
-    MAIN            reduce using rule 64 (classDef -> epsilon .)
+    VOID            reduce using rule 68 (classDef -> epsilon .)
+    INT             reduce using rule 68 (classDef -> epsilon .)
+    STRING          reduce using rule 68 (classDef -> epsilon .)
+    DEC             reduce using rule 68 (classDef -> epsilon .)
+    BOOL            reduce using rule 68 (classDef -> epsilon .)
+    MAIN            reduce using rule 68 (classDef -> epsilon .)
 
 
 state 9
@@ -292,7 +303,7 @@ state 10
 
 state 11
 
-    (5) fxDef -> simpleType . FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (5) fxDef -> fxType . FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
 
     FX              shift and go to state 21
 
@@ -307,39 +318,35 @@ state 12
 
 state 13
 
-    (67) simpleType -> INT .
+    (7) fxType -> INT .
 
-    FX              reduce using rule 67 (simpleType -> INT .)
-    ID              reduce using rule 67 (simpleType -> INT .)
+    FX              reduce using rule 7 (fxType -> INT .)
 
 
 state 14
 
-    (68) simpleType -> STRING .
+    (8) fxType -> STRING .
 
-    FX              reduce using rule 68 (simpleType -> STRING .)
-    ID              reduce using rule 68 (simpleType -> STRING .)
+    FX              reduce using rule 8 (fxType -> STRING .)
 
 
 state 15
 
-    (69) simpleType -> DEC .
+    (9) fxType -> DEC .
 
-    FX              reduce using rule 69 (simpleType -> DEC .)
-    ID              reduce using rule 69 (simpleType -> DEC .)
+    FX              reduce using rule 9 (fxType -> DEC .)
 
 
 state 16
 
-    (70) simpleType -> BOOL .
+    (10) fxType -> BOOL .
 
-    FX              reduce using rule 70 (simpleType -> BOOL .)
-    ID              reduce using rule 70 (simpleType -> BOOL .)
+    FX              reduce using rule 10 (fxType -> BOOL .)
 
 
 state 17
 
-    (63) classDef -> CLASS pointClass . ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
+    (67) classDef -> CLASS pointClass . ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
     ID              shift and go to state 22
 
@@ -347,7 +354,7 @@ state 17
 state 18
 
     (1) begin -> BEGIN OPAREN ID CPAREN classDef fxDef main . end
-    (81) end -> . END OPAREN ID CPAREN
+    (88) end -> . END OPAREN ID CPAREN
 
     END             shift and go to state 24
 
@@ -365,27 +372,29 @@ state 19
 state 20
 
     (4) fxDef -> VOID FX . pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-    (7) pointFx -> .
+    (11) pointFx -> .
 
-    ID              reduce using rule 7 (pointFx -> .)
+    ID              reduce using rule 11 (pointFx -> .)
 
     pointFx                        shift and go to state 26
 
 state 21
 
-    (5) fxDef -> simpleType FX . pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
-    (7) pointFx -> .
+    (5) fxDef -> fxType FX . pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (11) pointFx -> .
 
-    ID              reduce using rule 7 (pointFx -> .)
+    ID              reduce using rule 11 (pointFx -> .)
 
     pointFx                        shift and go to state 27
 
 state 22
 
-    (63) classDef -> CLASS pointClass ID . OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
+    (67) classDef -> CLASS pointClass ID . pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (71) pointClassName -> .
 
-    OBRACKET        shift and go to state 28
+    OBRACKET        reduce using rule 71 (pointClassName -> .)
 
+    pointClassName                 shift and go to state 28
 
 state 23
 
@@ -396,7 +405,7 @@ state 23
 
 state 24
 
-    (81) end -> END . OPAREN ID CPAREN
+    (88) end -> END . OPAREN ID CPAREN
 
     OPAREN          shift and go to state 29
 
@@ -417,21 +426,21 @@ state 26
 
 state 27
 
-    (5) fxDef -> simpleType FX pointFx . ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (5) fxDef -> fxType FX pointFx . ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
 
     ID              shift and go to state 32
 
 
 state 28
 
-    (63) classDef -> CLASS pointClass ID OBRACKET . ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
+    (67) classDef -> CLASS pointClass ID pointClassName . OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
-    ATTRIBUTES      shift and go to state 33
+    OBRACKET        shift and go to state 33
 
 
 state 29
 
-    (81) end -> END OPAREN . ID CPAREN
+    (88) end -> END OPAREN . ID CPAREN
 
     ID              shift and go to state 34
 
@@ -452,21 +461,21 @@ state 31
 
 state 32
 
-    (5) fxDef -> simpleType FX pointFx ID . OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (5) fxDef -> fxType FX pointFx ID . OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
 
     OPAREN          shift and go to state 37
 
 
 state 33
 
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES . COLON varsDef METHODS COLON fxDef CBRACKET classDef
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET . ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
-    COLON           shift and go to state 38
+    ATTRIBUTES      shift and go to state 38
 
 
 state 34
 
-    (81) end -> END OPAREN ID . CPAREN
+    (88) end -> END OPAREN ID . CPAREN
 
     CPAREN          shift and go to state 39
 
@@ -481,20 +490,20 @@ state 35
 state 36
 
     (4) fxDef -> VOID FX pointFx ID OPAREN . param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-    (12) param -> . simpleType ID
-    (13) param -> . simpleType ID COMMA param
-    (14) param -> . epsilon
-    (67) simpleType -> . INT
-    (68) simpleType -> . STRING
-    (69) simpleType -> . DEC
-    (70) simpleType -> . BOOL
-    (82) epsilon -> .
+    (16) param -> . simpleType ID
+    (17) param -> . simpleType ID COMMA param
+    (18) param -> . epsilon
+    (74) simpleType -> . INT
+    (75) simpleType -> . STRING
+    (76) simpleType -> . DEC
+    (77) simpleType -> . BOOL
+    (89) epsilon -> .
 
-    INT             shift and go to state 13
-    STRING          shift and go to state 14
-    DEC             shift and go to state 15
-    BOOL            shift and go to state 16
-    CPAREN          reduce using rule 82 (epsilon -> .)
+    INT             shift and go to state 44
+    STRING          shift and go to state 45
+    DEC             shift and go to state 46
+    BOOL            shift and go to state 47
+    CPAREN          reduce using rule 89 (epsilon -> .)
 
     param                          shift and go to state 41
     simpleType                     shift and go to state 42
@@ -502,2116 +511,2162 @@ state 36
 
 state 37
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN . param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
-    (12) param -> . simpleType ID
-    (13) param -> . simpleType ID COMMA param
-    (14) param -> . epsilon
-    (67) simpleType -> . INT
-    (68) simpleType -> . STRING
-    (69) simpleType -> . DEC
-    (70) simpleType -> . BOOL
-    (82) epsilon -> .
+    (5) fxDef -> fxType FX pointFx ID OPAREN . param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (16) param -> . simpleType ID
+    (17) param -> . simpleType ID COMMA param
+    (18) param -> . epsilon
+    (74) simpleType -> . INT
+    (75) simpleType -> . STRING
+    (76) simpleType -> . DEC
+    (77) simpleType -> . BOOL
+    (89) epsilon -> .
 
-    INT             shift and go to state 13
-    STRING          shift and go to state 14
-    DEC             shift and go to state 15
-    BOOL            shift and go to state 16
-    CPAREN          reduce using rule 82 (epsilon -> .)
+    INT             shift and go to state 44
+    STRING          shift and go to state 45
+    DEC             shift and go to state 46
+    BOOL            shift and go to state 47
+    CPAREN          reduce using rule 89 (epsilon -> .)
 
+    param                          shift and go to state 48
     simpleType                     shift and go to state 42
-    param                          shift and go to state 44
     epsilon                        shift and go to state 43
 
 state 38
 
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON . varsDef METHODS COLON fxDef CBRACKET classDef
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES . COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
-    VAR             shift and go to state 46
+    COLON           shift and go to state 49
 
-    varsDef                        shift and go to state 45
 
 state 39
 
-    (81) end -> END OPAREN ID CPAREN .
+    (88) end -> END OPAREN ID CPAREN .
 
-    $end            reduce using rule 81 (end -> END OPAREN ID CPAREN .)
+    $end            reduce using rule 88 (end -> END OPAREN ID CPAREN .)
 
 
 state 40
 
     (3) main -> MAIN pointMain OPAREN CPAREN OBRACKET . body CBRACKET
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
 
-    VAR             shift and go to state 46
-    CBRACKET        reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
+    VAR             shift and go to state 54
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
 
-    body                           shift and go to state 47
-    varsDef                        shift and go to state 48
-    statements                     shift and go to state 49
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    ifCond                         shift and go to state 56
-    classCall                      shift and go to state 57
+    body                           shift and go to state 50
+    varsDef                        shift and go to state 51
+    statements                     shift and go to state 52
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    ifCond                         shift and go to state 60
+    classCall                      shift and go to state 61
 
 state 41
 
     (4) fxDef -> VOID FX pointFx ID OPAREN param . pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-    (10) pointFxParam -> .
+    (14) pointFxParam -> .
 
-    CPAREN          reduce using rule 10 (pointFxParam -> .)
+    CPAREN          reduce using rule 14 (pointFxParam -> .)
 
-    pointFxParam                   shift and go to state 63
+    pointFxParam                   shift and go to state 67
 
 state 42
 
-    (12) param -> simpleType . ID
-    (13) param -> simpleType . ID COMMA param
+    (16) param -> simpleType . ID
+    (17) param -> simpleType . ID COMMA param
 
-    ID              shift and go to state 64
+    ID              shift and go to state 68
 
 
 state 43
 
-    (14) param -> epsilon .
+    (18) param -> epsilon .
 
-    CPAREN          reduce using rule 14 (param -> epsilon .)
+    CPAREN          reduce using rule 18 (param -> epsilon .)
 
 
 state 44
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param . pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
-    (10) pointFxParam -> .
+    (74) simpleType -> INT .
 
-    CPAREN          reduce using rule 10 (pointFxParam -> .)
+    ID              reduce using rule 74 (simpleType -> INT .)
 
-    pointFxParam                   shift and go to state 65
 
 state 45
 
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef . METHODS COLON fxDef CBRACKET classDef
+    (75) simpleType -> STRING .
 
-    METHODS         shift and go to state 66
+    ID              reduce using rule 75 (simpleType -> STRING .)
 
 
 state 46
 
-    (29) varsDef -> VAR . objType var EOF
-    (30) varsDef -> VAR . varSimpleType var EOF
-    (71) objType -> . ID
-    (31) varSimpleType -> . INT
-    (32) varSimpleType -> . STRING
-    (33) varSimpleType -> . DEC
-    (34) varSimpleType -> . BOOL
+    (76) simpleType -> DEC .
 
-    ID              shift and go to state 69
-    INT             shift and go to state 70
-    STRING          shift and go to state 71
-    DEC             shift and go to state 72
-    BOOL            shift and go to state 73
+    ID              reduce using rule 76 (simpleType -> DEC .)
 
-    objType                        shift and go to state 67
-    varSimpleType                  shift and go to state 68
 
 state 47
 
-    (3) main -> MAIN pointMain OPAREN CPAREN OBRACKET body . CBRACKET
+    (77) simpleType -> BOOL .
 
-    CBRACKET        shift and go to state 74
+    ID              reduce using rule 77 (simpleType -> BOOL .)
 
 
 state 48
 
-    (19) body -> varsDef . body
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (5) fxDef -> fxType FX pointFx ID OPAREN param . pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (14) pointFxParam -> .
 
-    VAR             shift and go to state 46
-    CBRACKET        reduce using rule 82 (epsilon -> .)
-    RETURN          reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
+    CPAREN          reduce using rule 14 (pointFxParam -> .)
 
-    varsDef                        shift and go to state 48
-    body                           shift and go to state 75
-    statements                     shift and go to state 49
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    ifCond                         shift and go to state 56
-    classCall                      shift and go to state 57
+    pointFxParam                   shift and go to state 69
 
 state 49
 
-    (20) body -> statements . body
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON . varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
 
-    VAR             shift and go to state 46
-    CBRACKET        reduce using rule 82 (epsilon -> .)
-    RETURN          reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
+    VAR             shift and go to state 54
 
-    statements                     shift and go to state 49
-    body                           shift and go to state 76
-    varsDef                        shift and go to state 48
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    ifCond                         shift and go to state 56
-    classCall                      shift and go to state 57
+    varsDef                        shift and go to state 70
 
 state 50
 
-    (21) body -> epsilon .
+    (3) main -> MAIN pointMain OPAREN CPAREN OBRACKET body . CBRACKET
 
-    CBRACKET        reduce using rule 21 (body -> epsilon .)
-    RETURN          reduce using rule 21 (body -> epsilon .)
+    CBRACKET        shift and go to state 71
 
 
 state 51
 
-    (22) statements -> assignmentDef .
+    (23) body -> varsDef . body
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
 
-    VAR             reduce using rule 22 (statements -> assignmentDef .)
-    ID              reduce using rule 22 (statements -> assignmentDef .)
-    INPUT           reduce using rule 22 (statements -> assignmentDef .)
-    OUTPUT          reduce using rule 22 (statements -> assignmentDef .)
-    WHILE           reduce using rule 22 (statements -> assignmentDef .)
-    IF              reduce using rule 22 (statements -> assignmentDef .)
-    CBRACKET        reduce using rule 22 (statements -> assignmentDef .)
-    RETURN          reduce using rule 22 (statements -> assignmentDef .)
+    VAR             shift and go to state 54
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+    RETURN          reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
 
+    varsDef                        shift and go to state 51
+    body                           shift and go to state 72
+    statements                     shift and go to state 52
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    ifCond                         shift and go to state 60
+    classCall                      shift and go to state 61
 
 state 52
 
-    (23) statements -> input .
+    (24) body -> statements . body
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
 
-    VAR             reduce using rule 23 (statements -> input .)
-    ID              reduce using rule 23 (statements -> input .)
-    INPUT           reduce using rule 23 (statements -> input .)
-    OUTPUT          reduce using rule 23 (statements -> input .)
-    WHILE           reduce using rule 23 (statements -> input .)
-    IF              reduce using rule 23 (statements -> input .)
-    CBRACKET        reduce using rule 23 (statements -> input .)
-    RETURN          reduce using rule 23 (statements -> input .)
+    VAR             shift and go to state 54
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+    RETURN          reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
 
+    statements                     shift and go to state 52
+    body                           shift and go to state 73
+    varsDef                        shift and go to state 51
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    ifCond                         shift and go to state 60
+    classCall                      shift and go to state 61
 
 state 53
 
-    (24) statements -> output .
+    (25) body -> epsilon .
 
-    VAR             reduce using rule 24 (statements -> output .)
-    ID              reduce using rule 24 (statements -> output .)
-    INPUT           reduce using rule 24 (statements -> output .)
-    OUTPUT          reduce using rule 24 (statements -> output .)
-    WHILE           reduce using rule 24 (statements -> output .)
-    IF              reduce using rule 24 (statements -> output .)
-    CBRACKET        reduce using rule 24 (statements -> output .)
-    RETURN          reduce using rule 24 (statements -> output .)
+    CBRACKET        reduce using rule 25 (body -> epsilon .)
+    RETURN          reduce using rule 25 (body -> epsilon .)
 
 
 state 54
 
-    (25) statements -> voidCall .
+    (33) varsDef -> VAR . objType var EOF
+    (34) varsDef -> VAR . varSimpleType var EOF
+    (78) objType -> . ID
+    (35) varSimpleType -> . INT
+    (36) varSimpleType -> . STRING
+    (37) varSimpleType -> . DEC
+    (38) varSimpleType -> . BOOL
 
-    VAR             reduce using rule 25 (statements -> voidCall .)
-    ID              reduce using rule 25 (statements -> voidCall .)
-    INPUT           reduce using rule 25 (statements -> voidCall .)
-    OUTPUT          reduce using rule 25 (statements -> voidCall .)
-    WHILE           reduce using rule 25 (statements -> voidCall .)
-    IF              reduce using rule 25 (statements -> voidCall .)
-    CBRACKET        reduce using rule 25 (statements -> voidCall .)
-    RETURN          reduce using rule 25 (statements -> voidCall .)
+    ID              shift and go to state 76
+    INT             shift and go to state 77
+    STRING          shift and go to state 78
+    DEC             shift and go to state 79
+    BOOL            shift and go to state 80
 
+    objType                        shift and go to state 74
+    varSimpleType                  shift and go to state 75
 
 state 55
 
-    (26) statements -> whileCycle .
+    (26) statements -> assignmentDef .
 
-    VAR             reduce using rule 26 (statements -> whileCycle .)
-    ID              reduce using rule 26 (statements -> whileCycle .)
-    INPUT           reduce using rule 26 (statements -> whileCycle .)
-    OUTPUT          reduce using rule 26 (statements -> whileCycle .)
-    WHILE           reduce using rule 26 (statements -> whileCycle .)
-    IF              reduce using rule 26 (statements -> whileCycle .)
-    CBRACKET        reduce using rule 26 (statements -> whileCycle .)
-    RETURN          reduce using rule 26 (statements -> whileCycle .)
+    VAR             reduce using rule 26 (statements -> assignmentDef .)
+    ID              reduce using rule 26 (statements -> assignmentDef .)
+    INPUT           reduce using rule 26 (statements -> assignmentDef .)
+    OUTPUT          reduce using rule 26 (statements -> assignmentDef .)
+    WHILE           reduce using rule 26 (statements -> assignmentDef .)
+    IF              reduce using rule 26 (statements -> assignmentDef .)
+    CBRACKET        reduce using rule 26 (statements -> assignmentDef .)
+    RETURN          reduce using rule 26 (statements -> assignmentDef .)
 
 
 state 56
 
-    (27) statements -> ifCond .
-    (78) ifCond -> ifCond . ELSE OBRACKET body CBRACKET
+    (27) statements -> input .
 
-    VAR             reduce using rule 27 (statements -> ifCond .)
-    ID              reduce using rule 27 (statements -> ifCond .)
-    INPUT           reduce using rule 27 (statements -> ifCond .)
-    OUTPUT          reduce using rule 27 (statements -> ifCond .)
-    WHILE           reduce using rule 27 (statements -> ifCond .)
-    IF              reduce using rule 27 (statements -> ifCond .)
-    CBRACKET        reduce using rule 27 (statements -> ifCond .)
-    RETURN          reduce using rule 27 (statements -> ifCond .)
-    ELSE            shift and go to state 77
+    VAR             reduce using rule 27 (statements -> input .)
+    ID              reduce using rule 27 (statements -> input .)
+    INPUT           reduce using rule 27 (statements -> input .)
+    OUTPUT          reduce using rule 27 (statements -> input .)
+    WHILE           reduce using rule 27 (statements -> input .)
+    IF              reduce using rule 27 (statements -> input .)
+    CBRACKET        reduce using rule 27 (statements -> input .)
+    RETURN          reduce using rule 27 (statements -> input .)
 
 
 state 57
 
-    (28) statements -> classCall .
+    (28) statements -> output .
 
-    VAR             reduce using rule 28 (statements -> classCall .)
-    ID              reduce using rule 28 (statements -> classCall .)
-    INPUT           reduce using rule 28 (statements -> classCall .)
-    OUTPUT          reduce using rule 28 (statements -> classCall .)
-    WHILE           reduce using rule 28 (statements -> classCall .)
-    IF              reduce using rule 28 (statements -> classCall .)
-    CBRACKET        reduce using rule 28 (statements -> classCall .)
-    RETURN          reduce using rule 28 (statements -> classCall .)
+    VAR             reduce using rule 28 (statements -> output .)
+    ID              reduce using rule 28 (statements -> output .)
+    INPUT           reduce using rule 28 (statements -> output .)
+    OUTPUT          reduce using rule 28 (statements -> output .)
+    WHILE           reduce using rule 28 (statements -> output .)
+    IF              reduce using rule 28 (statements -> output .)
+    CBRACKET        reduce using rule 28 (statements -> output .)
+    RETURN          reduce using rule 28 (statements -> output .)
 
 
 state 58
 
-    (42) assignmentDef -> ID . ASSIGNMENT expAssignment
-    (18) voidCall -> ID . OPAREN paramCall CPAREN EOF
-    (66) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
+    (29) statements -> voidCall .
 
-    ASSIGNMENT      shift and go to state 78
-    OPAREN          shift and go to state 79
-    MONEY           shift and go to state 80
+    VAR             reduce using rule 29 (statements -> voidCall .)
+    ID              reduce using rule 29 (statements -> voidCall .)
+    INPUT           reduce using rule 29 (statements -> voidCall .)
+    OUTPUT          reduce using rule 29 (statements -> voidCall .)
+    WHILE           reduce using rule 29 (statements -> voidCall .)
+    IF              reduce using rule 29 (statements -> voidCall .)
+    CBRACKET        reduce using rule 29 (statements -> voidCall .)
+    RETURN          reduce using rule 29 (statements -> voidCall .)
 
 
 state 59
 
-    (79) input -> INPUT . OPAREN ID CPAREN EOF
+    (30) statements -> whileCycle .
 
-    OPAREN          shift and go to state 81
+    VAR             reduce using rule 30 (statements -> whileCycle .)
+    ID              reduce using rule 30 (statements -> whileCycle .)
+    INPUT           reduce using rule 30 (statements -> whileCycle .)
+    OUTPUT          reduce using rule 30 (statements -> whileCycle .)
+    WHILE           reduce using rule 30 (statements -> whileCycle .)
+    IF              reduce using rule 30 (statements -> whileCycle .)
+    CBRACKET        reduce using rule 30 (statements -> whileCycle .)
+    RETURN          reduce using rule 30 (statements -> whileCycle .)
 
 
 state 60
 
-    (80) output -> OUTPUT . OPAREN expRelational CPAREN EOF
+    (31) statements -> ifCond .
+    (85) ifCond -> ifCond . ELSE OBRACKET body CBRACKET
 
-    OPAREN          shift and go to state 82
+    VAR             reduce using rule 31 (statements -> ifCond .)
+    ID              reduce using rule 31 (statements -> ifCond .)
+    INPUT           reduce using rule 31 (statements -> ifCond .)
+    OUTPUT          reduce using rule 31 (statements -> ifCond .)
+    WHILE           reduce using rule 31 (statements -> ifCond .)
+    IF              reduce using rule 31 (statements -> ifCond .)
+    CBRACKET        reduce using rule 31 (statements -> ifCond .)
+    RETURN          reduce using rule 31 (statements -> ifCond .)
+    ELSE            shift and go to state 81
 
 
 state 61
 
-    (76) whileCycle -> WHILE . OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (32) statements -> classCall .
 
-    OPAREN          shift and go to state 83
+    VAR             reduce using rule 32 (statements -> classCall .)
+    ID              reduce using rule 32 (statements -> classCall .)
+    INPUT           reduce using rule 32 (statements -> classCall .)
+    OUTPUT          reduce using rule 32 (statements -> classCall .)
+    WHILE           reduce using rule 32 (statements -> classCall .)
+    IF              reduce using rule 32 (statements -> classCall .)
+    CBRACKET        reduce using rule 32 (statements -> classCall .)
+    RETURN          reduce using rule 32 (statements -> classCall .)
 
 
 state 62
 
-    (77) ifCond -> IF . OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (46) assignmentDef -> ID . ASSIGNMENT expAssignment
+    (22) voidCall -> ID . OPAREN paramCall CPAREN EOF
+    (73) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
 
-    OPAREN          shift and go to state 84
+    ASSIGNMENT      shift and go to state 82
+    OPAREN          shift and go to state 83
+    MONEY           shift and go to state 84
 
 
 state 63
 
-    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam . CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
+    (86) input -> INPUT . OPAREN ID CPAREN EOF
 
-    CPAREN          shift and go to state 85
+    OPAREN          shift and go to state 85
 
 
 state 64
 
-    (12) param -> simpleType ID .
-    (13) param -> simpleType ID . COMMA param
+    (87) output -> OUTPUT . OPAREN expRelational CPAREN EOF
 
-    CPAREN          reduce using rule 12 (param -> simpleType ID .)
-    COMMA           shift and go to state 86
+    OPAREN          shift and go to state 86
 
 
 state 65
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam . CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (83) whileCycle -> WHILE . OPAREN expRelational CPAREN OBRACKET body CBRACKET
 
-    CPAREN          shift and go to state 87
+    OPAREN          shift and go to state 87
 
 
 state 66
 
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS . COLON fxDef CBRACKET classDef
+    (84) ifCond -> IF . OPAREN expRelational CPAREN OBRACKET body CBRACKET
 
-    COLON           shift and go to state 88
+    OPAREN          shift and go to state 88
 
 
 state 67
 
-    (29) varsDef -> VAR objType . var EOF
-    (35) var -> . varsType
-    (36) var -> . varsType COMMA var
-    (37) varsType -> . ID
-    (38) varsType -> . arrDef
-    (39) varsType -> . matrixDef
-    (40) arrDef -> . ID OSQUAREBR varCte CSQUAREBR
-    (41) matrixDef -> . arrDef OSQUAREBR varCte CSQUAREBR
+    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam . CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
 
-    ID              shift and go to state 91
+    CPAREN          shift and go to state 89
 
-    var                            shift and go to state 89
-    varsType                       shift and go to state 90
-    arrDef                         shift and go to state 92
-    matrixDef                      shift and go to state 93
 
 state 68
 
-    (30) varsDef -> VAR varSimpleType . var EOF
-    (35) var -> . varsType
-    (36) var -> . varsType COMMA var
-    (37) varsType -> . ID
-    (38) varsType -> . arrDef
-    (39) varsType -> . matrixDef
-    (40) arrDef -> . ID OSQUAREBR varCte CSQUAREBR
-    (41) matrixDef -> . arrDef OSQUAREBR varCte CSQUAREBR
+    (16) param -> simpleType ID .
+    (17) param -> simpleType ID . COMMA param
 
-    ID              shift and go to state 91
+    CPAREN          reduce using rule 16 (param -> simpleType ID .)
+    COMMA           shift and go to state 90
 
-    var                            shift and go to state 94
-    varsType                       shift and go to state 90
-    arrDef                         shift and go to state 92
-    matrixDef                      shift and go to state 93
 
 state 69
 
-    (71) objType -> ID .
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam . CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
 
-    ID              reduce using rule 71 (objType -> ID .)
+    CPAREN          shift and go to state 91
 
 
 state 70
 
-    (31) varSimpleType -> INT .
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef . METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
-    ID              reduce using rule 31 (varSimpleType -> INT .)
+    METHODS         shift and go to state 92
 
 
 state 71
-
-    (32) varSimpleType -> STRING .
-
-    ID              reduce using rule 32 (varSimpleType -> STRING .)
-
-
-state 72
-
-    (33) varSimpleType -> DEC .
-
-    ID              reduce using rule 33 (varSimpleType -> DEC .)
-
-
-state 73
-
-    (34) varSimpleType -> BOOL .
-
-    ID              reduce using rule 34 (varSimpleType -> BOOL .)
-
-
-state 74
 
     (3) main -> MAIN pointMain OPAREN CPAREN OBRACKET body CBRACKET .
 
     END             reduce using rule 3 (main -> MAIN pointMain OPAREN CPAREN OBRACKET body CBRACKET .)
 
 
+state 72
+
+    (23) body -> varsDef body .
+
+    CBRACKET        reduce using rule 23 (body -> varsDef body .)
+    RETURN          reduce using rule 23 (body -> varsDef body .)
+
+
+state 73
+
+    (24) body -> statements body .
+
+    CBRACKET        reduce using rule 24 (body -> statements body .)
+    RETURN          reduce using rule 24 (body -> statements body .)
+
+
+state 74
+
+    (33) varsDef -> VAR objType . var EOF
+    (39) var -> . varsType
+    (40) var -> . varsType COMMA var
+    (41) varsType -> . ID
+    (42) varsType -> . arrDef
+    (43) varsType -> . matrixDef
+    (44) arrDef -> . ID OSQUAREBR varCte CSQUAREBR
+    (45) matrixDef -> . arrDef OSQUAREBR varCte CSQUAREBR
+
+    ID              shift and go to state 95
+
+    var                            shift and go to state 93
+    varsType                       shift and go to state 94
+    arrDef                         shift and go to state 96
+    matrixDef                      shift and go to state 97
+
 state 75
 
-    (19) body -> varsDef body .
+    (34) varsDef -> VAR varSimpleType . var EOF
+    (39) var -> . varsType
+    (40) var -> . varsType COMMA var
+    (41) varsType -> . ID
+    (42) varsType -> . arrDef
+    (43) varsType -> . matrixDef
+    (44) arrDef -> . ID OSQUAREBR varCte CSQUAREBR
+    (45) matrixDef -> . arrDef OSQUAREBR varCte CSQUAREBR
 
-    CBRACKET        reduce using rule 19 (body -> varsDef body .)
-    RETURN          reduce using rule 19 (body -> varsDef body .)
+    ID              shift and go to state 95
 
+    var                            shift and go to state 98
+    varsType                       shift and go to state 94
+    arrDef                         shift and go to state 96
+    matrixDef                      shift and go to state 97
 
 state 76
 
-    (20) body -> statements body .
+    (78) objType -> ID .
 
-    CBRACKET        reduce using rule 20 (body -> statements body .)
-    RETURN          reduce using rule 20 (body -> statements body .)
+    ID              reduce using rule 78 (objType -> ID .)
 
 
 state 77
 
-    (78) ifCond -> ifCond ELSE . OBRACKET body CBRACKET
+    (35) varSimpleType -> INT .
 
-    OBRACKET        shift and go to state 95
+    ID              reduce using rule 35 (varSimpleType -> INT .)
 
 
 state 78
 
-    (42) assignmentDef -> ID ASSIGNMENT . expAssignment
-    (43) expAssignment -> . expRelational EOF
-    (44) expAssignment -> . returnCall EOF
-    (45) expAssignment -> . classCall
-    (47) expRelational -> . plusMinus
-    (48) expRelational -> . plusMinus opRelational expRelational
-    (46) returnCall -> . ID OPAREN paramCall CPAREN
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (36) varSimpleType -> STRING .
 
-    ID              shift and go to state 96
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
+    ID              reduce using rule 36 (varSimpleType -> STRING .)
 
-    expAssignment                  shift and go to state 97
-    expRelational                  shift and go to state 98
-    returnCall                     shift and go to state 99
-    classCall                      shift and go to state 100
-    plusMinus                      shift and go to state 101
-    multDiv                        shift and go to state 103
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
 
 state 79
 
-    (18) voidCall -> ID OPAREN . paramCall CPAREN EOF
-    (15) paramCall -> . ID
-    (16) paramCall -> . ID COMMA paramCall
-    (17) paramCall -> . epsilon
-    (82) epsilon -> .
+    (37) varSimpleType -> DEC .
 
-    ID              shift and go to state 109
-    CPAREN          reduce using rule 82 (epsilon -> .)
+    ID              reduce using rule 37 (varSimpleType -> DEC .)
 
-    paramCall                      shift and go to state 110
-    epsilon                        shift and go to state 111
 
 state 80
 
-    (66) classCall -> ID MONEY . ID OPAREN paramCall CPAREN EOF
+    (38) varSimpleType -> BOOL .
 
-    ID              shift and go to state 112
+    ID              reduce using rule 38 (varSimpleType -> BOOL .)
 
 
 state 81
 
-    (79) input -> INPUT OPAREN . ID CPAREN EOF
+    (85) ifCond -> ifCond ELSE . OBRACKET body CBRACKET
 
-    ID              shift and go to state 113
+    OBRACKET        shift and go to state 99
 
 
 state 82
 
-    (80) output -> OUTPUT OPAREN . expRelational CPAREN EOF
-    (47) expRelational -> . plusMinus
-    (48) expRelational -> . plusMinus opRelational expRelational
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (46) assignmentDef -> ID ASSIGNMENT . expAssignment
+    (47) expAssignment -> . expRelational EOF
+    (48) expAssignment -> . returnCall EOF
+    (49) expAssignment -> . classCall
+    (51) expRelational -> . plusMinus
+    (52) expRelational -> . plusMinus opRelational expRelational
+    (50) returnCall -> . ID OPAREN paramCall CPAREN
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    ID              shift and go to state 100
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
 
-    expRelational                  shift and go to state 114
-    plusMinus                      shift and go to state 101
-    multDiv                        shift and go to state 103
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
+    expAssignment                  shift and go to state 101
+    expRelational                  shift and go to state 102
+    returnCall                     shift and go to state 103
+    classCall                      shift and go to state 104
+    plusMinus                      shift and go to state 105
+    multDiv                        shift and go to state 107
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 83
 
-    (76) whileCycle -> WHILE OPAREN . expRelational CPAREN OBRACKET body CBRACKET
-    (47) expRelational -> . plusMinus
-    (48) expRelational -> . plusMinus opRelational expRelational
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (22) voidCall -> ID OPAREN . paramCall CPAREN EOF
+    (19) paramCall -> . ID
+    (20) paramCall -> . ID COMMA paramCall
+    (21) paramCall -> . epsilon
+    (89) epsilon -> .
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    ID              shift and go to state 113
+    CPAREN          reduce using rule 89 (epsilon -> .)
 
-    expRelational                  shift and go to state 116
-    plusMinus                      shift and go to state 101
-    multDiv                        shift and go to state 103
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
+    paramCall                      shift and go to state 114
+    epsilon                        shift and go to state 115
 
 state 84
 
-    (77) ifCond -> IF OPAREN . expRelational CPAREN OBRACKET body CBRACKET
-    (47) expRelational -> . plusMinus
-    (48) expRelational -> . plusMinus opRelational expRelational
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (73) classCall -> ID MONEY . ID OPAREN paramCall CPAREN EOF
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    ID              shift and go to state 116
 
-    expRelational                  shift and go to state 117
-    plusMinus                      shift and go to state 101
-    multDiv                        shift and go to state 103
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
 
 state 85
 
-    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN . OBRACKET body pointVars CBRACKET pointFxType fxDef
+    (86) input -> INPUT OPAREN . ID CPAREN EOF
 
-    OBRACKET        shift and go to state 118
+    ID              shift and go to state 117
 
 
 state 86
 
-    (13) param -> simpleType ID COMMA . param
-    (12) param -> . simpleType ID
-    (13) param -> . simpleType ID COMMA param
-    (14) param -> . epsilon
-    (67) simpleType -> . INT
-    (68) simpleType -> . STRING
-    (69) simpleType -> . DEC
-    (70) simpleType -> . BOOL
-    (82) epsilon -> .
+    (87) output -> OUTPUT OPAREN . expRelational CPAREN EOF
+    (51) expRelational -> . plusMinus
+    (52) expRelational -> . plusMinus opRelational expRelational
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    INT             shift and go to state 13
-    STRING          shift and go to state 14
-    DEC             shift and go to state 15
-    BOOL            shift and go to state 16
-    CPAREN          reduce using rule 82 (epsilon -> .)
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
-    simpleType                     shift and go to state 42
-    param                          shift and go to state 119
-    epsilon                        shift and go to state 43
+    expRelational                  shift and go to state 118
+    plusMinus                      shift and go to state 105
+    multDiv                        shift and go to state 107
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 87
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN . OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (83) whileCycle -> WHILE OPAREN . expRelational CPAREN OBRACKET body CBRACKET
+    (51) expRelational -> . plusMinus
+    (52) expRelational -> . plusMinus opRelational expRelational
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    OBRACKET        shift and go to state 120
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
+    expRelational                  shift and go to state 120
+    plusMinus                      shift and go to state 105
+    multDiv                        shift and go to state 107
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 88
 
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON . fxDef CBRACKET classDef
-    (4) fxDef -> . VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-    (5) fxDef -> . simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
-    (6) fxDef -> . epsilon
-    (67) simpleType -> . INT
-    (68) simpleType -> . STRING
-    (69) simpleType -> . DEC
-    (70) simpleType -> . BOOL
-    (82) epsilon -> .
+    (84) ifCond -> IF OPAREN . expRelational CPAREN OBRACKET body CBRACKET
+    (51) expRelational -> . plusMinus
+    (52) expRelational -> . plusMinus opRelational expRelational
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    VOID            shift and go to state 10
-    INT             shift and go to state 13
-    STRING          shift and go to state 14
-    DEC             shift and go to state 15
-    BOOL            shift and go to state 16
-    CBRACKET        reduce using rule 82 (epsilon -> .)
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
-    fxDef                          shift and go to state 121
-    simpleType                     shift and go to state 11
-    epsilon                        shift and go to state 12
+    expRelational                  shift and go to state 121
+    plusMinus                      shift and go to state 105
+    multDiv                        shift and go to state 107
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 89
 
-    (29) varsDef -> VAR objType var . EOF
+    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN . OBRACKET body pointVars CBRACKET pointFxType fxDef
 
-    EOF             shift and go to state 122
+    OBRACKET        shift and go to state 122
 
 
 state 90
 
-    (35) var -> varsType .
-    (36) var -> varsType . COMMA var
+    (17) param -> simpleType ID COMMA . param
+    (16) param -> . simpleType ID
+    (17) param -> . simpleType ID COMMA param
+    (18) param -> . epsilon
+    (74) simpleType -> . INT
+    (75) simpleType -> . STRING
+    (76) simpleType -> . DEC
+    (77) simpleType -> . BOOL
+    (89) epsilon -> .
 
-    EOF             reduce using rule 35 (var -> varsType .)
-    COMMA           shift and go to state 123
+    INT             shift and go to state 44
+    STRING          shift and go to state 45
+    DEC             shift and go to state 46
+    BOOL            shift and go to state 47
+    CPAREN          reduce using rule 89 (epsilon -> .)
 
+    simpleType                     shift and go to state 42
+    param                          shift and go to state 123
+    epsilon                        shift and go to state 43
 
 state 91
 
-    (37) varsType -> ID .
-    (40) arrDef -> ID . OSQUAREBR varCte CSQUAREBR
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN . OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
 
-    COMMA           reduce using rule 37 (varsType -> ID .)
-    EOF             reduce using rule 37 (varsType -> ID .)
-    OSQUAREBR       shift and go to state 124
+    OBRACKET        shift and go to state 124
 
 
 state 92
 
-    (38) varsType -> arrDef .
-    (41) matrixDef -> arrDef . OSQUAREBR varCte CSQUAREBR
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS . COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
-    COMMA           reduce using rule 38 (varsType -> arrDef .)
-    EOF             reduce using rule 38 (varsType -> arrDef .)
-    OSQUAREBR       shift and go to state 125
+    COLON           shift and go to state 125
 
 
 state 93
 
-    (39) varsType -> matrixDef .
-
-    COMMA           reduce using rule 39 (varsType -> matrixDef .)
-    EOF             reduce using rule 39 (varsType -> matrixDef .)
-
-
-state 94
-
-    (30) varsDef -> VAR varSimpleType var . EOF
+    (33) varsDef -> VAR objType var . EOF
 
     EOF             shift and go to state 126
 
 
+state 94
+
+    (39) var -> varsType .
+    (40) var -> varsType . COMMA var
+
+    EOF             reduce using rule 39 (var -> varsType .)
+    COMMA           shift and go to state 127
+
+
 state 95
 
-    (78) ifCond -> ifCond ELSE OBRACKET . body CBRACKET
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (41) varsType -> ID .
+    (44) arrDef -> ID . OSQUAREBR varCte CSQUAREBR
 
-    VAR             shift and go to state 46
-    CBRACKET        reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
+    COMMA           reduce using rule 41 (varsType -> ID .)
+    EOF             reduce using rule 41 (varsType -> ID .)
+    OSQUAREBR       shift and go to state 128
 
-    ifCond                         shift and go to state 56
-    body                           shift and go to state 127
-    varsDef                        shift and go to state 48
-    statements                     shift and go to state 49
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    classCall                      shift and go to state 57
 
 state 96
 
-    (46) returnCall -> ID . OPAREN paramCall CPAREN
-    (66) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
-    (75) varCte -> ID .
+    (42) varsType -> arrDef .
+    (45) matrixDef -> arrDef . OSQUAREBR varCte CSQUAREBR
 
-    OPAREN          shift and go to state 128
-    MONEY           shift and go to state 80
-    MULTIPLY        reduce using rule 75 (varCte -> ID .)
-    DIVIDE          reduce using rule 75 (varCte -> ID .)
-    PLUS            reduce using rule 75 (varCte -> ID .)
-    MINUS           reduce using rule 75 (varCte -> ID .)
-    EQUAL           reduce using rule 75 (varCte -> ID .)
-    DIFFERENT       reduce using rule 75 (varCte -> ID .)
-    GREATERTHAN     reduce using rule 75 (varCte -> ID .)
-    GREATERTHANEQ   reduce using rule 75 (varCte -> ID .)
-    LESSTHAN        reduce using rule 75 (varCte -> ID .)
-    LESSTHANEQ      reduce using rule 75 (varCte -> ID .)
-    EOF             reduce using rule 75 (varCte -> ID .)
+    COMMA           reduce using rule 42 (varsType -> arrDef .)
+    EOF             reduce using rule 42 (varsType -> arrDef .)
+    OSQUAREBR       shift and go to state 129
 
 
 state 97
 
-    (42) assignmentDef -> ID ASSIGNMENT expAssignment .
+    (43) varsType -> matrixDef .
 
-    VAR             reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
-    ID              reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
-    INPUT           reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
-    OUTPUT          reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
-    WHILE           reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
-    IF              reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
-    CBRACKET        reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
-    RETURN          reduce using rule 42 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    COMMA           reduce using rule 43 (varsType -> matrixDef .)
+    EOF             reduce using rule 43 (varsType -> matrixDef .)
 
 
 state 98
 
-    (43) expAssignment -> expRelational . EOF
-
-    EOF             shift and go to state 129
-
-
-state 99
-
-    (44) expAssignment -> returnCall . EOF
+    (34) varsDef -> VAR varSimpleType var . EOF
 
     EOF             shift and go to state 130
 
 
+state 99
+
+    (85) ifCond -> ifCond ELSE OBRACKET . body CBRACKET
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+
+    VAR             shift and go to state 54
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
+
+    ifCond                         shift and go to state 60
+    body                           shift and go to state 131
+    varsDef                        shift and go to state 51
+    statements                     shift and go to state 52
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    classCall                      shift and go to state 61
+
 state 100
 
-    (45) expAssignment -> classCall .
+    (50) returnCall -> ID . OPAREN paramCall CPAREN
+    (73) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
+    (82) varCte -> ID .
 
-    VAR             reduce using rule 45 (expAssignment -> classCall .)
-    ID              reduce using rule 45 (expAssignment -> classCall .)
-    INPUT           reduce using rule 45 (expAssignment -> classCall .)
-    OUTPUT          reduce using rule 45 (expAssignment -> classCall .)
-    WHILE           reduce using rule 45 (expAssignment -> classCall .)
-    IF              reduce using rule 45 (expAssignment -> classCall .)
-    CBRACKET        reduce using rule 45 (expAssignment -> classCall .)
-    RETURN          reduce using rule 45 (expAssignment -> classCall .)
+    OPAREN          shift and go to state 132
+    MONEY           shift and go to state 84
+    MULTIPLY        reduce using rule 82 (varCte -> ID .)
+    DIVIDE          reduce using rule 82 (varCte -> ID .)
+    PLUS            reduce using rule 82 (varCte -> ID .)
+    MINUS           reduce using rule 82 (varCte -> ID .)
+    EQUAL           reduce using rule 82 (varCte -> ID .)
+    DIFFERENT       reduce using rule 82 (varCte -> ID .)
+    GREATERTHAN     reduce using rule 82 (varCte -> ID .)
+    GREATERTHANEQ   reduce using rule 82 (varCte -> ID .)
+    LESSTHAN        reduce using rule 82 (varCte -> ID .)
+    LESSTHANEQ      reduce using rule 82 (varCte -> ID .)
+    EOF             reduce using rule 82 (varCte -> ID .)
 
 
 state 101
 
-    (47) expRelational -> plusMinus .
-    (48) expRelational -> plusMinus . opRelational expRelational
-    (49) opRelational -> . EQUAL
-    (50) opRelational -> . DIFFERENT
-    (51) opRelational -> . GREATERTHAN
-    (52) opRelational -> . GREATERTHANEQ
-    (53) opRelational -> . LESSTHAN
-    (54) opRelational -> . LESSTHANEQ
+    (46) assignmentDef -> ID ASSIGNMENT expAssignment .
 
-    EOF             reduce using rule 47 (expRelational -> plusMinus .)
-    CPAREN          reduce using rule 47 (expRelational -> plusMinus .)
-    EQUAL           shift and go to state 132
-    DIFFERENT       shift and go to state 133
-    GREATERTHAN     shift and go to state 134
-    GREATERTHANEQ   shift and go to state 135
-    LESSTHAN        shift and go to state 136
-    LESSTHANEQ      shift and go to state 137
+    VAR             reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    ID              reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    INPUT           reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    OUTPUT          reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    WHILE           reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    IF              reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    CBRACKET        reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
+    RETURN          reduce using rule 46 (assignmentDef -> ID ASSIGNMENT expAssignment .)
 
-    opRelational                   shift and go to state 131
 
 state 102
 
-    (61) expParen -> OPAREN . expRelational CPAREN
-    (47) expRelational -> . plusMinus
-    (48) expRelational -> . plusMinus opRelational expRelational
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (47) expAssignment -> expRelational . EOF
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    EOF             shift and go to state 133
 
-    expRelational                  shift and go to state 138
-    plusMinus                      shift and go to state 101
-    multDiv                        shift and go to state 103
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
 
 state 103
 
-    (55) plusMinus -> multDiv .
-    (56) plusMinus -> multDiv . PLUS plusMinus
-    (57) plusMinus -> multDiv . MINUS plusMinus
+    (48) expAssignment -> returnCall . EOF
 
-    EQUAL           reduce using rule 55 (plusMinus -> multDiv .)
-    DIFFERENT       reduce using rule 55 (plusMinus -> multDiv .)
-    GREATERTHAN     reduce using rule 55 (plusMinus -> multDiv .)
-    GREATERTHANEQ   reduce using rule 55 (plusMinus -> multDiv .)
-    LESSTHAN        reduce using rule 55 (plusMinus -> multDiv .)
-    LESSTHANEQ      reduce using rule 55 (plusMinus -> multDiv .)
-    EOF             reduce using rule 55 (plusMinus -> multDiv .)
-    CPAREN          reduce using rule 55 (plusMinus -> multDiv .)
-    PLUS            shift and go to state 139
-    MINUS           shift and go to state 140
+    EOF             shift and go to state 134
 
 
 state 104
 
-    (58) multDiv -> expParen .
-    (59) multDiv -> expParen . MULTIPLY multDiv
-    (60) multDiv -> expParen . DIVIDE multDiv
+    (49) expAssignment -> classCall .
 
-    PLUS            reduce using rule 58 (multDiv -> expParen .)
-    MINUS           reduce using rule 58 (multDiv -> expParen .)
-    EQUAL           reduce using rule 58 (multDiv -> expParen .)
-    DIFFERENT       reduce using rule 58 (multDiv -> expParen .)
-    GREATERTHAN     reduce using rule 58 (multDiv -> expParen .)
-    GREATERTHANEQ   reduce using rule 58 (multDiv -> expParen .)
-    LESSTHAN        reduce using rule 58 (multDiv -> expParen .)
-    LESSTHANEQ      reduce using rule 58 (multDiv -> expParen .)
-    EOF             reduce using rule 58 (multDiv -> expParen .)
-    CPAREN          reduce using rule 58 (multDiv -> expParen .)
-    MULTIPLY        shift and go to state 141
-    DIVIDE          shift and go to state 142
+    VAR             reduce using rule 49 (expAssignment -> classCall .)
+    ID              reduce using rule 49 (expAssignment -> classCall .)
+    INPUT           reduce using rule 49 (expAssignment -> classCall .)
+    OUTPUT          reduce using rule 49 (expAssignment -> classCall .)
+    WHILE           reduce using rule 49 (expAssignment -> classCall .)
+    IF              reduce using rule 49 (expAssignment -> classCall .)
+    CBRACKET        reduce using rule 49 (expAssignment -> classCall .)
+    RETURN          reduce using rule 49 (expAssignment -> classCall .)
 
 
 state 105
 
-    (62) expParen -> varCte .
+    (51) expRelational -> plusMinus .
+    (52) expRelational -> plusMinus . opRelational expRelational
+    (53) opRelational -> . EQUAL
+    (54) opRelational -> . DIFFERENT
+    (55) opRelational -> . GREATERTHAN
+    (56) opRelational -> . GREATERTHANEQ
+    (57) opRelational -> . LESSTHAN
+    (58) opRelational -> . LESSTHANEQ
 
-    MULTIPLY        reduce using rule 62 (expParen -> varCte .)
-    DIVIDE          reduce using rule 62 (expParen -> varCte .)
-    PLUS            reduce using rule 62 (expParen -> varCte .)
-    MINUS           reduce using rule 62 (expParen -> varCte .)
-    EQUAL           reduce using rule 62 (expParen -> varCte .)
-    DIFFERENT       reduce using rule 62 (expParen -> varCte .)
-    GREATERTHAN     reduce using rule 62 (expParen -> varCte .)
-    GREATERTHANEQ   reduce using rule 62 (expParen -> varCte .)
-    LESSTHAN        reduce using rule 62 (expParen -> varCte .)
-    LESSTHANEQ      reduce using rule 62 (expParen -> varCte .)
-    EOF             reduce using rule 62 (expParen -> varCte .)
-    CPAREN          reduce using rule 62 (expParen -> varCte .)
+    EOF             reduce using rule 51 (expRelational -> plusMinus .)
+    CPAREN          reduce using rule 51 (expRelational -> plusMinus .)
+    EQUAL           shift and go to state 136
+    DIFFERENT       shift and go to state 137
+    GREATERTHAN     shift and go to state 138
+    GREATERTHANEQ   shift and go to state 139
+    LESSTHAN        shift and go to state 140
+    LESSTHANEQ      shift and go to state 141
 
+    opRelational                   shift and go to state 135
 
 state 106
 
-    (72) varCte -> INT .
+    (65) expParen -> OPAREN . expRelational CPAREN
+    (51) expRelational -> . plusMinus
+    (52) expRelational -> . plusMinus opRelational expRelational
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    MULTIPLY        reduce using rule 72 (varCte -> INT .)
-    DIVIDE          reduce using rule 72 (varCte -> INT .)
-    PLUS            reduce using rule 72 (varCte -> INT .)
-    MINUS           reduce using rule 72 (varCte -> INT .)
-    EQUAL           reduce using rule 72 (varCte -> INT .)
-    DIFFERENT       reduce using rule 72 (varCte -> INT .)
-    GREATERTHAN     reduce using rule 72 (varCte -> INT .)
-    GREATERTHANEQ   reduce using rule 72 (varCte -> INT .)
-    LESSTHAN        reduce using rule 72 (varCte -> INT .)
-    LESSTHANEQ      reduce using rule 72 (varCte -> INT .)
-    EOF             reduce using rule 72 (varCte -> INT .)
-    CPAREN          reduce using rule 72 (varCte -> INT .)
-    CSQUAREBR       reduce using rule 72 (varCte -> INT .)
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
+    expRelational                  shift and go to state 142
+    plusMinus                      shift and go to state 105
+    multDiv                        shift and go to state 107
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 107
 
-    (73) varCte -> DEC .
+    (59) plusMinus -> multDiv .
+    (60) plusMinus -> multDiv . PLUS plusMinus
+    (61) plusMinus -> multDiv . MINUS plusMinus
 
-    MULTIPLY        reduce using rule 73 (varCte -> DEC .)
-    DIVIDE          reduce using rule 73 (varCte -> DEC .)
-    PLUS            reduce using rule 73 (varCte -> DEC .)
-    MINUS           reduce using rule 73 (varCte -> DEC .)
-    EQUAL           reduce using rule 73 (varCte -> DEC .)
-    DIFFERENT       reduce using rule 73 (varCte -> DEC .)
-    GREATERTHAN     reduce using rule 73 (varCte -> DEC .)
-    GREATERTHANEQ   reduce using rule 73 (varCte -> DEC .)
-    LESSTHAN        reduce using rule 73 (varCte -> DEC .)
-    LESSTHANEQ      reduce using rule 73 (varCte -> DEC .)
-    EOF             reduce using rule 73 (varCte -> DEC .)
-    CPAREN          reduce using rule 73 (varCte -> DEC .)
-    CSQUAREBR       reduce using rule 73 (varCte -> DEC .)
+    EQUAL           reduce using rule 59 (plusMinus -> multDiv .)
+    DIFFERENT       reduce using rule 59 (plusMinus -> multDiv .)
+    GREATERTHAN     reduce using rule 59 (plusMinus -> multDiv .)
+    GREATERTHANEQ   reduce using rule 59 (plusMinus -> multDiv .)
+    LESSTHAN        reduce using rule 59 (plusMinus -> multDiv .)
+    LESSTHANEQ      reduce using rule 59 (plusMinus -> multDiv .)
+    EOF             reduce using rule 59 (plusMinus -> multDiv .)
+    CPAREN          reduce using rule 59 (plusMinus -> multDiv .)
+    PLUS            shift and go to state 143
+    MINUS           shift and go to state 144
 
 
 state 108
 
-    (74) varCte -> STRING .
+    (62) multDiv -> expParen .
+    (63) multDiv -> expParen . MULTIPLY multDiv
+    (64) multDiv -> expParen . DIVIDE multDiv
 
-    MULTIPLY        reduce using rule 74 (varCte -> STRING .)
-    DIVIDE          reduce using rule 74 (varCte -> STRING .)
-    PLUS            reduce using rule 74 (varCte -> STRING .)
-    MINUS           reduce using rule 74 (varCte -> STRING .)
-    EQUAL           reduce using rule 74 (varCte -> STRING .)
-    DIFFERENT       reduce using rule 74 (varCte -> STRING .)
-    GREATERTHAN     reduce using rule 74 (varCte -> STRING .)
-    GREATERTHANEQ   reduce using rule 74 (varCte -> STRING .)
-    LESSTHAN        reduce using rule 74 (varCte -> STRING .)
-    LESSTHANEQ      reduce using rule 74 (varCte -> STRING .)
-    EOF             reduce using rule 74 (varCte -> STRING .)
-    CPAREN          reduce using rule 74 (varCte -> STRING .)
-    CSQUAREBR       reduce using rule 74 (varCte -> STRING .)
+    PLUS            reduce using rule 62 (multDiv -> expParen .)
+    MINUS           reduce using rule 62 (multDiv -> expParen .)
+    EQUAL           reduce using rule 62 (multDiv -> expParen .)
+    DIFFERENT       reduce using rule 62 (multDiv -> expParen .)
+    GREATERTHAN     reduce using rule 62 (multDiv -> expParen .)
+    GREATERTHANEQ   reduce using rule 62 (multDiv -> expParen .)
+    LESSTHAN        reduce using rule 62 (multDiv -> expParen .)
+    LESSTHANEQ      reduce using rule 62 (multDiv -> expParen .)
+    EOF             reduce using rule 62 (multDiv -> expParen .)
+    CPAREN          reduce using rule 62 (multDiv -> expParen .)
+    MULTIPLY        shift and go to state 145
+    DIVIDE          shift and go to state 146
 
 
 state 109
 
-    (15) paramCall -> ID .
-    (16) paramCall -> ID . COMMA paramCall
+    (66) expParen -> varCte .
 
-    CPAREN          reduce using rule 15 (paramCall -> ID .)
-    COMMA           shift and go to state 143
+    MULTIPLY        reduce using rule 66 (expParen -> varCte .)
+    DIVIDE          reduce using rule 66 (expParen -> varCte .)
+    PLUS            reduce using rule 66 (expParen -> varCte .)
+    MINUS           reduce using rule 66 (expParen -> varCte .)
+    EQUAL           reduce using rule 66 (expParen -> varCte .)
+    DIFFERENT       reduce using rule 66 (expParen -> varCte .)
+    GREATERTHAN     reduce using rule 66 (expParen -> varCte .)
+    GREATERTHANEQ   reduce using rule 66 (expParen -> varCte .)
+    LESSTHAN        reduce using rule 66 (expParen -> varCte .)
+    LESSTHANEQ      reduce using rule 66 (expParen -> varCte .)
+    EOF             reduce using rule 66 (expParen -> varCte .)
+    CPAREN          reduce using rule 66 (expParen -> varCte .)
 
 
 state 110
 
-    (18) voidCall -> ID OPAREN paramCall . CPAREN EOF
+    (79) varCte -> INT .
 
-    CPAREN          shift and go to state 144
+    MULTIPLY        reduce using rule 79 (varCte -> INT .)
+    DIVIDE          reduce using rule 79 (varCte -> INT .)
+    PLUS            reduce using rule 79 (varCte -> INT .)
+    MINUS           reduce using rule 79 (varCte -> INT .)
+    EQUAL           reduce using rule 79 (varCte -> INT .)
+    DIFFERENT       reduce using rule 79 (varCte -> INT .)
+    GREATERTHAN     reduce using rule 79 (varCte -> INT .)
+    GREATERTHANEQ   reduce using rule 79 (varCte -> INT .)
+    LESSTHAN        reduce using rule 79 (varCte -> INT .)
+    LESSTHANEQ      reduce using rule 79 (varCte -> INT .)
+    EOF             reduce using rule 79 (varCte -> INT .)
+    CPAREN          reduce using rule 79 (varCte -> INT .)
+    CSQUAREBR       reduce using rule 79 (varCte -> INT .)
 
 
 state 111
 
-    (17) paramCall -> epsilon .
+    (80) varCte -> DEC .
 
-    CPAREN          reduce using rule 17 (paramCall -> epsilon .)
+    MULTIPLY        reduce using rule 80 (varCte -> DEC .)
+    DIVIDE          reduce using rule 80 (varCte -> DEC .)
+    PLUS            reduce using rule 80 (varCte -> DEC .)
+    MINUS           reduce using rule 80 (varCte -> DEC .)
+    EQUAL           reduce using rule 80 (varCte -> DEC .)
+    DIFFERENT       reduce using rule 80 (varCte -> DEC .)
+    GREATERTHAN     reduce using rule 80 (varCte -> DEC .)
+    GREATERTHANEQ   reduce using rule 80 (varCte -> DEC .)
+    LESSTHAN        reduce using rule 80 (varCte -> DEC .)
+    LESSTHANEQ      reduce using rule 80 (varCte -> DEC .)
+    EOF             reduce using rule 80 (varCte -> DEC .)
+    CPAREN          reduce using rule 80 (varCte -> DEC .)
+    CSQUAREBR       reduce using rule 80 (varCte -> DEC .)
 
 
 state 112
 
-    (66) classCall -> ID MONEY ID . OPAREN paramCall CPAREN EOF
+    (81) varCte -> STRING .
 
-    OPAREN          shift and go to state 145
+    MULTIPLY        reduce using rule 81 (varCte -> STRING .)
+    DIVIDE          reduce using rule 81 (varCte -> STRING .)
+    PLUS            reduce using rule 81 (varCte -> STRING .)
+    MINUS           reduce using rule 81 (varCte -> STRING .)
+    EQUAL           reduce using rule 81 (varCte -> STRING .)
+    DIFFERENT       reduce using rule 81 (varCte -> STRING .)
+    GREATERTHAN     reduce using rule 81 (varCte -> STRING .)
+    GREATERTHANEQ   reduce using rule 81 (varCte -> STRING .)
+    LESSTHAN        reduce using rule 81 (varCte -> STRING .)
+    LESSTHANEQ      reduce using rule 81 (varCte -> STRING .)
+    EOF             reduce using rule 81 (varCte -> STRING .)
+    CPAREN          reduce using rule 81 (varCte -> STRING .)
+    CSQUAREBR       reduce using rule 81 (varCte -> STRING .)
 
 
 state 113
 
-    (79) input -> INPUT OPAREN ID . CPAREN EOF
+    (19) paramCall -> ID .
+    (20) paramCall -> ID . COMMA paramCall
 
-    CPAREN          shift and go to state 146
+    CPAREN          reduce using rule 19 (paramCall -> ID .)
+    COMMA           shift and go to state 147
 
 
 state 114
 
-    (80) output -> OUTPUT OPAREN expRelational . CPAREN EOF
-
-    CPAREN          shift and go to state 147
-
-
-state 115
-
-    (75) varCte -> ID .
-
-    MULTIPLY        reduce using rule 75 (varCte -> ID .)
-    DIVIDE          reduce using rule 75 (varCte -> ID .)
-    PLUS            reduce using rule 75 (varCte -> ID .)
-    MINUS           reduce using rule 75 (varCte -> ID .)
-    EQUAL           reduce using rule 75 (varCte -> ID .)
-    DIFFERENT       reduce using rule 75 (varCte -> ID .)
-    GREATERTHAN     reduce using rule 75 (varCte -> ID .)
-    GREATERTHANEQ   reduce using rule 75 (varCte -> ID .)
-    LESSTHAN        reduce using rule 75 (varCte -> ID .)
-    LESSTHANEQ      reduce using rule 75 (varCte -> ID .)
-    CPAREN          reduce using rule 75 (varCte -> ID .)
-    CSQUAREBR       reduce using rule 75 (varCte -> ID .)
-    EOF             reduce using rule 75 (varCte -> ID .)
-
-
-state 116
-
-    (76) whileCycle -> WHILE OPAREN expRelational . CPAREN OBRACKET body CBRACKET
+    (22) voidCall -> ID OPAREN paramCall . CPAREN EOF
 
     CPAREN          shift and go to state 148
 
 
+state 115
+
+    (21) paramCall -> epsilon .
+
+    CPAREN          reduce using rule 21 (paramCall -> epsilon .)
+
+
+state 116
+
+    (73) classCall -> ID MONEY ID . OPAREN paramCall CPAREN EOF
+
+    OPAREN          shift and go to state 149
+
+
 state 117
 
-    (77) ifCond -> IF OPAREN expRelational . CPAREN OBRACKET body CBRACKET
+    (86) input -> INPUT OPAREN ID . CPAREN EOF
 
-    CPAREN          shift and go to state 149
+    CPAREN          shift and go to state 150
 
 
 state 118
 
-    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET . body pointVars CBRACKET pointFxType fxDef
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (87) output -> OUTPUT OPAREN expRelational . CPAREN EOF
 
-    VAR             shift and go to state 46
-    CBRACKET        reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
+    CPAREN          shift and go to state 151
 
-    body                           shift and go to state 150
-    varsDef                        shift and go to state 48
-    statements                     shift and go to state 49
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    ifCond                         shift and go to state 56
-    classCall                      shift and go to state 57
 
 state 119
 
-    (13) param -> simpleType ID COMMA param .
+    (82) varCte -> ID .
 
-    CPAREN          reduce using rule 13 (param -> simpleType ID COMMA param .)
+    MULTIPLY        reduce using rule 82 (varCte -> ID .)
+    DIVIDE          reduce using rule 82 (varCte -> ID .)
+    PLUS            reduce using rule 82 (varCte -> ID .)
+    MINUS           reduce using rule 82 (varCte -> ID .)
+    EQUAL           reduce using rule 82 (varCte -> ID .)
+    DIFFERENT       reduce using rule 82 (varCte -> ID .)
+    GREATERTHAN     reduce using rule 82 (varCte -> ID .)
+    GREATERTHANEQ   reduce using rule 82 (varCte -> ID .)
+    LESSTHAN        reduce using rule 82 (varCte -> ID .)
+    LESSTHANEQ      reduce using rule 82 (varCte -> ID .)
+    CPAREN          reduce using rule 82 (varCte -> ID .)
+    CSQUAREBR       reduce using rule 82 (varCte -> ID .)
+    EOF             reduce using rule 82 (varCte -> ID .)
 
 
 state 120
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET . body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> WHILE OPAREN expRelational . CPAREN OBRACKET body CBRACKET
 
-    VAR             shift and go to state 46
-    RETURN          reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
+    CPAREN          shift and go to state 152
 
-    body                           shift and go to state 151
-    varsDef                        shift and go to state 48
-    statements                     shift and go to state 49
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    ifCond                         shift and go to state 56
-    classCall                      shift and go to state 57
 
 state 121
 
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef . CBRACKET classDef
+    (84) ifCond -> IF OPAREN expRelational . CPAREN OBRACKET body CBRACKET
 
-    CBRACKET        shift and go to state 152
+    CPAREN          shift and go to state 153
 
 
 state 122
 
-    (29) varsDef -> VAR objType var EOF .
+    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET . body pointVars CBRACKET pointFxType fxDef
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
 
-    METHODS         reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    VAR             reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    ID              reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    INPUT           reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    OUTPUT          reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    WHILE           reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    IF              reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    CBRACKET        reduce using rule 29 (varsDef -> VAR objType var EOF .)
-    RETURN          reduce using rule 29 (varsDef -> VAR objType var EOF .)
+    VAR             shift and go to state 54
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
 
+    body                           shift and go to state 154
+    varsDef                        shift and go to state 51
+    statements                     shift and go to state 52
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    ifCond                         shift and go to state 60
+    classCall                      shift and go to state 61
 
 state 123
 
-    (36) var -> varsType COMMA . var
-    (35) var -> . varsType
-    (36) var -> . varsType COMMA var
-    (37) varsType -> . ID
-    (38) varsType -> . arrDef
-    (39) varsType -> . matrixDef
-    (40) arrDef -> . ID OSQUAREBR varCte CSQUAREBR
-    (41) matrixDef -> . arrDef OSQUAREBR varCte CSQUAREBR
+    (17) param -> simpleType ID COMMA param .
 
-    ID              shift and go to state 91
+    CPAREN          reduce using rule 17 (param -> simpleType ID COMMA param .)
 
-    varsType                       shift and go to state 90
-    var                            shift and go to state 153
-    arrDef                         shift and go to state 92
-    matrixDef                      shift and go to state 93
 
 state 124
 
-    (40) arrDef -> ID OSQUAREBR . varCte CSQUAREBR
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET . body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
 
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    VAR             shift and go to state 54
+    RETURN          reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
 
-    varCte                         shift and go to state 154
+    body                           shift and go to state 155
+    varsDef                        shift and go to state 51
+    statements                     shift and go to state 52
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    ifCond                         shift and go to state 60
+    classCall                      shift and go to state 61
 
 state 125
 
-    (41) matrixDef -> arrDef OSQUAREBR . varCte CSQUAREBR
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON . pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (69) pointScopeClass -> .
 
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    VOID            reduce using rule 69 (pointScopeClass -> .)
+    INT             reduce using rule 69 (pointScopeClass -> .)
+    STRING          reduce using rule 69 (pointScopeClass -> .)
+    DEC             reduce using rule 69 (pointScopeClass -> .)
+    BOOL            reduce using rule 69 (pointScopeClass -> .)
+    CBRACKET        reduce using rule 69 (pointScopeClass -> .)
 
-    varCte                         shift and go to state 155
+    pointScopeClass                shift and go to state 156
 
 state 126
 
-    (30) varsDef -> VAR varSimpleType var EOF .
+    (33) varsDef -> VAR objType var EOF .
 
-    METHODS         reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    VAR             reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    ID              reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    INPUT           reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    OUTPUT          reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    WHILE           reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    IF              reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    CBRACKET        reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
-    RETURN          reduce using rule 30 (varsDef -> VAR varSimpleType var EOF .)
+    VAR             reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    ID              reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    INPUT           reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    OUTPUT          reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    WHILE           reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    IF              reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    CBRACKET        reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    METHODS         reduce using rule 33 (varsDef -> VAR objType var EOF .)
+    RETURN          reduce using rule 33 (varsDef -> VAR objType var EOF .)
 
 
 state 127
 
-    (78) ifCond -> ifCond ELSE OBRACKET body . CBRACKET
+    (40) var -> varsType COMMA . var
+    (39) var -> . varsType
+    (40) var -> . varsType COMMA var
+    (41) varsType -> . ID
+    (42) varsType -> . arrDef
+    (43) varsType -> . matrixDef
+    (44) arrDef -> . ID OSQUAREBR varCte CSQUAREBR
+    (45) matrixDef -> . arrDef OSQUAREBR varCte CSQUAREBR
 
-    CBRACKET        shift and go to state 156
+    ID              shift and go to state 95
 
+    varsType                       shift and go to state 94
+    var                            shift and go to state 157
+    arrDef                         shift and go to state 96
+    matrixDef                      shift and go to state 97
 
 state 128
 
-    (46) returnCall -> ID OPAREN . paramCall CPAREN
-    (15) paramCall -> . ID
-    (16) paramCall -> . ID COMMA paramCall
-    (17) paramCall -> . epsilon
-    (82) epsilon -> .
+    (44) arrDef -> ID OSQUAREBR . varCte CSQUAREBR
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    ID              shift and go to state 109
-    CPAREN          reduce using rule 82 (epsilon -> .)
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
-    paramCall                      shift and go to state 157
-    epsilon                        shift and go to state 111
+    varCte                         shift and go to state 158
 
 state 129
 
-    (43) expAssignment -> expRelational EOF .
+    (45) matrixDef -> arrDef OSQUAREBR . varCte CSQUAREBR
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    VAR             reduce using rule 43 (expAssignment -> expRelational EOF .)
-    ID              reduce using rule 43 (expAssignment -> expRelational EOF .)
-    INPUT           reduce using rule 43 (expAssignment -> expRelational EOF .)
-    OUTPUT          reduce using rule 43 (expAssignment -> expRelational EOF .)
-    WHILE           reduce using rule 43 (expAssignment -> expRelational EOF .)
-    IF              reduce using rule 43 (expAssignment -> expRelational EOF .)
-    CBRACKET        reduce using rule 43 (expAssignment -> expRelational EOF .)
-    RETURN          reduce using rule 43 (expAssignment -> expRelational EOF .)
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
+    varCte                         shift and go to state 159
 
 state 130
 
-    (44) expAssignment -> returnCall EOF .
+    (34) varsDef -> VAR varSimpleType var EOF .
 
-    VAR             reduce using rule 44 (expAssignment -> returnCall EOF .)
-    ID              reduce using rule 44 (expAssignment -> returnCall EOF .)
-    INPUT           reduce using rule 44 (expAssignment -> returnCall EOF .)
-    OUTPUT          reduce using rule 44 (expAssignment -> returnCall EOF .)
-    WHILE           reduce using rule 44 (expAssignment -> returnCall EOF .)
-    IF              reduce using rule 44 (expAssignment -> returnCall EOF .)
-    CBRACKET        reduce using rule 44 (expAssignment -> returnCall EOF .)
-    RETURN          reduce using rule 44 (expAssignment -> returnCall EOF .)
+    VAR             reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    ID              reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    INPUT           reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    OUTPUT          reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    WHILE           reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    IF              reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    CBRACKET        reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    METHODS         reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
+    RETURN          reduce using rule 34 (varsDef -> VAR varSimpleType var EOF .)
 
 
 state 131
 
-    (48) expRelational -> plusMinus opRelational . expRelational
-    (47) expRelational -> . plusMinus
-    (48) expRelational -> . plusMinus opRelational expRelational
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (85) ifCond -> ifCond ELSE OBRACKET body . CBRACKET
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    CBRACKET        shift and go to state 160
 
-    plusMinus                      shift and go to state 101
-    expRelational                  shift and go to state 158
-    multDiv                        shift and go to state 103
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
 
 state 132
 
-    (49) opRelational -> EQUAL .
+    (50) returnCall -> ID OPAREN . paramCall CPAREN
+    (19) paramCall -> . ID
+    (20) paramCall -> . ID COMMA paramCall
+    (21) paramCall -> . epsilon
+    (89) epsilon -> .
 
-    OPAREN          reduce using rule 49 (opRelational -> EQUAL .)
-    INT             reduce using rule 49 (opRelational -> EQUAL .)
-    DEC             reduce using rule 49 (opRelational -> EQUAL .)
-    STRING          reduce using rule 49 (opRelational -> EQUAL .)
-    ID              reduce using rule 49 (opRelational -> EQUAL .)
+    ID              shift and go to state 113
+    CPAREN          reduce using rule 89 (epsilon -> .)
 
+    paramCall                      shift and go to state 161
+    epsilon                        shift and go to state 115
 
 state 133
 
-    (50) opRelational -> DIFFERENT .
+    (47) expAssignment -> expRelational EOF .
 
-    OPAREN          reduce using rule 50 (opRelational -> DIFFERENT .)
-    INT             reduce using rule 50 (opRelational -> DIFFERENT .)
-    DEC             reduce using rule 50 (opRelational -> DIFFERENT .)
-    STRING          reduce using rule 50 (opRelational -> DIFFERENT .)
-    ID              reduce using rule 50 (opRelational -> DIFFERENT .)
+    VAR             reduce using rule 47 (expAssignment -> expRelational EOF .)
+    ID              reduce using rule 47 (expAssignment -> expRelational EOF .)
+    INPUT           reduce using rule 47 (expAssignment -> expRelational EOF .)
+    OUTPUT          reduce using rule 47 (expAssignment -> expRelational EOF .)
+    WHILE           reduce using rule 47 (expAssignment -> expRelational EOF .)
+    IF              reduce using rule 47 (expAssignment -> expRelational EOF .)
+    CBRACKET        reduce using rule 47 (expAssignment -> expRelational EOF .)
+    RETURN          reduce using rule 47 (expAssignment -> expRelational EOF .)
 
 
 state 134
 
-    (51) opRelational -> GREATERTHAN .
+    (48) expAssignment -> returnCall EOF .
 
-    OPAREN          reduce using rule 51 (opRelational -> GREATERTHAN .)
-    INT             reduce using rule 51 (opRelational -> GREATERTHAN .)
-    DEC             reduce using rule 51 (opRelational -> GREATERTHAN .)
-    STRING          reduce using rule 51 (opRelational -> GREATERTHAN .)
-    ID              reduce using rule 51 (opRelational -> GREATERTHAN .)
+    VAR             reduce using rule 48 (expAssignment -> returnCall EOF .)
+    ID              reduce using rule 48 (expAssignment -> returnCall EOF .)
+    INPUT           reduce using rule 48 (expAssignment -> returnCall EOF .)
+    OUTPUT          reduce using rule 48 (expAssignment -> returnCall EOF .)
+    WHILE           reduce using rule 48 (expAssignment -> returnCall EOF .)
+    IF              reduce using rule 48 (expAssignment -> returnCall EOF .)
+    CBRACKET        reduce using rule 48 (expAssignment -> returnCall EOF .)
+    RETURN          reduce using rule 48 (expAssignment -> returnCall EOF .)
 
 
 state 135
 
-    (52) opRelational -> GREATERTHANEQ .
+    (52) expRelational -> plusMinus opRelational . expRelational
+    (51) expRelational -> . plusMinus
+    (52) expRelational -> . plusMinus opRelational expRelational
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    OPAREN          reduce using rule 52 (opRelational -> GREATERTHANEQ .)
-    INT             reduce using rule 52 (opRelational -> GREATERTHANEQ .)
-    DEC             reduce using rule 52 (opRelational -> GREATERTHANEQ .)
-    STRING          reduce using rule 52 (opRelational -> GREATERTHANEQ .)
-    ID              reduce using rule 52 (opRelational -> GREATERTHANEQ .)
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
+    plusMinus                      shift and go to state 105
+    expRelational                  shift and go to state 162
+    multDiv                        shift and go to state 107
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 136
 
-    (53) opRelational -> LESSTHAN .
+    (53) opRelational -> EQUAL .
 
-    OPAREN          reduce using rule 53 (opRelational -> LESSTHAN .)
-    INT             reduce using rule 53 (opRelational -> LESSTHAN .)
-    DEC             reduce using rule 53 (opRelational -> LESSTHAN .)
-    STRING          reduce using rule 53 (opRelational -> LESSTHAN .)
-    ID              reduce using rule 53 (opRelational -> LESSTHAN .)
+    OPAREN          reduce using rule 53 (opRelational -> EQUAL .)
+    INT             reduce using rule 53 (opRelational -> EQUAL .)
+    DEC             reduce using rule 53 (opRelational -> EQUAL .)
+    STRING          reduce using rule 53 (opRelational -> EQUAL .)
+    ID              reduce using rule 53 (opRelational -> EQUAL .)
 
 
 state 137
 
-    (54) opRelational -> LESSTHANEQ .
+    (54) opRelational -> DIFFERENT .
 
-    OPAREN          reduce using rule 54 (opRelational -> LESSTHANEQ .)
-    INT             reduce using rule 54 (opRelational -> LESSTHANEQ .)
-    DEC             reduce using rule 54 (opRelational -> LESSTHANEQ .)
-    STRING          reduce using rule 54 (opRelational -> LESSTHANEQ .)
-    ID              reduce using rule 54 (opRelational -> LESSTHANEQ .)
+    OPAREN          reduce using rule 54 (opRelational -> DIFFERENT .)
+    INT             reduce using rule 54 (opRelational -> DIFFERENT .)
+    DEC             reduce using rule 54 (opRelational -> DIFFERENT .)
+    STRING          reduce using rule 54 (opRelational -> DIFFERENT .)
+    ID              reduce using rule 54 (opRelational -> DIFFERENT .)
 
 
 state 138
 
-    (61) expParen -> OPAREN expRelational . CPAREN
+    (55) opRelational -> GREATERTHAN .
 
-    CPAREN          shift and go to state 159
+    OPAREN          reduce using rule 55 (opRelational -> GREATERTHAN .)
+    INT             reduce using rule 55 (opRelational -> GREATERTHAN .)
+    DEC             reduce using rule 55 (opRelational -> GREATERTHAN .)
+    STRING          reduce using rule 55 (opRelational -> GREATERTHAN .)
+    ID              reduce using rule 55 (opRelational -> GREATERTHAN .)
 
 
 state 139
 
-    (56) plusMinus -> multDiv PLUS . plusMinus
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (56) opRelational -> GREATERTHANEQ .
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    OPAREN          reduce using rule 56 (opRelational -> GREATERTHANEQ .)
+    INT             reduce using rule 56 (opRelational -> GREATERTHANEQ .)
+    DEC             reduce using rule 56 (opRelational -> GREATERTHANEQ .)
+    STRING          reduce using rule 56 (opRelational -> GREATERTHANEQ .)
+    ID              reduce using rule 56 (opRelational -> GREATERTHANEQ .)
 
-    multDiv                        shift and go to state 103
-    plusMinus                      shift and go to state 160
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
 
 state 140
 
-    (57) plusMinus -> multDiv MINUS . plusMinus
-    (55) plusMinus -> . multDiv
-    (56) plusMinus -> . multDiv PLUS plusMinus
-    (57) plusMinus -> . multDiv MINUS plusMinus
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (57) opRelational -> LESSTHAN .
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    OPAREN          reduce using rule 57 (opRelational -> LESSTHAN .)
+    INT             reduce using rule 57 (opRelational -> LESSTHAN .)
+    DEC             reduce using rule 57 (opRelational -> LESSTHAN .)
+    STRING          reduce using rule 57 (opRelational -> LESSTHAN .)
+    ID              reduce using rule 57 (opRelational -> LESSTHAN .)
 
-    multDiv                        shift and go to state 103
-    plusMinus                      shift and go to state 161
-    expParen                       shift and go to state 104
-    varCte                         shift and go to state 105
 
 state 141
 
-    (59) multDiv -> expParen MULTIPLY . multDiv
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (58) opRelational -> LESSTHANEQ .
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    OPAREN          reduce using rule 58 (opRelational -> LESSTHANEQ .)
+    INT             reduce using rule 58 (opRelational -> LESSTHANEQ .)
+    DEC             reduce using rule 58 (opRelational -> LESSTHANEQ .)
+    STRING          reduce using rule 58 (opRelational -> LESSTHANEQ .)
+    ID              reduce using rule 58 (opRelational -> LESSTHANEQ .)
 
-    expParen                       shift and go to state 104
-    multDiv                        shift and go to state 162
-    varCte                         shift and go to state 105
 
 state 142
 
-    (60) multDiv -> expParen DIVIDE . multDiv
-    (58) multDiv -> . expParen
-    (59) multDiv -> . expParen MULTIPLY multDiv
-    (60) multDiv -> . expParen DIVIDE multDiv
-    (61) expParen -> . OPAREN expRelational CPAREN
-    (62) expParen -> . varCte
-    (72) varCte -> . INT
-    (73) varCte -> . DEC
-    (74) varCte -> . STRING
-    (75) varCte -> . ID
+    (65) expParen -> OPAREN expRelational . CPAREN
 
-    OPAREN          shift and go to state 102
-    INT             shift and go to state 106
-    DEC             shift and go to state 107
-    STRING          shift and go to state 108
-    ID              shift and go to state 115
+    CPAREN          shift and go to state 163
 
-    expParen                       shift and go to state 104
-    multDiv                        shift and go to state 163
-    varCte                         shift and go to state 105
 
 state 143
 
-    (16) paramCall -> ID COMMA . paramCall
-    (15) paramCall -> . ID
-    (16) paramCall -> . ID COMMA paramCall
-    (17) paramCall -> . epsilon
-    (82) epsilon -> .
+    (60) plusMinus -> multDiv PLUS . plusMinus
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    ID              shift and go to state 109
-    CPAREN          reduce using rule 82 (epsilon -> .)
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
-    paramCall                      shift and go to state 164
-    epsilon                        shift and go to state 111
+    multDiv                        shift and go to state 107
+    plusMinus                      shift and go to state 164
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 144
 
-    (18) voidCall -> ID OPAREN paramCall CPAREN . EOF
+    (61) plusMinus -> multDiv MINUS . plusMinus
+    (59) plusMinus -> . multDiv
+    (60) plusMinus -> . multDiv PLUS plusMinus
+    (61) plusMinus -> . multDiv MINUS plusMinus
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    EOF             shift and go to state 165
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
+    multDiv                        shift and go to state 107
+    plusMinus                      shift and go to state 165
+    expParen                       shift and go to state 108
+    varCte                         shift and go to state 109
 
 state 145
 
-    (66) classCall -> ID MONEY ID OPAREN . paramCall CPAREN EOF
-    (15) paramCall -> . ID
-    (16) paramCall -> . ID COMMA paramCall
-    (17) paramCall -> . epsilon
-    (82) epsilon -> .
+    (63) multDiv -> expParen MULTIPLY . multDiv
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    ID              shift and go to state 109
-    CPAREN          reduce using rule 82 (epsilon -> .)
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
-    paramCall                      shift and go to state 166
-    epsilon                        shift and go to state 111
+    expParen                       shift and go to state 108
+    multDiv                        shift and go to state 166
+    varCte                         shift and go to state 109
 
 state 146
 
-    (79) input -> INPUT OPAREN ID CPAREN . EOF
+    (64) multDiv -> expParen DIVIDE . multDiv
+    (62) multDiv -> . expParen
+    (63) multDiv -> . expParen MULTIPLY multDiv
+    (64) multDiv -> . expParen DIVIDE multDiv
+    (65) expParen -> . OPAREN expRelational CPAREN
+    (66) expParen -> . varCte
+    (79) varCte -> . INT
+    (80) varCte -> . DEC
+    (81) varCte -> . STRING
+    (82) varCte -> . ID
 
-    EOF             shift and go to state 167
+    OPAREN          shift and go to state 106
+    INT             shift and go to state 110
+    DEC             shift and go to state 111
+    STRING          shift and go to state 112
+    ID              shift and go to state 119
 
+    expParen                       shift and go to state 108
+    multDiv                        shift and go to state 167
+    varCte                         shift and go to state 109
 
 state 147
 
-    (80) output -> OUTPUT OPAREN expRelational CPAREN . EOF
+    (20) paramCall -> ID COMMA . paramCall
+    (19) paramCall -> . ID
+    (20) paramCall -> . ID COMMA paramCall
+    (21) paramCall -> . epsilon
+    (89) epsilon -> .
 
-    EOF             shift and go to state 168
+    ID              shift and go to state 113
+    CPAREN          reduce using rule 89 (epsilon -> .)
 
+    paramCall                      shift and go to state 168
+    epsilon                        shift and go to state 115
 
 state 148
 
-    (76) whileCycle -> WHILE OPAREN expRelational CPAREN . OBRACKET body CBRACKET
+    (22) voidCall -> ID OPAREN paramCall CPAREN . EOF
 
-    OBRACKET        shift and go to state 169
+    EOF             shift and go to state 169
 
 
 state 149
 
-    (77) ifCond -> IF OPAREN expRelational CPAREN . OBRACKET body CBRACKET
+    (73) classCall -> ID MONEY ID OPAREN . paramCall CPAREN EOF
+    (19) paramCall -> . ID
+    (20) paramCall -> . ID COMMA paramCall
+    (21) paramCall -> . epsilon
+    (89) epsilon -> .
 
-    OBRACKET        shift and go to state 170
+    ID              shift and go to state 113
+    CPAREN          reduce using rule 89 (epsilon -> .)
 
+    paramCall                      shift and go to state 170
+    epsilon                        shift and go to state 115
 
 state 150
 
-    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body . pointVars CBRACKET pointFxType fxDef
-    (11) pointVars -> .
+    (86) input -> INPUT OPAREN ID CPAREN . EOF
 
-    CBRACKET        reduce using rule 11 (pointVars -> .)
+    EOF             shift and go to state 171
 
-    pointVars                      shift and go to state 171
 
 state 151
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body . pointVars RETURN ID EOF CBRACKET pointFxType fxDef
-    (11) pointVars -> .
+    (87) output -> OUTPUT OPAREN expRelational CPAREN . EOF
 
-    RETURN          reduce using rule 11 (pointVars -> .)
+    EOF             shift and go to state 172
 
-    pointVars                      shift and go to state 172
 
 state 152
 
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET . classDef
-    (63) classDef -> . CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
-    (64) classDef -> . epsilon
-    (82) epsilon -> .
+    (83) whileCycle -> WHILE OPAREN expRelational CPAREN . OBRACKET body CBRACKET
 
-    CLASS           shift and go to state 7
-    VOID            reduce using rule 82 (epsilon -> .)
-    INT             reduce using rule 82 (epsilon -> .)
-    STRING          reduce using rule 82 (epsilon -> .)
-    DEC             reduce using rule 82 (epsilon -> .)
-    BOOL            reduce using rule 82 (epsilon -> .)
-    MAIN            reduce using rule 82 (epsilon -> .)
+    OBRACKET        shift and go to state 173
 
-    classDef                       shift and go to state 173
-    epsilon                        shift and go to state 8
 
 state 153
 
-    (36) var -> varsType COMMA var .
+    (84) ifCond -> IF OPAREN expRelational CPAREN . OBRACKET body CBRACKET
 
-    EOF             reduce using rule 36 (var -> varsType COMMA var .)
+    OBRACKET        shift and go to state 174
 
 
 state 154
 
-    (40) arrDef -> ID OSQUAREBR varCte . CSQUAREBR
+    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body . pointVars CBRACKET pointFxType fxDef
+    (15) pointVars -> .
 
-    CSQUAREBR       shift and go to state 174
+    CBRACKET        reduce using rule 15 (pointVars -> .)
 
+    pointVars                      shift and go to state 175
 
 state 155
 
-    (41) matrixDef -> arrDef OSQUAREBR varCte . CSQUAREBR
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body . pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (15) pointVars -> .
 
-    CSQUAREBR       shift and go to state 175
+    RETURN          reduce using rule 15 (pointVars -> .)
 
+    pointVars                      shift and go to state 176
 
 state 156
 
-    (78) ifCond -> ifCond ELSE OBRACKET body CBRACKET .
-
-    ELSE            reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    VAR             reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    ID              reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    INPUT           reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    OUTPUT          reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    WHILE           reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    IF              reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    CBRACKET        reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-    RETURN          reduce using rule 78 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
-
-
-state 157
-
-    (46) returnCall -> ID OPAREN paramCall . CPAREN
-
-    CPAREN          shift and go to state 176
-
-
-state 158
-
-    (48) expRelational -> plusMinus opRelational expRelational .
-
-    EOF             reduce using rule 48 (expRelational -> plusMinus opRelational expRelational .)
-    CPAREN          reduce using rule 48 (expRelational -> plusMinus opRelational expRelational .)
-
-
-state 159
-
-    (61) expParen -> OPAREN expRelational CPAREN .
-
-    MULTIPLY        reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    DIVIDE          reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    PLUS            reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    MINUS           reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    EQUAL           reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    DIFFERENT       reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    GREATERTHAN     reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    GREATERTHANEQ   reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    LESSTHAN        reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    LESSTHANEQ      reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    EOF             reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-    CPAREN          reduce using rule 61 (expParen -> OPAREN expRelational CPAREN .)
-
-
-state 160
-
-    (56) plusMinus -> multDiv PLUS plusMinus .
-
-    EQUAL           reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-    DIFFERENT       reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-    GREATERTHAN     reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-    GREATERTHANEQ   reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-    LESSTHAN        reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-    LESSTHANEQ      reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-    EOF             reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-    CPAREN          reduce using rule 56 (plusMinus -> multDiv PLUS plusMinus .)
-
-
-state 161
-
-    (57) plusMinus -> multDiv MINUS plusMinus .
-
-    EQUAL           reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-    DIFFERENT       reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-    GREATERTHAN     reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-    GREATERTHANEQ   reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-    LESSTHAN        reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-    LESSTHANEQ      reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-    EOF             reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-    CPAREN          reduce using rule 57 (plusMinus -> multDiv MINUS plusMinus .)
-
-
-state 162
-
-    (59) multDiv -> expParen MULTIPLY multDiv .
-
-    PLUS            reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    MINUS           reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    EQUAL           reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    DIFFERENT       reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    GREATERTHAN     reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    GREATERTHANEQ   reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    LESSTHAN        reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    LESSTHANEQ      reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    EOF             reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-    CPAREN          reduce using rule 59 (multDiv -> expParen MULTIPLY multDiv .)
-
-
-state 163
-
-    (60) multDiv -> expParen DIVIDE multDiv .
-
-    PLUS            reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    MINUS           reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    EQUAL           reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    DIFFERENT       reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    GREATERTHAN     reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    GREATERTHANEQ   reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    LESSTHAN        reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    LESSTHANEQ      reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    EOF             reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-    CPAREN          reduce using rule 60 (multDiv -> expParen DIVIDE multDiv .)
-
-
-state 164
-
-    (16) paramCall -> ID COMMA paramCall .
-
-    CPAREN          reduce using rule 16 (paramCall -> ID COMMA paramCall .)
-
-
-state 165
-
-    (18) voidCall -> ID OPAREN paramCall CPAREN EOF .
-
-    VAR             reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-    ID              reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-    INPUT           reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-    OUTPUT          reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-    WHILE           reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-    IF              reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-    CBRACKET        reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-    RETURN          reduce using rule 18 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
-
-
-state 166
-
-    (66) classCall -> ID MONEY ID OPAREN paramCall . CPAREN EOF
-
-    CPAREN          shift and go to state 177
-
-
-state 167
-
-    (79) input -> INPUT OPAREN ID CPAREN EOF .
-
-    VAR             reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-    ID              reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-    INPUT           reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-    OUTPUT          reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-    WHILE           reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-    IF              reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-    CBRACKET        reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-    RETURN          reduce using rule 79 (input -> INPUT OPAREN ID CPAREN EOF .)
-
-
-state 168
-
-    (80) output -> OUTPUT OPAREN expRelational CPAREN EOF .
-
-    VAR             reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    ID              reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    INPUT           reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    OUTPUT          reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    WHILE           reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    IF              reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    CBRACKET        reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    RETURN          reduce using rule 80 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-
-
-state 169
-
-    (76) whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET . body CBRACKET
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-
-    VAR             shift and go to state 46
-    CBRACKET        reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
-
-    body                           shift and go to state 178
-    varsDef                        shift and go to state 48
-    statements                     shift and go to state 49
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    ifCond                         shift and go to state 56
-    classCall                      shift and go to state 57
-
-state 170
-
-    (77) ifCond -> IF OPAREN expRelational CPAREN OBRACKET . body CBRACKET
-    (19) body -> . varsDef body
-    (20) body -> . statements body
-    (21) body -> . epsilon
-    (29) varsDef -> . VAR objType var EOF
-    (30) varsDef -> . VAR varSimpleType var EOF
-    (22) statements -> . assignmentDef
-    (23) statements -> . input
-    (24) statements -> . output
-    (25) statements -> . voidCall
-    (26) statements -> . whileCycle
-    (27) statements -> . ifCond
-    (28) statements -> . classCall
-    (82) epsilon -> .
-    (42) assignmentDef -> . ID ASSIGNMENT expAssignment
-    (79) input -> . INPUT OPAREN ID CPAREN EOF
-    (80) output -> . OUTPUT OPAREN expRelational CPAREN EOF
-    (18) voidCall -> . ID OPAREN paramCall CPAREN EOF
-    (76) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (77) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
-    (78) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
-    (66) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-
-    VAR             shift and go to state 46
-    CBRACKET        reduce using rule 82 (epsilon -> .)
-    ID              shift and go to state 58
-    INPUT           shift and go to state 59
-    OUTPUT          shift and go to state 60
-    WHILE           shift and go to state 61
-    IF              shift and go to state 62
-
-    body                           shift and go to state 179
-    varsDef                        shift and go to state 48
-    statements                     shift and go to state 49
-    epsilon                        shift and go to state 50
-    assignmentDef                  shift and go to state 51
-    input                          shift and go to state 52
-    output                         shift and go to state 53
-    voidCall                       shift and go to state 54
-    whileCycle                     shift and go to state 55
-    ifCond                         shift and go to state 56
-    classCall                      shift and go to state 57
-
-state 171
-
-    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars . CBRACKET pointFxType fxDef
-
-    CBRACKET        shift and go to state 180
-
-
-state 172
-
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars . RETURN ID EOF CBRACKET pointFxType fxDef
-
-    RETURN          shift and go to state 181
-
-
-state 173
-
-    (63) classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef .
-
-    VOID            reduce using rule 63 (classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef .)
-    INT             reduce using rule 63 (classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef .)
-    STRING          reduce using rule 63 (classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef .)
-    DEC             reduce using rule 63 (classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef .)
-    BOOL            reduce using rule 63 (classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef .)
-    MAIN            reduce using rule 63 (classDef -> CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef .)
-
-
-state 174
-
-    (40) arrDef -> ID OSQUAREBR varCte CSQUAREBR .
-
-    OSQUAREBR       reduce using rule 40 (arrDef -> ID OSQUAREBR varCte CSQUAREBR .)
-    COMMA           reduce using rule 40 (arrDef -> ID OSQUAREBR varCte CSQUAREBR .)
-    EOF             reduce using rule 40 (arrDef -> ID OSQUAREBR varCte CSQUAREBR .)
-
-
-state 175
-
-    (41) matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR .
-
-    COMMA           reduce using rule 41 (matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR .)
-    EOF             reduce using rule 41 (matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR .)
-
-
-state 176
-
-    (46) returnCall -> ID OPAREN paramCall CPAREN .
-
-    EOF             reduce using rule 46 (returnCall -> ID OPAREN paramCall CPAREN .)
-
-
-state 177
-
-    (66) classCall -> ID MONEY ID OPAREN paramCall CPAREN . EOF
-
-    EOF             shift and go to state 182
-
-
-state 178
-
-    (76) whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body . CBRACKET
-
-    CBRACKET        shift and go to state 183
-
-
-state 179
-
-    (77) ifCond -> IF OPAREN expRelational CPAREN OBRACKET body . CBRACKET
-
-    CBRACKET        shift and go to state 184
-
-
-state 180
-
-    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET . pointFxType fxDef
-    (9) pointFxType -> .
-
-    VOID            reduce using rule 9 (pointFxType -> .)
-    INT             reduce using rule 9 (pointFxType -> .)
-    STRING          reduce using rule 9 (pointFxType -> .)
-    DEC             reduce using rule 9 (pointFxType -> .)
-    BOOL            reduce using rule 9 (pointFxType -> .)
-    MAIN            reduce using rule 9 (pointFxType -> .)
-    CBRACKET        reduce using rule 9 (pointFxType -> .)
-
-    pointFxType                    shift and go to state 185
-
-state 181
-
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN . ID EOF CBRACKET pointFxType fxDef
-
-    ID              shift and go to state 186
-
-
-state 182
-
-    (66) classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .
-
-    VAR             reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    ID              reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    INPUT           reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    OUTPUT          reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    WHILE           reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    IF              reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    CBRACKET        reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    RETURN          reduce using rule 66 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-
-
-state 183
-
-    (76) whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .
-
-    VAR             reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    ID              reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    INPUT           reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    OUTPUT          reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    WHILE           reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    IF              reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    CBRACKET        reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    RETURN          reduce using rule 76 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-
-
-state 184
-
-    (77) ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .
-
-    ELSE            reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    VAR             reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    ID              reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    INPUT           reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    OUTPUT          reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    WHILE           reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    IF              reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    CBRACKET        reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-    RETURN          reduce using rule 77 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
-
-
-state 185
-
-    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType . fxDef
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass . fxDef pointScopeClass2 CBRACKET classDef
     (4) fxDef -> . VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-    (5) fxDef -> . simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (5) fxDef -> . fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
     (6) fxDef -> . epsilon
-    (67) simpleType -> . INT
-    (68) simpleType -> . STRING
-    (69) simpleType -> . DEC
-    (70) simpleType -> . BOOL
-    (82) epsilon -> .
+    (7) fxType -> . INT
+    (8) fxType -> . STRING
+    (9) fxType -> . DEC
+    (10) fxType -> . BOOL
+    (89) epsilon -> .
 
     VOID            shift and go to state 10
     INT             shift and go to state 13
     STRING          shift and go to state 14
     DEC             shift and go to state 15
     BOOL            shift and go to state 16
-    MAIN            reduce using rule 82 (epsilon -> .)
-    CBRACKET        reduce using rule 82 (epsilon -> .)
+    CBRACKET        reduce using rule 89 (epsilon -> .)
 
-    fxDef                          shift and go to state 187
-    simpleType                     shift and go to state 11
+    fxDef                          shift and go to state 177
+    fxType                         shift and go to state 11
     epsilon                        shift and go to state 12
+
+state 157
+
+    (40) var -> varsType COMMA var .
+
+    EOF             reduce using rule 40 (var -> varsType COMMA var .)
+
+
+state 158
+
+    (44) arrDef -> ID OSQUAREBR varCte . CSQUAREBR
+
+    CSQUAREBR       shift and go to state 178
+
+
+state 159
+
+    (45) matrixDef -> arrDef OSQUAREBR varCte . CSQUAREBR
+
+    CSQUAREBR       shift and go to state 179
+
+
+state 160
+
+    (85) ifCond -> ifCond ELSE OBRACKET body CBRACKET .
+
+    ELSE            reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    VAR             reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    ID              reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    INPUT           reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    OUTPUT          reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    WHILE           reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    IF              reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    CBRACKET        reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+    RETURN          reduce using rule 85 (ifCond -> ifCond ELSE OBRACKET body CBRACKET .)
+
+
+state 161
+
+    (50) returnCall -> ID OPAREN paramCall . CPAREN
+
+    CPAREN          shift and go to state 180
+
+
+state 162
+
+    (52) expRelational -> plusMinus opRelational expRelational .
+
+    EOF             reduce using rule 52 (expRelational -> plusMinus opRelational expRelational .)
+    CPAREN          reduce using rule 52 (expRelational -> plusMinus opRelational expRelational .)
+
+
+state 163
+
+    (65) expParen -> OPAREN expRelational CPAREN .
+
+    MULTIPLY        reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    DIVIDE          reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    PLUS            reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    MINUS           reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    EQUAL           reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    DIFFERENT       reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    GREATERTHAN     reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    GREATERTHANEQ   reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    LESSTHAN        reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    LESSTHANEQ      reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    EOF             reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+    CPAREN          reduce using rule 65 (expParen -> OPAREN expRelational CPAREN .)
+
+
+state 164
+
+    (60) plusMinus -> multDiv PLUS plusMinus .
+
+    EQUAL           reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+    DIFFERENT       reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+    GREATERTHAN     reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+    GREATERTHANEQ   reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+    LESSTHAN        reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+    LESSTHANEQ      reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+    EOF             reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+    CPAREN          reduce using rule 60 (plusMinus -> multDiv PLUS plusMinus .)
+
+
+state 165
+
+    (61) plusMinus -> multDiv MINUS plusMinus .
+
+    EQUAL           reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+    DIFFERENT       reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+    GREATERTHAN     reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+    GREATERTHANEQ   reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+    LESSTHAN        reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+    LESSTHANEQ      reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+    EOF             reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+    CPAREN          reduce using rule 61 (plusMinus -> multDiv MINUS plusMinus .)
+
+
+state 166
+
+    (63) multDiv -> expParen MULTIPLY multDiv .
+
+    PLUS            reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    MINUS           reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    EQUAL           reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    DIFFERENT       reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    GREATERTHAN     reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    GREATERTHANEQ   reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    LESSTHAN        reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    LESSTHANEQ      reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    EOF             reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+    CPAREN          reduce using rule 63 (multDiv -> expParen MULTIPLY multDiv .)
+
+
+state 167
+
+    (64) multDiv -> expParen DIVIDE multDiv .
+
+    PLUS            reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    MINUS           reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    EQUAL           reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    DIFFERENT       reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    GREATERTHAN     reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    GREATERTHANEQ   reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    LESSTHAN        reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    LESSTHANEQ      reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    EOF             reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+    CPAREN          reduce using rule 64 (multDiv -> expParen DIVIDE multDiv .)
+
+
+state 168
+
+    (20) paramCall -> ID COMMA paramCall .
+
+    CPAREN          reduce using rule 20 (paramCall -> ID COMMA paramCall .)
+
+
+state 169
+
+    (22) voidCall -> ID OPAREN paramCall CPAREN EOF .
+
+    VAR             reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+    ID              reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+    INPUT           reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+    OUTPUT          reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+    WHILE           reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+    IF              reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+    CBRACKET        reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+    RETURN          reduce using rule 22 (voidCall -> ID OPAREN paramCall CPAREN EOF .)
+
+
+state 170
+
+    (73) classCall -> ID MONEY ID OPAREN paramCall . CPAREN EOF
+
+    CPAREN          shift and go to state 181
+
+
+state 171
+
+    (86) input -> INPUT OPAREN ID CPAREN EOF .
+
+    VAR             reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+    ID              reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+    INPUT           reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+    OUTPUT          reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+    WHILE           reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+    IF              reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+    CBRACKET        reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+    RETURN          reduce using rule 86 (input -> INPUT OPAREN ID CPAREN EOF .)
+
+
+state 172
+
+    (87) output -> OUTPUT OPAREN expRelational CPAREN EOF .
+
+    VAR             reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    ID              reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    INPUT           reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    OUTPUT          reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    WHILE           reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    IF              reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    CBRACKET        reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    RETURN          reduce using rule 87 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+
+
+state 173
+
+    (83) whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET . body CBRACKET
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+
+    VAR             shift and go to state 54
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
+
+    body                           shift and go to state 182
+    varsDef                        shift and go to state 51
+    statements                     shift and go to state 52
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    ifCond                         shift and go to state 60
+    classCall                      shift and go to state 61
+
+state 174
+
+    (84) ifCond -> IF OPAREN expRelational CPAREN OBRACKET . body CBRACKET
+    (23) body -> . varsDef body
+    (24) body -> . statements body
+    (25) body -> . epsilon
+    (33) varsDef -> . VAR objType var EOF
+    (34) varsDef -> . VAR varSimpleType var EOF
+    (26) statements -> . assignmentDef
+    (27) statements -> . input
+    (28) statements -> . output
+    (29) statements -> . voidCall
+    (30) statements -> . whileCycle
+    (31) statements -> . ifCond
+    (32) statements -> . classCall
+    (89) epsilon -> .
+    (46) assignmentDef -> . ID ASSIGNMENT expAssignment
+    (86) input -> . INPUT OPAREN ID CPAREN EOF
+    (87) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (22) voidCall -> . ID OPAREN paramCall CPAREN EOF
+    (83) whileCycle -> . WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (84) ifCond -> . IF OPAREN expRelational CPAREN OBRACKET body CBRACKET
+    (85) ifCond -> . ifCond ELSE OBRACKET body CBRACKET
+    (73) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+
+    VAR             shift and go to state 54
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+    ID              shift and go to state 62
+    INPUT           shift and go to state 63
+    OUTPUT          shift and go to state 64
+    WHILE           shift and go to state 65
+    IF              shift and go to state 66
+
+    body                           shift and go to state 183
+    varsDef                        shift and go to state 51
+    statements                     shift and go to state 52
+    epsilon                        shift and go to state 53
+    assignmentDef                  shift and go to state 55
+    input                          shift and go to state 56
+    output                         shift and go to state 57
+    voidCall                       shift and go to state 58
+    whileCycle                     shift and go to state 59
+    ifCond                         shift and go to state 60
+    classCall                      shift and go to state 61
+
+state 175
+
+    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars . CBRACKET pointFxType fxDef
+
+    CBRACKET        shift and go to state 184
+
+
+state 176
+
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars . RETURN ID EOF CBRACKET pointFxType fxDef
+
+    RETURN          shift and go to state 185
+
+
+state 177
+
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef . pointScopeClass2 CBRACKET classDef
+    (70) pointScopeClass2 -> .
+
+    CBRACKET        reduce using rule 70 (pointScopeClass2 -> .)
+
+    pointScopeClass2               shift and go to state 186
+
+state 178
+
+    (44) arrDef -> ID OSQUAREBR varCte CSQUAREBR .
+
+    OSQUAREBR       reduce using rule 44 (arrDef -> ID OSQUAREBR varCte CSQUAREBR .)
+    COMMA           reduce using rule 44 (arrDef -> ID OSQUAREBR varCte CSQUAREBR .)
+    EOF             reduce using rule 44 (arrDef -> ID OSQUAREBR varCte CSQUAREBR .)
+
+
+state 179
+
+    (45) matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR .
+
+    COMMA           reduce using rule 45 (matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR .)
+    EOF             reduce using rule 45 (matrixDef -> arrDef OSQUAREBR varCte CSQUAREBR .)
+
+
+state 180
+
+    (50) returnCall -> ID OPAREN paramCall CPAREN .
+
+    EOF             reduce using rule 50 (returnCall -> ID OPAREN paramCall CPAREN .)
+
+
+state 181
+
+    (73) classCall -> ID MONEY ID OPAREN paramCall CPAREN . EOF
+
+    EOF             shift and go to state 187
+
+
+state 182
+
+    (83) whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body . CBRACKET
+
+    CBRACKET        shift and go to state 188
+
+
+state 183
+
+    (84) ifCond -> IF OPAREN expRelational CPAREN OBRACKET body . CBRACKET
+
+    CBRACKET        shift and go to state 189
+
+
+state 184
+
+    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET . pointFxType fxDef
+    (13) pointFxType -> .
+
+    VOID            reduce using rule 13 (pointFxType -> .)
+    INT             reduce using rule 13 (pointFxType -> .)
+    STRING          reduce using rule 13 (pointFxType -> .)
+    DEC             reduce using rule 13 (pointFxType -> .)
+    BOOL            reduce using rule 13 (pointFxType -> .)
+    MAIN            reduce using rule 13 (pointFxType -> .)
+    CBRACKET        reduce using rule 13 (pointFxType -> .)
+
+    pointFxType                    shift and go to state 190
+
+state 185
+
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN . ID EOF CBRACKET pointFxType fxDef
+
+    ID              shift and go to state 191
+
 
 state 186
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID . EOF CBRACKET pointFxType fxDef
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 . CBRACKET classDef
 
-    EOF             shift and go to state 188
+    CBRACKET        shift and go to state 192
 
 
 state 187
+
+    (73) classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .
+
+    VAR             reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    ID              reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    INPUT           reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    OUTPUT          reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    WHILE           reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    IF              reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    CBRACKET        reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    RETURN          reduce using rule 73 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+
+
+state 188
+
+    (83) whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .
+
+    VAR             reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    ID              reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    INPUT           reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    OUTPUT          reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    WHILE           reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    IF              reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    CBRACKET        reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    RETURN          reduce using rule 83 (whileCycle -> WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+
+
+state 189
+
+    (84) ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .
+
+    ELSE            reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    VAR             reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    ID              reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    INPUT           reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    OUTPUT          reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    WHILE           reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    IF              reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    CBRACKET        reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+    RETURN          reduce using rule 84 (ifCond -> IF OPAREN expRelational CPAREN OBRACKET body CBRACKET .)
+
+
+state 190
+
+    (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType . fxDef
+    (4) fxDef -> . VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
+    (5) fxDef -> . fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (6) fxDef -> . epsilon
+    (7) fxType -> . INT
+    (8) fxType -> . STRING
+    (9) fxType -> . DEC
+    (10) fxType -> . BOOL
+    (89) epsilon -> .
+
+    VOID            shift and go to state 10
+    INT             shift and go to state 13
+    STRING          shift and go to state 14
+    DEC             shift and go to state 15
+    BOOL            shift and go to state 16
+    MAIN            reduce using rule 89 (epsilon -> .)
+    CBRACKET        reduce using rule 89 (epsilon -> .)
+
+    fxDef                          shift and go to state 193
+    fxType                         shift and go to state 11
+    epsilon                        shift and go to state 12
+
+state 191
+
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID . EOF CBRACKET pointFxType fxDef
+
+    EOF             shift and go to state 194
+
+
+state 192
+
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET . classDef
+    (67) classDef -> . CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (68) classDef -> . epsilon
+    (89) epsilon -> .
+
+    CLASS           shift and go to state 7
+    VOID            reduce using rule 89 (epsilon -> .)
+    INT             reduce using rule 89 (epsilon -> .)
+    STRING          reduce using rule 89 (epsilon -> .)
+    DEC             reduce using rule 89 (epsilon -> .)
+    BOOL            reduce using rule 89 (epsilon -> .)
+    MAIN            reduce using rule 89 (epsilon -> .)
+
+    classDef                       shift and go to state 195
+    epsilon                        shift and go to state 8
+
+state 193
 
     (4) fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef .
 
@@ -2619,56 +2674,68 @@ state 187
     CBRACKET        reduce using rule 4 (fxDef -> VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef .)
 
 
-state 188
+state 194
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF . CBRACKET pointFxType fxDef
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF . CBRACKET pointFxType fxDef
 
-    CBRACKET        shift and go to state 189
+    CBRACKET        shift and go to state 196
 
 
-state 189
+state 195
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET . pointFxType fxDef
-    (9) pointFxType -> .
+    (67) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .
 
-    VOID            reduce using rule 9 (pointFxType -> .)
-    INT             reduce using rule 9 (pointFxType -> .)
-    STRING          reduce using rule 9 (pointFxType -> .)
-    DEC             reduce using rule 9 (pointFxType -> .)
-    BOOL            reduce using rule 9 (pointFxType -> .)
-    MAIN            reduce using rule 9 (pointFxType -> .)
-    CBRACKET        reduce using rule 9 (pointFxType -> .)
+    VOID            reduce using rule 67 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    INT             reduce using rule 67 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    STRING          reduce using rule 67 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    DEC             reduce using rule 67 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    BOOL            reduce using rule 67 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    MAIN            reduce using rule 67 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
 
-    pointFxType                    shift and go to state 190
 
-state 190
+state 196
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType . fxDef
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET . pointFxType fxDef
+    (13) pointFxType -> .
+
+    VOID            reduce using rule 13 (pointFxType -> .)
+    INT             reduce using rule 13 (pointFxType -> .)
+    STRING          reduce using rule 13 (pointFxType -> .)
+    DEC             reduce using rule 13 (pointFxType -> .)
+    BOOL            reduce using rule 13 (pointFxType -> .)
+    MAIN            reduce using rule 13 (pointFxType -> .)
+    CBRACKET        reduce using rule 13 (pointFxType -> .)
+
+    pointFxType                    shift and go to state 197
+
+state 197
+
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType . fxDef
     (4) fxDef -> . VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-    (5) fxDef -> . simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    (5) fxDef -> . fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
     (6) fxDef -> . epsilon
-    (67) simpleType -> . INT
-    (68) simpleType -> . STRING
-    (69) simpleType -> . DEC
-    (70) simpleType -> . BOOL
-    (82) epsilon -> .
+    (7) fxType -> . INT
+    (8) fxType -> . STRING
+    (9) fxType -> . DEC
+    (10) fxType -> . BOOL
+    (89) epsilon -> .
 
     VOID            shift and go to state 10
     INT             shift and go to state 13
     STRING          shift and go to state 14
     DEC             shift and go to state 15
     BOOL            shift and go to state 16
-    MAIN            reduce using rule 82 (epsilon -> .)
-    CBRACKET        reduce using rule 82 (epsilon -> .)
+    MAIN            reduce using rule 89 (epsilon -> .)
+    CBRACKET        reduce using rule 89 (epsilon -> .)
 
-    simpleType                     shift and go to state 11
-    fxDef                          shift and go to state 191
+    fxType                         shift and go to state 11
+    fxDef                          shift and go to state 198
     epsilon                        shift and go to state 12
 
-state 191
+state 198
 
-    (5) fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef .
+    (5) fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef .
 
-    MAIN            reduce using rule 5 (fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef .)
-    CBRACKET        reduce using rule 5 (fxDef -> simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef .)
+    MAIN            reduce using rule 5 (fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef .)
+    CBRACKET        reduce using rule 5 (fxDef -> fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef .)
 

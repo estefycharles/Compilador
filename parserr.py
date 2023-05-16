@@ -6,9 +6,12 @@ from directory import TypeDir
 funcsDirectory = Directory()
 typesDirectory = TypeDir()
 
-pos=1
-x=-1
+pos=0
+x=0
 varType = ''
+funcType = ''
+internalScope = ''
+scopeNumber = 0
 
 def add_func(x, y):
     return x + y
@@ -26,12 +29,14 @@ def print_control(p, nonterminal: str, max_symbols: int):
 def p_begin(p):
     ''' begin : BEGIN OPAREN ID CPAREN classDef fxDef  main end '''
     print_control(p,"begin",8)
-    print("DICCIONARIO: ", funcsDirectory.print_dict())
+    funcsDirectory.print_dict()
 
 #punto neuralgico para identificar el main
 def p_pointMain(p):
     ''' pointMain : '''
     funcsDirectory.set_scope('main')
+    global internalScope
+    internalScope = 'main'
 
 def p_main(p):
     ''' main : MAIN pointMain OPAREN CPAREN OBRACKET body CBRACKET '''
@@ -39,15 +44,28 @@ def p_main(p):
 
 def p_fxDef(p):
     ''' fxDef : VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-                | simpleType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+                | fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
                 | epsilon '''
     print_control(p,"fxDef",13)
+
+def p_fxType(p):
+    ''' fxType : INT
+                | STRING
+                | DEC
+                | BOOL '''
+    global funcType
+    funcType = p[1]
 
 
 #punto neuralgico para identificar funciones
 def p_pointFx(p):
     ''' pointFx : '''
-    funcsDirectory.set_scope('fx')
+    if scopeNumber == 0:
+        funcsDirectory.set_scope('fx')
+    else:
+        funcsDirectory.set_scope('class')
+    global internalScope
+    internalScope = 'fx'
 
 def p_pointFxId(p):
     ''' pointFxId : '''
@@ -62,16 +80,8 @@ def p_pointFxParam(p):
     print("NOMBRE_F",p[-3])
     funcsDirectory.set_functionName(p[-3])
     func_name = p[-3]
-    func_type = typesDirectory.get_type(0)
-    print("TIPO_F", func_type)
-    global pos
-    global x
-    func_param = []
-    for a in range(x+1):
-        func_param.append(typesDirectory.get_type(pos))
-        print("TIPO_P", typesDirectory.get_type(pos))
-        pos = pos + 1
-    funcsDirectory.add_function(func_name,func_type,func_param)
+    
+    funcsDirectory.add_function(func_name,funcType)
     typesDirectory.delete_type()
     x = -1
     pos = 1
@@ -79,18 +89,14 @@ def p_pointFxParam(p):
 
 def p_pointVars(p):
     ''' pointVars : '''
-    
 
 def p_param(p):
     ''' param : simpleType ID 
             | simpleType ID COMMA param
             | epsilon '''
     print_control(p,"param",4)   
-    global x
-    print("X = ", x)
-    x = x + 1
-    print("TEST PARAM ", typesDirectory.get_type(x))
-    print("X2 = ", x)
+    
+    
 
  
 def p_paramCall(p):
@@ -148,7 +154,7 @@ def p_varsType(p):
                 | arrDef
                 | matrixDef '''
     print_control(p,"varsType",1)
-    funcsDirectory.add_var(p[1], varType)
+    funcsDirectory.add_var(p[1], varType, internalScope)
 
 
 def p_arrDef(p):
@@ -208,14 +214,31 @@ def p_expParen(p):
     print_control(p,"assignmentDef",3)
 
 def p_classDef(p):
-    ''' classDef : CLASS pointClass ID OBRACKET ATTRIBUTES COLON varsDef METHODS COLON fxDef CBRACKET classDef
+    ''' classDef : CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
                 | epsilon '''
     print_control(p,"classDef",11)
+
+def p_pointScopeClass(p):
+    ''' pointScopeClass : '''
+    global scopeNumber
+    scopeNumber = 1
+
+def p_pointScopeClass2(p):
+    ''' pointScopeClass2 : '''
+    global scopeNumber
+    scopeNumber = 0
+
+def p_pointClassName(p):
+    ''' pointClassName : '''
+    funcsDirectory.set_className(p[-1])
+    funcsDirectory.add_class(p[-1])
 
 #punto neuralgico para identificar clases
 def p_pointClass(p):
     ''' pointClass : '''
     funcsDirectory.set_scope('class')
+    global internalScope
+    internalScope = 'class'
 
 def p_classCall(p):
     ''' classCall : ID MONEY ID OPAREN paramCall CPAREN EOF '''
@@ -226,10 +249,7 @@ def p_simpleType(p):
                     | STRING
                     | DEC 
                     | BOOL '''
-    fType = p[1]
-    typesDirectory.set_type(fType)
-    #print("TEST", typesDirectory.get_typeP(x+1))
-    #pos = pos + 1
+    
     print_control(p,"simpleType",1)
 
 
