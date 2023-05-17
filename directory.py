@@ -6,7 +6,8 @@ class Directory:
     def __init__(self):
         self.fx = {}
         self.classes = {}
-        self.vars = {}
+        self.main = {}
+        self.classVars = {}
         self.scope = ''
         self.functionName = ''
         self.className = ''
@@ -17,7 +18,6 @@ class Directory:
     
     def set_functionName(self, name):
         self.functionName = name
-        print("ENTREE CON: ", name)
     
     def set_className(self, name):
         self.className = name
@@ -34,7 +34,9 @@ class Directory:
 
     def add_var(self, name, type, internalScope):
         add = {'type': type}
-        if self.scope == 'fx':
+        if self.scope == 'main':
+            self.main[name] = add
+        elif self.scope == 'fx':
             self.fx[self.functionName]['vars'][name] = add
         elif self.scope == 'class':
             if internalScope == 'fx':
@@ -44,19 +46,42 @@ class Directory:
 
     def add_param(self, type, name):
         add = {'type':type}
-        #add = type
-        print("EL SCOPE ES: ", self.scope)
-        print("EL TIPO ES: ", type)
         if self.scope == 'fx':
             self.fx[self.functionName]['params'][name] = add
         elif self.scope == 'class':
-            print('SI ENTREEEEE', self.className, self.functionName, type)
             self.classes[self.className]['fx'][self.functionName]['params'][name] = add
 
+    def add_classVars(self, name, className):
+        add = {'className' : className}
+        self.classVars[name] = add
+
+    def exists_fx(self, name): 
+        if self.scope == 'class':  
+            return name in self.classes[self.className]['fx']
+        else:
+            return name in self.fx
+        
+    def exists_class(self, name): 
+        return name in self.classes
+    
+    def exists_classVars(self, name):
+        return name in self.classVars
+    
+    def exists_var(self, name, internalScope):
+        if self.scope == 'main':
+            return name in self.main
+        elif self.scope == 'fx':
+            return name in self.fx[self.functionName]['vars']
+        elif self.scope == 'class':
+            if internalScope == 'fx':
+                return name in self.classes[self.className]['fx'][self.functionName]['vars']
+            elif internalScope == 'class':
+                return name in self.classes[self.className]['vars']
+
     def print_dict(self):
-        #for value in self.fx.items():
-        #    print(value)
         print("DICCIONARIO: ")
-        print(json.dumps(self.classes, indent = 4))
-        print(json.dumps(self.fx, indent = 4))
+        #print(json.dumps(self.classes, indent = 4))
+        #print(json.dumps(self.fx, indent = 4))
+        #print(json.dumps(self.main, indent = 4))
+        print(json.dumps(self.classVars, indent = 4))
  

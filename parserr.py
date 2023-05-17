@@ -8,21 +8,21 @@ varType = ''
 funcType = ''
 funcName = ''
 paramType = ''
+classVars = ''
+objVar = 0
 internalScope = ''
 scopeNumber = 0
 
-def add_func(x, y):
-    return x + y
-
  # función auxiliar para imprimir el árbol de sintaxis
 def print_control(p, nonterminal: str, max_symbols: int):
-    print(f"Parsed {nonterminal}  \t\t", end="")
-    for i in range(1, max_symbols+1):
-        try:
-            print(f"{p[i]}", end="\t")
-        except:
-            pass
-    print("")
+    #print(f"Parsed {nonterminal}  \t\t", end="")
+    #for i in range(1, max_symbols+1):
+    #    try:
+    #        print(f"{p[i]}", end="\t")
+    #    except:
+    #        pass
+    #print("")
+    x=1
 
 def p_begin(p):
     ''' begin : BEGIN OPAREN ID CPAREN classDef fxDef  main end '''
@@ -70,7 +70,10 @@ def p_pointFxId(p):
     global funcName
     funcName = p[-1]
     funcsDirectory.set_functionName(p[-1])
-    funcsDirectory.add_function(funcName,funcType)
+    if funcsDirectory.exists_fx(p[-1]):
+        print('ERROR: FX name:', funcName, 'already declared')
+    else:
+        funcsDirectory.add_function(funcName,funcType)
     
 
 def p_param(p):
@@ -147,7 +150,17 @@ def p_varsType(p):
                 | arrDef
                 | matrixDef '''
     print_control(p,"varsType",1)
-    funcsDirectory.add_var(p[1], varType, internalScope)
+    global objVar
+    if objVar == 1:
+        if funcsDirectory.exists_classVars(p[1]):
+            print('ERROR: CLASSVAR name:', p[1], 'already declared')
+        else:
+            funcsDirectory.add_classVars(p[1], classVars)
+    else:
+        if funcsDirectory.exists_var(p[1], internalScope):
+            print('ERROR: VAR name:', p[1], 'already declared')
+        else:
+            funcsDirectory.add_var(p[1], varType, internalScope)
 
 
 def p_arrDef(p):
@@ -207,9 +220,13 @@ def p_expParen(p):
     print_control(p,"assignmentDef",3)
 
 def p_classDef(p):
-    ''' classDef : CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON varsDef METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    ''' classDef : CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
                 | epsilon '''
     print_control(p,"classDef",11)
+
+def p_pointAtt(p):
+    ''' pointAtt : varsDef 
+                | varsDef pointAtt '''
 
 def p_pointScopeClass(p):
     ''' pointScopeClass : '''
@@ -224,7 +241,10 @@ def p_pointScopeClass2(p):
 def p_pointClassName(p):
     ''' pointClassName : '''
     funcsDirectory.set_className(p[-1])
-    funcsDirectory.add_class(p[-1])
+    if funcsDirectory.exists_class(p[-1]):
+        print('ERROR: CLASS name:', p[-1], 'already declared')
+    else:
+        funcsDirectory.add_class(p[-1])
 
 #punto neuralgico para identificar clases
 def p_pointClass(p):
@@ -249,6 +269,10 @@ def p_simpleType(p):
 def p_objType(p):
     ''' objType : ID '''
     print_control(p,"objType",1)
+    global classVars
+    classVars = p[1]
+    global objVar
+    objVar = 1
 
 def p_varCte(p):
     ''' varCte : INT 
