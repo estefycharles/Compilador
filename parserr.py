@@ -1,15 +1,13 @@
 import ply.yacc as yacc
 from lexer import tokens
 from directory import Directory
-from directory import TypeDir
 
 funcsDirectory = Directory()
-typesDirectory = TypeDir()
 
-pos=0
-x=0
 varType = ''
 funcType = ''
+funcName = ''
+paramType = ''
 internalScope = ''
 scopeNumber = 0
 
@@ -43,8 +41,8 @@ def p_main(p):
     print_control(p,"main",6)
 
 def p_fxDef(p):
-    ''' fxDef : VOID FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars CBRACKET pointFxType fxDef
-                | fxType FX pointFx ID OPAREN param pointFxParam CPAREN OBRACKET body pointVars RETURN ID EOF CBRACKET pointFxType fxDef
+    ''' fxDef : VOID FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body CBRACKET fxDef
+                | fxType FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body RETURN ID EOF CBRACKET fxDef
                 | epsilon '''
     print_control(p,"fxDef",13)
 
@@ -69,36 +67,31 @@ def p_pointFx(p):
 
 def p_pointFxId(p):
     ''' pointFxId : '''
-    #funcsDirectory.set_functionName(p[-1])
-
-def p_pointFxType(p):
-    ''' pointFxType : '''
-    typesDirectory.delete_type()
-
-def p_pointFxParam(p):
-    ''' pointFxParam : '''
-    print("NOMBRE_F",p[-3])
-    funcsDirectory.set_functionName(p[-3])
-    func_name = p[-3]
+    global funcName
+    funcName = p[-1]
+    funcsDirectory.set_functionName(p[-1])
+    funcsDirectory.add_function(funcName,funcType)
     
-    funcsDirectory.add_function(func_name,funcType)
-    typesDirectory.delete_type()
-    x = -1
-    pos = 1
-    #print("DICCIONARIO: ", funcsDirectory.print_dict())
-
-def p_pointVars(p):
-    ''' pointVars : '''
 
 def p_param(p):
-    ''' param : simpleType ID 
-            | simpleType ID COMMA param
+    ''' param : paramType ID pointParam
+            | paramType ID pointParam COMMA param
             | epsilon '''
     print_control(p,"param",4)   
-    
+
+def p_paramType(p):
+    ''' paramType : INT
+                | STRING
+                | DEC
+                | BOOL '''
+    global paramType
+    paramType = p[1]
+ 
+def p_pointParam(p):
+    ''' pointParam : '''
+    funcsDirectory.add_param(paramType, p[-1])
     
 
- 
 def p_paramCall(p):
     ''' paramCall : ID 
                   | ID COMMA paramCall 

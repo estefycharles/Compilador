@@ -23,7 +23,7 @@ class Directory:
         self.className = name
 
     def add_function(self, name, type):
-        add = {'fx type':type, 'vars': {}}
+        add = {'fx type':type, 'params': {}, 'vars': {}}
         if self.scope == 'fx':
             self.fx[name] = add
         else:
@@ -42,43 +42,21 @@ class Directory:
             elif internalScope == 'class':
                 self.classes[self.className]['vars'][name] = add
 
+    def add_param(self, type, name):
+        add = {'type':type}
+        #add = type
+        print("EL SCOPE ES: ", self.scope)
+        print("EL TIPO ES: ", type)
+        if self.scope == 'fx':
+            self.fx[self.functionName]['params'][name] = add
+        elif self.scope == 'class':
+            print('SI ENTREEEEE', self.className, self.functionName, type)
+            self.classes[self.className]['fx'][self.functionName]['params'][name] = add
+
     def print_dict(self):
         #for value in self.fx.items():
         #    print(value)
         print("DICCIONARIO: ")
-        #print(json.dumps(self.classes, indent = 4))
+        print(json.dumps(self.classes, indent = 4))
         print(json.dumps(self.fx, indent = 4))
-    
-
-class TypeDir:
-    def __init__(self):
-        self.type = []
-
-    def set_type(self,type):
-        self.type.append(type)
-    
-    def get_type(self, pos):
-        return self.type[pos]
-    
-    def delete_type(self):
-        self.type.clear()
-
-
-
-   # def __init__(self):
-    #    self.nameF = "nameF"
-     #   self.typeF = "typeF"
-      #  self.dirI = 0
-       # self.resources = list
-        #self.params = list
-        #self.vars = list
-
-#    def set_nameF(self,nameF):
-#        self.nameF = nameF
-    
- #   def get_nameF(self):
- #       return self.nameF
-
- #   def get_type(self):
-  #      return self.type
-
+ 
