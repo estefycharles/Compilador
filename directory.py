@@ -79,9 +79,9 @@ class Directory:
                 return name in self.classes[self.className]['vars']
 
     def print_dict(self):
-        print("DICCIONARIO: ")
-        #print(json.dumps(self.classes, indent = 4))
-        #print(json.dumps(self.fx, indent = 4))
-        #print(json.dumps(self.main, indent = 4))
+        print("DIRECTORIO DE FUNCIONES: ")
+        print(json.dumps(self.classes, indent = 4))
+        print(json.dumps(self.fx, indent = 4))
+        print(json.dumps(self.main, indent = 4))
         print(json.dumps(self.classVars, indent = 4))
  
