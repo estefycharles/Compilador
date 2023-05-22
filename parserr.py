@@ -201,11 +201,13 @@ def p_assignmentDef(p):
     if funcsDirectory.exists_var(p[1], internalScope):
         pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
         pOprnd.append(p[1])
+        print('ASSIG1',pOprnd)
         res = pOprnd.pop()
         resT = pTypes.pop()
         op1 = pOprnd.pop()
         opT1 = pTypes.pop()
         opr = pOper.pop()
+        print('ASSIG2',pOprnd)
         if resT == opT1:
             newCuac.create_cuac(opr, op1, None, res)
         else:
@@ -230,9 +232,28 @@ def p_returnCall(p):
 
 def p_expRelational(p):
     ''' expRelational : plusMinus 
-                    | plusMinus opRelational expRelational '''
+                    | plusMinus opRelational expRelational pointCheckOpRel '''
     print_control(p,"expRelational",3)
     p[0] = p[1]
+
+#punto para validar si el top() de poper es > < ...
+def p_pointCheckOpRel(p):
+    ''' pointCheckOpRel : '''
+    if pOper[-1] == '==' or pOper[-1] == '!=' or pOper[-1] == '>' or pOper[-1] == '<' or pOper[-1] == '>=' or pOper[-1] == '<=':
+        print('REL1',pOprnd)
+        print('REL1',pOper)
+        op2 = pOprnd.pop()
+        op2T = pTypes.pop()
+        op1 = pOprnd.pop()
+        op1T = pTypes.pop()
+        opr = pOper.pop()
+        print('REL2',pOprnd)
+        resT = cube.cube[op1T][op2T][opr]
+        if resT != 'error':
+            res = add_temp(op1, op2, resT,opr)
+            newCuac.create_cuac(opr, op1, op2, res)
+        else:
+            print('ERROR: Type mismatch')
 
 def p_opRelational(p):
     ''' opRelational : EQUAL
@@ -242,6 +263,7 @@ def p_opRelational(p):
                     | LESSTHAN 
                     | LESSTHANEQ '''
     print_control(p,"opRelational",1)
+    pOper.append(p[1])
 
 def p_plusMinus(p):
     ''' plusMinus : multDiv pointCheckPlusMinus
@@ -254,20 +276,19 @@ def p_plusMinus(p):
 def p_pointCheckPlusMinus(p):
     ''' pointCheckPlusMinus : '''
     if pOper[-1] == '+' or pOper[-1] == '-':
+        print('PLUSMINUS1',pOprnd)
         op2 = pOprnd.pop()
         op2T = pTypes.pop()
         op1 = pOprnd.pop()
         op1T = pTypes.pop()
         opr = pOper.pop()
+        print('PLUSMINUS2',pOprnd)
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
-            if opr == '+':
-                res = add_temp(op1, op2, resT, '+')
-            else:
-               res = add_temp(op1, op2, resT, '-')
+            res = add_temp(op1, op2, resT, opr)
             newCuac.create_cuac(opr, op1, op2, res)
-            pOprnd.append(res)
-            pTypes.append(resT)
+            #pOprnd.append(res)
+            #pTypes.append(resT)
         else:
             print('ERROR: Type mismatch')
 
@@ -287,17 +308,16 @@ def p_multDiv(p):
 def p_pointCheckMultDiv(p):
     ''' pointCheckMultDiv : '''
     if pOper[-1] == '*' or pOper[-1] == '/':
+        print('MULTDIV1',pOprnd)
         op2 = pOprnd.pop()
         op2T = pTypes.pop()
         op1 = pOprnd.pop()
         op1T = pTypes.pop()
         opr = pOper.pop()
+        print('MULTDIV2',pOprnd)
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
-            if opr == '*':
-                res = add_temp(op1, op2, resT, '*')
-            else:
-                res = add_temp(op1, op2, resT, '/')
+            res = add_temp(op1, op2, resT, opr)
             newCuac.create_cuac(opr, op1, op2, res)
             #pOprnd.append(res)
             #pTypes.append(resT)
@@ -311,10 +331,19 @@ def p_pointPushMultDiv(p):
     pOper.append(p[-1])
 
 def p_expParen(p):
-    ''' expParen : OPAREN expRelational CPAREN
+    ''' expParen : OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
                 | varCte '''
-    print_control(p,"assignmentDef",3)
+    print_control(p,"expParen",3)
     p[0] = p[1]
+
+def p_pointFakeBackground(p):
+    ''' pointFakeBackground : '''
+    pOper.append(p[-1])
+
+
+def p_pointRemoveFakeBackground(p):
+    ''' pointRemoveFakeBackground : ''' 
+    pOper.pop()
 
 def p_classDef(p):
     ''' classDef : CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
@@ -354,14 +383,6 @@ def p_classCall(p):
     ''' classCall : ID MONEY ID OPAREN paramCall CPAREN EOF '''
     print_control(p,"classCall",7)
 
-def p_simpleType(p):
-    ''' simpleType : INT
-                    | STRING
-                    | DEC 
-                    | BOOL '''
-    print_control(p,"simpleType",1)
-
-
 def p_objType(p):
     ''' objType : ID '''
     print_control(p,"objType",1)
@@ -377,7 +398,6 @@ def p_varCte(p):
                 | ID '''
     print_control(p,"varCte",1)
     p[0] = p[1]
-    print('VARCTE',p[1])
     if funcsDirectory.exists_var(p[1], internalScope):
         pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
         pOprnd.append(p[1])
@@ -408,7 +428,10 @@ def p_ifCond(p):
 
 def p_input(p):
     ''' input : INPUT OPAREN ID CPAREN EOF '''
-    print_control(p,"ifCond",5)
+    print_control(p,"input",5)
+    pOprnd.append(p[3])
+    res = pOprnd.pop()
+    newCuac.create_cuac('input', None, None, res)
 
 def p_output(p):
     ''' output : OUTPUT OPAREN expRelational CPAREN EOF '''

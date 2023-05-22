@@ -1,12 +1,12 @@
 begin(nom_prog)
 
 main(){
-    var int a, b;
-    var string c;
-    c = "hola";
-    a = b;
-    a = 2 + 3 * b;
-    b = a + a / b;
+    var int a, b, c, d, e, f, g, j;
+    var bool h;
+    h = a * b / (c + d * (f - g) / e + a) + j <= (a + b) * c;
     output("hola");
+    a = b + c * d;
+    output(h);
+    input(a);
 }
 end(nom_prog)
