@@ -99,7 +99,7 @@ def t_BOOL(t):
 def t_STRING(t):
     r'"[^"]*"'
     t.type = reserved.get(t.value, 'STRING')
-    t.value = (t.value, 'string')
+    t.value = str(t.value) 
     return t
 
 def t_DEC(t):

@@ -1,0 +1,12 @@
+begin(nom_prog)
+
+main(){
+    var int a, b;
+    var string c;
+    c = "hola";
+    a = b;
+    a = 2 + 3 * b;
+    b = a + a / b;
+    output("hola");
+}
+end(nom_prog)

@@ -77,9 +77,21 @@ class Directory:
                 return name in self.classes[self.className]['fx'][self.functionName]['vars']
             elif internalScope == 'class':
                 return name in self.classes[self.className]['vars']
+            
+    def get_varType(self, name, internalScope):
+        if self.scope == 'main':
+            return self.main[name]['type']
+        elif self.scope == 'fx':
+            return self.fx[self.functionName]['vars']['type']
+        elif self.scope == 'class':
+            if internalScope == 'fx':
+                return self.classes[self.className]['fx'][self.functionName]['vars']['type']
+            elif internalScope == 'class':
+                return self.classes[self.className]['vars']['type']
+            
 
     def print_dict(self):
-        print("DIRECTORIO DE FUNCIONES: ")
+        print("DICCIONARIO: ")
         print(json.dumps(self.classes, indent = 4))
         print(json.dumps(self.fx, indent = 4))
         print(json.dumps(self.main, indent = 4))

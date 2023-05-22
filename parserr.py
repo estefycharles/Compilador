@@ -1,8 +1,12 @@
 import ply.yacc as yacc
 from lexer import tokens
 from directory import Directory
+from semantic_cube import Semantic_cube
+from cuac import Cuac
 
 funcsDirectory = Directory()
+cube = Semantic_cube()
+newCuac = Cuac()
 
 varType = ''
 funcType = ''
@@ -12,6 +16,23 @@ classVars = ''
 objVar = 0
 internalScope = ''
 scopeNumber = 0
+res = 0
+
+pOper = ['$'] #operators stack
+pOprnd = [] #operands stack 
+pTypes = [] #operands types stack
+pTemps = [] #temporal vars stack
+pTempsTypes = [] #temporal vars types stack
+
+# Helper function to add temps
+def add_temp(op1, op2, resT, opr):
+    temp = newCuac.add_temps()
+    #pTempsTypes.append(resT)
+    #pTemps.append(temp)
+    pOprnd.append(temp)
+    pTypes.append(resT)
+    #newCuac.create_cuac(opr, op1, op2, temp)
+    return temp
 
  # función auxiliar para imprimir el árbol de sintaxis
 def print_control(p, nonterminal: str, max_symbols: int):
@@ -28,6 +49,7 @@ def p_begin(p):
     ''' begin : BEGIN OPAREN ID CPAREN classDef fxDef  main end '''
     print_control(p,"begin",8)
     funcsDirectory.print_dict()
+    newCuac.print1()
 
 #punto neuralgico para identificar el main
 def p_pointMain(p):
@@ -174,8 +196,26 @@ def p_matrixDef(p):
 
 
 def p_assignmentDef(p):
-    ''' assignmentDef : ID ASSIGNMENT expAssignment '''
+    ''' assignmentDef : ID ASSIGNMENT pointPushAssignment expAssignment '''
     print_control(p,"assignmentDef",3)
+    if funcsDirectory.exists_var(p[1], internalScope):
+        pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
+        pOprnd.append(p[1])
+        res = pOprnd.pop()
+        resT = pTypes.pop()
+        op1 = pOprnd.pop()
+        opT1 = pTypes.pop()
+        opr = pOper.pop()
+        if resT == opT1:
+            newCuac.create_cuac(opr, op1, None, res)
+        else:
+            print('ERROR: Type mismatch')
+    else:
+        print('ERROR: var does not exist')
+
+def p_pointPushAssignment(p):
+    ''' pointPushAssignment : '''
+    pOper.append(p[-1])
 
 
 def p_expAssignment(p):
@@ -192,6 +232,7 @@ def p_expRelational(p):
     ''' expRelational : plusMinus 
                     | plusMinus opRelational expRelational '''
     print_control(p,"expRelational",3)
+    p[0] = p[1]
 
 def p_opRelational(p):
     ''' opRelational : EQUAL
@@ -203,21 +244,77 @@ def p_opRelational(p):
     print_control(p,"opRelational",1)
 
 def p_plusMinus(p):
-    ''' plusMinus : multDiv
-                | multDiv PLUS plusMinus
-                | multDiv MINUS plusMinus '''
+    ''' plusMinus : multDiv pointCheckPlusMinus
+                | multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+                | multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus '''
     print_control(p,"plusMinus",3)
+    p[0] = p[1]
+
+#punto para validar si el top() de poper es + -
+def p_pointCheckPlusMinus(p):
+    ''' pointCheckPlusMinus : '''
+    if pOper[-1] == '+' or pOper[-1] == '-':
+        op2 = pOprnd.pop()
+        op2T = pTypes.pop()
+        op1 = pOprnd.pop()
+        op1T = pTypes.pop()
+        opr = pOper.pop()
+        resT = cube.cube[op1T][op2T][opr]
+        if resT != 'error':
+            if opr == '+':
+                res = add_temp(op1, op2, resT, '+')
+            else:
+               res = add_temp(op1, op2, resT, '-')
+            newCuac.create_cuac(opr, op1, op2, res)
+            pOprnd.append(res)
+            pTypes.append(resT)
+        else:
+            print('ERROR: Type mismatch')
+
+#punto para hacer push del +- en pOper
+def p_pointPushPlusMinus(p):
+    ''' pointPushPlusMinus : '''
+    pOper.append(p[-1])
 
 def p_multDiv(p):
-    ''' multDiv : expParen 
-                | expParen MULTIPLY multDiv
-                | expParen DIVIDE multDiv '''
+    ''' multDiv : expParen pointCheckMultDiv
+                | expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+                | expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv '''
     print_control(p,"multDiv",3)
+    p[0] = p[1]
+
+#punto para validar si el top() de poper es */
+def p_pointCheckMultDiv(p):
+    ''' pointCheckMultDiv : '''
+    if pOper[-1] == '*' or pOper[-1] == '/':
+        op2 = pOprnd.pop()
+        op2T = pTypes.pop()
+        op1 = pOprnd.pop()
+        op1T = pTypes.pop()
+        opr = pOper.pop()
+        resT = cube.cube[op1T][op2T][opr]
+        if resT != 'error':
+            if opr == '*':
+                res = add_temp(op1, op2, resT, '*')
+            else:
+                res = add_temp(op1, op2, resT, '/')
+            newCuac.create_cuac(opr, op1, op2, res)
+            #pOprnd.append(res)
+            #pTypes.append(resT)
+        else:
+            print('ERROR: Type mismatch')
+            
+
+#punto para hacer push del */ en pOper
+def p_pointPushMultDiv(p):
+    ''' pointPushMultDiv : '''
+    pOper.append(p[-1])
 
 def p_expParen(p):
     ''' expParen : OPAREN expRelational CPAREN
                 | varCte '''
     print_control(p,"assignmentDef",3)
+    p[0] = p[1]
 
 def p_classDef(p):
     ''' classDef : CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
@@ -262,7 +359,6 @@ def p_simpleType(p):
                     | STRING
                     | DEC 
                     | BOOL '''
-    
     print_control(p,"simpleType",1)
 
 
@@ -275,11 +371,31 @@ def p_objType(p):
     objVar = 1
 
 def p_varCte(p):
-    ''' varCte : INT 
-                | DEC
-                | STRING
+    ''' varCte : INT pointINT
+                | DEC pointDEC
+                | STRING pointSTRING
                 | ID '''
     print_control(p,"varCte",1)
+    p[0] = p[1]
+    print('VARCTE',p[1])
+    if funcsDirectory.exists_var(p[1], internalScope):
+        pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
+        pOprnd.append(p[1])
+    
+def p_pointINT(p):
+    ''' pointINT : '''
+    pTypes.append('int')
+    pOprnd.append(p[-1])
+
+def p_pointDEC(p):
+    ''' pointDEC : '''
+    pTypes.append('dec')
+    pOprnd.append(p[-1])
+
+def p_pointSTRING(p):
+    ''' pointSTRING : '''
+    pTypes.append('string')
+    pOprnd.append(p[-1])
 
 def p_whileCycle(p):
     ''' whileCycle : WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET '''
@@ -297,6 +413,8 @@ def p_input(p):
 def p_output(p):
     ''' output : OUTPUT OPAREN expRelational CPAREN EOF '''
     print_control(p,"output",5)
+    res = pOprnd.pop()
+    newCuac.create_cuac('output', None, None, res)
 
 def p_END(p):
     ''' end : END OPAREN ID CPAREN '''
@@ -315,7 +433,7 @@ yacc.yacc()
 
 #Probar Archivo
 try:
-    f = open('../Compilador/test/prueba2.dua')
+    f = open('../Compilador/test/pruebaCuac.dua')
     data = f.read()
     f.close()
 except EOFError:
