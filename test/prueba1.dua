@@ -60,5 +60,7 @@ main(){
 	    output("Pass");
     }
 
+
+
 }
 end(programa_prueba)

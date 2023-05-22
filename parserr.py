@@ -21,8 +21,7 @@ res = 0
 pOper = ['$'] #operators stack
 pOprnd = [] #operands stack 
 pTypes = [] #operands types stack
-pTemps = [] #temporal vars stack
-pTempsTypes = [] #temporal vars types stack
+pJumps = [] #jumps on conditionals stack 
 
 # Helper function to add temps
 def add_temp(op1, op2, resT, opr):
@@ -201,13 +200,11 @@ def p_assignmentDef(p):
     if funcsDirectory.exists_var(p[1], internalScope):
         pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
         pOprnd.append(p[1])
-        print('ASSIG1',pOprnd)
         res = pOprnd.pop()
         resT = pTypes.pop()
         op1 = pOprnd.pop()
         opT1 = pTypes.pop()
         opr = pOper.pop()
-        print('ASSIG2',pOprnd)
         if resT == opT1:
             newCuac.create_cuac(opr, op1, None, res)
         else:
@@ -240,14 +237,11 @@ def p_expRelational(p):
 def p_pointCheckOpRel(p):
     ''' pointCheckOpRel : '''
     if pOper[-1] == '==' or pOper[-1] == '!=' or pOper[-1] == '>' or pOper[-1] == '<' or pOper[-1] == '>=' or pOper[-1] == '<=':
-        print('REL1',pOprnd)
-        print('REL1',pOper)
         op2 = pOprnd.pop()
         op2T = pTypes.pop()
         op1 = pOprnd.pop()
         op1T = pTypes.pop()
         opr = pOper.pop()
-        print('REL2',pOprnd)
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
             res = add_temp(op1, op2, resT,opr)
@@ -276,13 +270,11 @@ def p_plusMinus(p):
 def p_pointCheckPlusMinus(p):
     ''' pointCheckPlusMinus : '''
     if pOper[-1] == '+' or pOper[-1] == '-':
-        print('PLUSMINUS1',pOprnd)
         op2 = pOprnd.pop()
         op2T = pTypes.pop()
         op1 = pOprnd.pop()
         op1T = pTypes.pop()
         opr = pOper.pop()
-        print('PLUSMINUS2',pOprnd)
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
             res = add_temp(op1, op2, resT, opr)
@@ -308,13 +300,11 @@ def p_multDiv(p):
 def p_pointCheckMultDiv(p):
     ''' pointCheckMultDiv : '''
     if pOper[-1] == '*' or pOper[-1] == '/':
-        print('MULTDIV1',pOprnd)
         op2 = pOprnd.pop()
         op2T = pTypes.pop()
         op1 = pOprnd.pop()
         op1T = pTypes.pop()
         opr = pOper.pop()
-        print('MULTDIV2',pOprnd)
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
             res = add_temp(op1, op2, resT, opr)
@@ -422,9 +412,32 @@ def p_whileCycle(p):
     print_control(p,"whileCycle",7)
 
 def p_ifCond(p):
-    ''' ifCond : IF OPAREN expRelational CPAREN OBRACKET body CBRACKET 
-                | ifCond ELSE OBRACKET body CBRACKET '''
+    ''' ifCond : IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+                | IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 '''
     print_control(p,"ifCond",7)
+
+def p_pointIfCond1(p):
+    ''' pointIfCond1 : '''
+    exp_type = pTypes.pop()
+    if (exp_type != 'bool'):
+        print('ERROR: Type Mismatch')
+    else:
+        exp = pOprnd.pop()
+        newCuac.create_cuac('gotoF',exp, None, 'dest')
+        pJumps.append(newCuac.countCuacs-1)
+
+def p_pointIfCond2(p):
+    ''' pointIfCond2 : '''
+    pendingCuac = pJumps.pop()
+    newCuac.fill(pendingCuac-1, newCuac.countCuacs)
+
+def p_pointIfCond3(p):
+    ''' pointIfCond3 : '''
+    newCuac.create_cuac('goto', None, None, 'dest')
+    pendingCuac = pJumps.pop()
+    pJumps.append(newCuac.countCuacs - 1)
+    newCuac.fill(pendingCuac-1, newCuac.countCuacs)
+
 
 def p_input(p):
     ''' input : INPUT OPAREN ID CPAREN EOF '''
