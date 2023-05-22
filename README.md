@@ -28,5 +28,11 @@ Verifica que no se puedan declarar funciones, clases o variables previamente dec
 
 ![exists](ss/exists.png)
 
+## Avance 3
+Se generan cuádruplos para las expresiones aritméticas y el estatuto de asignación y output.
+
+![cuac_exp](ss/cuac_exp.png)
+
+
 
 
