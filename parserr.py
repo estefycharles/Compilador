@@ -408,8 +408,30 @@ def p_pointSTRING(p):
     pOprnd.append(p[-1])
 
 def p_whileCycle(p):
-    ''' whileCycle : WHILE OPAREN expRelational CPAREN OBRACKET body CBRACKET '''
+    ''' whileCycle : WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3'''
     print_control(p,"whileCycle",7)
+
+def p_pointWhile1(p):
+    ''' pointWhile1 : '''
+    pJumps.append(newCuac.countCuacs)
+
+def p_pointWhile2(p):
+    ''' pointWhile2 : '''
+    exp_type = pTypes.pop()
+    if (exp_type != 'bool'):
+        print('ERROR: Type Mismatch')
+    else:
+        exp = pOprnd.pop()
+        newCuac.create_cuac('gotoF',exp, None, 'dest')
+        pJumps.append(newCuac.countCuacs-1)
+
+def p_pointWhile3(p):
+    ''' pointWhile3 : '''
+    pendingCuac = pJumps.pop()
+    whileBegin = pJumps.pop()
+    newCuac.create_cuac('goto', None, None, whileBegin)
+    newCuac.fill(pendingCuac-1, newCuac.countCuacs)
+
 
 def p_ifCond(p):
     ''' ifCond : IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2

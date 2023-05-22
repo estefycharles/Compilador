@@ -29,10 +29,14 @@ Verifica que no se puedan declarar funciones, clases o variables previamente dec
 ![exists](ss/exists.png)
 
 ## Avance 3
-Se generan cuádruplos para las expresiones aritméticas y el estatuto de asignación y output.
+Se generan cuádruplos para las expresiones aritméticas, el estatuto de asignación, output e input.
 
 ![cuac_exp](ss/cuac_exp.png)
 
+## Avance 4
+Se generan cuádruplos de estatutos condicionales: if else y while. 
+
+![cuac_conds](ss/cuac_conds.png)
 
 
 

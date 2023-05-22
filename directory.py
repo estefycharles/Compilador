@@ -91,9 +91,9 @@ class Directory:
             
 
     def print_dict(self):
-        print("DICCIONARIO: ")
-        print(json.dumps(self.classes, indent = 4))
-        print(json.dumps(self.fx, indent = 4))
+        print("DIRECTORIO: ")
+        #print(json.dumps(self.classes, indent = 4))
+        #print(json.dumps(self.fx, indent = 4))
         print(json.dumps(self.main, indent = 4))
-        print(json.dumps(self.classVars, indent = 4))
+        #print(json.dumps(self.classVars, indent = 4))
  
