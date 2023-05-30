@@ -17,6 +17,9 @@ objVar = 0
 internalScope = ''
 scopeNumber = 0
 res = 0
+numParams = 0 #cont de params para fx calls
+numParamsFx = 0 #cont de params de declaración de fx
+nombreFx = ''
 
 pOper = ['$'] #operators stack
 pOprnd = [] #operands stack 
@@ -45,10 +48,14 @@ def print_control(p, nonterminal: str, max_symbols: int):
     x=1
 
 def p_begin(p):
-    ''' begin : BEGIN OPAREN ID CPAREN classDef fxDef  main end '''
+    ''' begin : BEGIN pointCreateMainCuac OPAREN ID CPAREN classDef fxDef  main end '''
     print_control(p,"begin",8)
     funcsDirectory.print_dict()
     newCuac.print1()
+
+def p_pointCreateMainCuac(p):
+    ''' pointCreateMainCuac : '''
+    newCuac.create_cuac('goto', 'main', None, 'dest')
 
 #punto neuralgico para identificar el main
 def p_pointMain(p):
@@ -56,14 +63,17 @@ def p_pointMain(p):
     funcsDirectory.set_scope('main')
     global internalScope
     internalScope = 'main'
+    newCuac.fill(0,newCuac.countCuacs)
 
 def p_main(p):
     ''' main : MAIN pointMain OPAREN CPAREN OBRACKET body CBRACKET '''
     print_control(p,"main",6)
 
 def p_fxDef(p):
-    ''' fxDef : VOID FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body CBRACKET fxDef
-                | fxType FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body RETURN ID EOF CBRACKET fxDef
+    ''' fxDef : VOID FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body CBRACKET pointEndFunc fxDef
+                | VOID FX pointFx ID pointFxId OPAREN epsilon CPAREN OBRACKET body CBRACKET pointEndFunc fxDef
+                | fxType FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
+                | fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
                 | epsilon '''
     print_control(p,"fxDef",13)
 
@@ -74,7 +84,6 @@ def p_fxType(p):
                 | BOOL '''
     global funcType
     funcType = p[1]
-
 
 #punto neuralgico para identificar funciones
 def p_pointFx(p):
@@ -94,13 +103,24 @@ def p_pointFxId(p):
     if funcsDirectory.exists_fx(p[-1]):
         print('ERROR: FX name:', funcName, 'already declared')
     else:
-        funcsDirectory.add_function(funcName,funcType)
+        dirI = newCuac.countCuacs
+        funcsDirectory.add_function(funcName,funcType,dirI)
+
+def p_pointReturn(p):
+    ''' pointReturn : '''
+    newCuac.create_cuac('return', None, None, p[-1])
     
+def p_pointEndFunc(p):
+    ''' pointEndFunc : '''
+    newCuac.create_cuac('endfunc', None, None, None)
+    global numParamsFx
+    global funcName
+    funcsDirectory.set_fxParams(funcName,numParamsFx)
+    numParamsFx = 0 # para reiniciar el cont a 0 cada que acabe de declarar un fx
 
 def p_param(p):
     ''' param : paramType ID pointParam
-            | paramType ID pointParam COMMA param
-            | epsilon '''
+            | paramType ID pointParam COMMA param '''
     print_control(p,"param",4)   
 
 def p_paramType(p):
@@ -113,20 +133,63 @@ def p_paramType(p):
  
 def p_pointParam(p):
     ''' pointParam : '''
-    funcsDirectory.add_param(paramType, p[-1])
+    global numParamsFx
+    numParamsFx += 1
+    funcsDirectory.add_param(paramType, numParamsFx)
+    #pTypes.append(paramType) #son parametros de las funciones
+    #pOprnd.append(p[-1])
     
 
 def p_paramCall(p):
-    ''' paramCall : ID 
-                  | ID COMMA paramCall 
-                  | epsilon '''
+    ''' paramCall : ID pointParamCall pointParamNum
+                  | ID pointParamCall COMMA paramCall '''
     print_control(p,"paramCall",3)
+    p[0] = p[1]
+    global numParams
+    numParams = 0 #para reiniciar el cont a 0 cuando termine de llamar una fx
 
+#pn para comprobar que el num de parametros que espera la funcion sea el mismo que la llamada manda
+def p_pointParamNum(p):
+    ''' pointParamNum : '''
+    global nombreFx
+    global numParams
+    if numParams != funcsDirectory.get_fxParams(nombreFx):
+        print('ERROR: Expecting different number of parameters')
+        print('numParams', numParams)
+
+#pn para agregar el cuac de param en las llamadas de fx
+def p_pointParamCall(p):
+    ''' pointParamCall : '''
+    global nombreFx
+    global numParams
+    numParams += 1
+    varTypeT = funcsDirectory.get_varType(p[-1], internalScope) #tipo de var que se ingresa como param en la llamada
+    paramTypeT = funcsDirectory.get_paramType(nombreFx, numParams) #tipo que la fx espera
+    #checar si el tipo del param de la llamada es igual al que la fx recibe
+    if varTypeT != paramTypeT:
+        print('ERROR: Type mismatch in function call')
+    else:
+        pOprnd.append(p[-1]) #guarda el id del param de llamada
+        param = pOprnd.pop()
+        newCuac.create_cuac('param', param, None, numParams)
 
 def p_voidCall(p):
-    ''' voidCall : ID OPAREN paramCall CPAREN EOF '''
+    ''' voidCall : ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
+                 | ID pointEra OPAREN epsilon pointGoSub CPAREN EOF '''
     print_control(p,"voidCall",5)
+    p[0] = p[1]
 
+    
+def p_pointEra(p):
+    ''' pointEra : '''
+    newCuac.create_cuac('era', p[-1], None, None)
+    global nombreFx
+    nombreFx = p[-1]
+
+def p_pointGoSub(p):
+    ''' pointGoSub : '''
+    dirI = funcsDirectory.get_dirI(p[-4])
+    newCuac.create_cuac('gosub', p[-4], None, dirI)
 
 def p_body(p):
     ''' body : varsDef body
@@ -224,8 +287,12 @@ def p_expAssignment(p):
     print_control(p,"expAssignment",2)
 
 def p_returnCall(p):
-    ''' returnCall : ID OPAREN paramCall CPAREN '''
-    pass
+    ''' returnCall : ID pointEra OPAREN paramCall pointGoSub CPAREN
+                   | ID pointEra OPAREN epsilon pointGoSub CPAREN '''
+    if funcsDirectory.exists_fx(p[1]):
+        pTypes.append(funcsDirectory.get_fxType(p[1]))
+        pOprnd.append(p[1])
+    p[0] = p[1]   
 
 def p_expRelational(p):
     ''' expRelational : plusMinus 
@@ -370,7 +437,8 @@ def p_pointClass(p):
     internalScope = 'class'
 
 def p_classCall(p):
-    ''' classCall : ID MONEY ID OPAREN paramCall CPAREN EOF '''
+    ''' classCall : ID MONEY ID OPAREN paramCall CPAREN EOF
+                  | ID MONEY ID OPAREN epsilon CPAREN EOF '''
     print_control(p,"classCall",7)
 
 def p_objType(p):

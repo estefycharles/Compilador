@@ -11,6 +11,7 @@ class Directory:
         self.scope = ''
         self.functionName = ''
         self.className = ''
+        self.fxParams = {}
 
     #fx scope   class scope     main scope
     def set_scope(self, scope):
@@ -22,8 +23,14 @@ class Directory:
     def set_className(self, name):
         self.className = name
 
-    def add_function(self, name, type):
-        add = {'fx type':type, 'params': {}, 'vars': {}}
+    def set_fxParams(self, name, fxParams):
+        self.fxParams[name] = fxParams
+
+    def get_fxParams(self, name):
+        return self.fxParams[name] 
+
+    def add_function(self, name, type, dirI):
+        add = {'fx type':type, 'params': {}, 'vars': {}, 'dirI': dirI}
         if self.scope == 'fx':
             self.fx[name] = add
         else:
@@ -44,12 +51,13 @@ class Directory:
             elif internalScope == 'class':
                 self.classes[self.className]['vars'][name] = add
 
-    def add_param(self, type, name):
+    #numparam se refiere al numero de parametro, esto para poder identificarlo
+    def add_param(self, type, numParam):
         add = {'type':type}
         if self.scope == 'fx':
-            self.fx[self.functionName]['params'][name] = add
+            self.fx[self.functionName]['params'][numParam] = add
         elif self.scope == 'class':
-            self.classes[self.className]['fx'][self.functionName]['params'][name] = add
+            self.classes[self.className]['fx'][self.functionName]['params'][numParam] = add
 
     def add_classVars(self, name, className):
         add = {'className' : className}
@@ -82,18 +90,27 @@ class Directory:
         if self.scope == 'main':
             return self.main[name]['type']
         elif self.scope == 'fx':
-            return self.fx[self.functionName]['vars']['type']
+            return self.fx[self.functionName]['vars'][name]['type']
         elif self.scope == 'class':
             if internalScope == 'fx':
-                return self.classes[self.className]['fx'][self.functionName]['vars']['type']
+                return self.classes[self.className]['fx'][self.functionName]['vars'][name]['type']
             elif internalScope == 'class':
-                return self.classes[self.className]['vars']['type']
+                return self.classes[self.className]['vars'][name]['type']
+
+    def get_fxType(self, name):
+        return self.fx[name]['fx type']
+
+    def get_dirI(self, name):
+        return self.fx[name]['dirI']
+    
+    def get_paramType(self, name, numParam):
+        return self.fx[name]['params'][numParam]['type']
             
 
     def print_dict(self):
         print("DIRECTORIO: ")
         #print(json.dumps(self.classes, indent = 4))
         #print(json.dumps(self.fx, indent = 4))
-        print(json.dumps(self.main, indent = 4))
+        #print(json.dumps(self.main, indent = 4))
         #print(json.dumps(self.classVars, indent = 4))
  
