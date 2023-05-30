@@ -1,0 +1,15 @@
+begin(nom_prog)
+
+int fx nombre_funcion(int a){
+    var int x, y;
+    a = x + y;
+    return a;
+}
+
+main(){
+    var int a,b,c,d;
+    var dec e, f;
+    a = 5 - d;
+    e = 6.4 + f;
+}
+end(nom_prog)

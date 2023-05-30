@@ -1,6 +1,6 @@
 import json
 class Directory:
-    #name       type        dirI        resources        param      vars
+    #name       type        dirV        resources        param      vars
     #string     string      int         []               []         []
 
     def __init__(self):
@@ -39,8 +39,8 @@ class Directory:
     def add_class(self, name):
         self.classes[name] = {'vars':{}, 'fx':{}}
 
-    def add_var(self, name, type, internalScope):
-        add = {'type': type}
+    def add_var(self, name, type, internalScope, dirV):
+        add = {'type': type, 'dirV': dirV}
         if self.scope == 'main':
             self.main[name] = add
         elif self.scope == 'fx':
@@ -106,6 +106,16 @@ class Directory:
     def get_paramType(self, name, numParam):
         return self.fx[name]['params'][numParam]['type']
             
+    def get_varDirV(self, name, internalScope):
+        if self.scope == 'main':
+            return self.main[name]['dirV']
+        elif self.scope == 'fx':
+            return self.fx[self.functionName]['vars'][name]['dirV']
+        elif self.scope == 'class':
+            if internalScope == 'fx':
+                return self.classes[self.className]['fx'][self.functionName]['vars'][name]['dirV']
+            elif internalScope == 'class':
+                return self.classes[self.className]['vars'][name]['dirV']
 
     def print_dict(self):
         print("DIRECTORIO: ")

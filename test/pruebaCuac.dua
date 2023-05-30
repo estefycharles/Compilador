@@ -2,7 +2,7 @@ begin(nom_prog)
 
 int fx nombre_funcion2(int c, int d){
 	var int a,b;
-	a = a + b;
+	a = 5 + b;
     return a;
 }
 
@@ -16,7 +16,7 @@ main(){
     while(a>b*c){
         a = a - d;
     }
-    a = nombre_funcion2(a);
+    a = nombre_funcion2(a,b);
     factorial(a, y);
     a = 48;
     if(a<5){

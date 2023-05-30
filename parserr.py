@@ -3,10 +3,12 @@ from lexer import tokens
 from directory import Directory
 from semantic_cube import Semantic_cube
 from cuac import Cuac
+from memory import MemoryAddress
 
 funcsDirectory = Directory()
 cube = Semantic_cube()
 newCuac = Cuac()
+memoryManagement = MemoryAddress()
 
 varType = ''
 funcType = ''
@@ -28,7 +30,8 @@ pJumps = [] #jumps on conditionals stack
 
 # Helper function to add temps
 def add_temp(op1, op2, resT, opr):
-    temp = newCuac.add_temps()
+    temp = memoryManagement.temp_memory(resT)
+    #temp = newCuac.add_temps()
     #pTempsTypes.append(resT)
     #pTemps.append(temp)
     pOprnd.append(temp)
@@ -64,6 +67,7 @@ def p_pointMain(p):
     global internalScope
     internalScope = 'main'
     newCuac.fill(0,newCuac.countCuacs)
+    memoryManagement.delete_localMemory()
 
 def p_main(p):
     ''' main : MAIN pointMain OPAREN CPAREN OBRACKET body CBRACKET '''
@@ -94,6 +98,8 @@ def p_pointFx(p):
         funcsDirectory.set_scope('class')
     global internalScope
     internalScope = 'fx'
+    memoryManagement.delete_localMemory()
+    
 
 def p_pointFxId(p):
     ''' pointFxId : '''
@@ -108,7 +114,7 @@ def p_pointFxId(p):
 
 def p_pointReturn(p):
     ''' pointReturn : '''
-    newCuac.create_cuac('return', None, None, p[-1])
+    newCuac.create_cuac('return', None, None, funcsDirectory.get_varDirV(p[-1], internalScope))
     
 def p_pointEndFunc(p):
     ''' pointEndFunc : '''
@@ -136,9 +142,8 @@ def p_pointParam(p):
     global numParamsFx
     numParamsFx += 1
     funcsDirectory.add_param(paramType, numParamsFx)
-    #pTypes.append(paramType) #son parametros de las funciones
-    #pOprnd.append(p[-1])
-    
+    dirV = memoryManagement.local_memory(paramType,1)
+    funcsDirectory.add_var(p[-1], paramType, internalScope, dirV)
 
 def p_paramCall(p):
     ''' paramCall : ID pointParamCall pointParamNum
@@ -169,7 +174,8 @@ def p_pointParamCall(p):
     if varTypeT != paramTypeT:
         print('ERROR: Type mismatch in function call')
     else:
-        pOprnd.append(p[-1]) #guarda el id del param de llamada
+        pOprnd.append(funcsDirectory.get_varDirV(p[-1], internalScope)) #guarda la dirrecion de memoria del param de llamada
+        #pOprnd.append(p[-1]) #guarda el id del param de llamada
         param = pOprnd.pop()
         newCuac.create_cuac('param', param, None, numParams)
 
@@ -244,7 +250,8 @@ def p_varsType(p):
         if funcsDirectory.exists_var(p[1], internalScope):
             print('ERROR: VAR name:', p[1], 'already declared')
         else:
-            funcsDirectory.add_var(p[1], varType, internalScope)
+            dirV = memoryManagement.local_memory(varType,1)
+            funcsDirectory.add_var(p[1], varType, internalScope, dirV)
 
 
 def p_arrDef(p):
@@ -262,7 +269,7 @@ def p_assignmentDef(p):
     print_control(p,"assignmentDef",3)
     if funcsDirectory.exists_var(p[1], internalScope):
         pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
-        pOprnd.append(p[1])
+        pOprnd.append(funcsDirectory.get_varDirV(p[1], internalScope))
         res = pOprnd.pop()
         resT = pTypes.pop()
         op1 = pOprnd.pop()
@@ -458,22 +465,22 @@ def p_varCte(p):
     p[0] = p[1]
     if funcsDirectory.exists_var(p[1], internalScope):
         pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
-        pOprnd.append(p[1])
+        pOprnd.append(funcsDirectory.get_varDirV(p[1], internalScope))
     
 def p_pointINT(p):
     ''' pointINT : '''
     pTypes.append('int')
-    pOprnd.append(p[-1])
+    pOprnd.append(memoryManagement.const_memory('int'))
 
 def p_pointDEC(p):
     ''' pointDEC : '''
     pTypes.append('dec')
-    pOprnd.append(p[-1])
+    pOprnd.append(memoryManagement.const_memory('dec'))
 
 def p_pointSTRING(p):
     ''' pointSTRING : '''
     pTypes.append('string')
-    pOprnd.append(p[-1])
+    pOprnd.append(memoryManagement.const_memory('string'))
 
 def p_whileCycle(p):
     ''' whileCycle : WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3'''
