@@ -4,11 +4,15 @@ from directory import Directory
 from semantic_cube import Semantic_cube
 from cuac import Cuac
 from memory import MemoryAddress
+from virtual_machine import VirtualMachine
+from memory_map import MemoryMap
 
 funcsDirectory = Directory()
 cube = Semantic_cube()
 newCuac = Cuac()
 memoryManagement = MemoryAddress()
+vm = VirtualMachine()
+memMap = MemoryMap()
 
 varType = ''
 funcType = ''
@@ -51,14 +55,26 @@ def print_control(p, nonterminal: str, max_symbols: int):
     x=1
 
 def p_begin(p):
-    ''' begin : BEGIN pointCreateMainCuac OPAREN ID CPAREN classDef fxDef  main end '''
+    ''' begin : BEGIN pointCreateMainCuac OPAREN ID CPAREN classDef fxDef  main end'''
     print_control(p,"begin",8)
     funcsDirectory.print_dict()
     newCuac.print1()
+    output_file = open("pato.txt", "w") #txt file con lista de cuádruplos
+    cuacs_list = newCuac.getCuac()
+    for cuac in cuacs_list:
+        cuac_str = ','.join(str(x) for x in cuac)  #convierte los elementos a strings
+        output_file.write(cuac_str + '\n')
+    output_file.close()
+    mainList = funcsDirectory.get_main()
+    cteList = funcsDirectory.get_cte()
+    vm.set_main_list(mainList)
+    vm.set_cte_list(cteList)
+    vm.execute()
 
 def p_pointCreateMainCuac(p):
     ''' pointCreateMainCuac : '''
     newCuac.create_cuac('goto', 'main', None, 'dest')
+
 
 #punto neuralgico para identificar el main
 def p_pointMain(p):
@@ -470,17 +486,36 @@ def p_varCte(p):
 def p_pointINT(p):
     ''' pointINT : '''
     pTypes.append('int')
-    pOprnd.append(memoryManagement.const_memory('int'))
+    if funcsDirectory.exists_cte(p[-1]):
+        dirV = funcsDirectory.get_cteDirV(p[-1])
+        pOprnd.append(dirV)
+    else:
+        dirV = memoryManagement.const_memory('int')
+        funcsDirectory.add_cte(p[-1], dirV)
+        pOprnd.append(dirV)
+
 
 def p_pointDEC(p):
     ''' pointDEC : '''
     pTypes.append('dec')
-    pOprnd.append(memoryManagement.const_memory('dec'))
+    if funcsDirectory.exists_cte(p[-1]):
+        dirV = funcsDirectory.get_cteDirV(p[-1])
+        pOprnd.append(dirV)
+    else:
+        dirV = memoryManagement.const_memory('dec')
+        funcsDirectory.add_cte(p[-1], dirV)
+        pOprnd.append(dirV)
 
 def p_pointSTRING(p):
     ''' pointSTRING : '''
     pTypes.append('string')
-    pOprnd.append(memoryManagement.const_memory('string'))
+    if funcsDirectory.exists_cte(p[-1]):
+        dirV = funcsDirectory.get_cteDirV(p[-1])
+        pOprnd.append(dirV)
+    else:
+        dirV = memoryManagement.const_memory('string')
+        funcsDirectory.add_cte(p[-1], dirV)
+        pOprnd.append(dirV)
 
 def p_whileCycle(p):
     ''' whileCycle : WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3'''
@@ -566,7 +601,7 @@ yacc.yacc()
 
 #Probar Archivo
 try:
-    f = open('../Compilador/test/pruebaCuac.dua')
+    f = open('../Compilador/test/prueba2.dua')
     data = f.read()
     f.close()
 except EOFError:

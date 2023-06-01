@@ -1,26 +1,11 @@
-begin(programa_prueba)
-
-class nombre_clase{
-    attributes:
-    var int atributo1, atributo2;
-
-    methods:
-    bool fx nombre_funcion2(bool atributo){
-        var int nom_var2;
-        nom_var = nom_var + atributo;
-        return a;
-    }
-}
-
-bool fx nombre_funcion(bool atributo){
-    var int nom_var2;
-	nom_var = nom_var + atributo;
-    return a;
-}
+begin(nom_prog)
 
 main(){
-    var int a;
-    var dec b, c;
-    var nombre_clase objeto, w;
+    var int a,b,c;
+    a = 2;
+    b = 4;
+    c = a / b;
+    output(c);
+    
 }
-end(programa_prueba)
+end(nom_prog)

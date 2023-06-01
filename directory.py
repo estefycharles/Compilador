@@ -12,6 +12,7 @@ class Directory:
         self.functionName = ''
         self.className = ''
         self.fxParams = {}
+        self.cte = {}
 
     #fx scope   class scope     main scope
     def set_scope(self, scope):
@@ -63,6 +64,10 @@ class Directory:
         add = {'className' : className}
         self.classVars[name] = add
 
+    def add_cte(self, value, dirV):
+        add = {'dirV':dirV}
+        self.cte[value] = add 
+
     def exists_fx(self, name): 
         if self.scope == 'class':  
             return name in self.classes[self.className]['fx']
@@ -85,6 +90,9 @@ class Directory:
                 return name in self.classes[self.className]['fx'][self.functionName]['vars']
             elif internalScope == 'class':
                 return name in self.classes[self.className]['vars']
+        
+    def exists_cte(self, value):
+        return value in self.cte
             
     def get_varType(self, name, internalScope):
         if self.scope == 'main':
@@ -116,6 +124,21 @@ class Directory:
                 return self.classes[self.className]['fx'][self.functionName]['vars'][name]['dirV']
             elif internalScope == 'class':
                 return self.classes[self.className]['vars'][name]['dirV']
+            
+    def get_cteDirV(self, value):
+        return self.cte[value]['dirV']
+
+    def get_main(self): #genera el diccionario de main en una lista
+        list = [] 
+        for key, val in self.main.items(): 
+            list.append([key, val]) 
+        return list
+    
+    def get_cte(self): #genera el diccionario de constantes en una lista
+        list = [] 
+        for key, val in self.cte.items(): 
+            list.append([key, val]) 
+        return list
 
     def print_dict(self):
         print("DIRECTORIO: ")
@@ -123,4 +146,5 @@ class Directory:
         #print(json.dumps(self.fx, indent = 4))
         #print(json.dumps(self.main, indent = 4))
         #print(json.dumps(self.classVars, indent = 4))
+        #print(json.dumps(self.cte, indent = 4))
  

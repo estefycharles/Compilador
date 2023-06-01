@@ -14,7 +14,7 @@ class Cuac:
         newCuac = [opr, op1, op2, res]
         self.cuac.append(newCuac)
         self.countCuacs += 1
-    
+
     def add_temps(self):
         temp = f't{self.countTemps}'
         self.countTemps += 1
@@ -24,7 +24,8 @@ class Cuac:
         self.cuac[pendingCuac][3] = dest
     
     def getCuac(self):
-        return (self.opr, self.op1, self.op2, self.res)
+        #return [self.opr, self.op1, self.op2, self.res]
+        return self.cuac
     
     def print1(self):
         #print(self.cuac)

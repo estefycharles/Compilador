@@ -1,0 +1,7 @@
+goto,main,None,2
+=,9001,None,1001
+=,9002,None,1002
+/,1001,1002,5001
+=,5001,None,1003
+output,None,None,1003
+input,None,None,a
