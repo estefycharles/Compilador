@@ -476,6 +476,8 @@ def p_varCte(p):
     ''' varCte : INT pointINT
                 | DEC pointDEC
                 | STRING pointSTRING
+                | TRUE pointBOOL
+                | FALSE pointBOOL
                 | ID '''
     print_control(p,"varCte",1)
     p[0] = p[1]
@@ -514,6 +516,17 @@ def p_pointSTRING(p):
         pOprnd.append(dirV)
     else:
         dirV = memoryManagement.const_memory('string')
+        funcsDirectory.add_cte(p[-1], dirV)
+        pOprnd.append(dirV)
+
+def p_pointBOOL(p):
+    ''' pointBOOL : '''
+    pTypes.append('bool')
+    if funcsDirectory.exists_cte(p[-1]):
+        dirV = funcsDirectory.get_cteDirV(p[-1])
+        pOprnd.append(dirV)
+    else:
+        dirV = memoryManagement.const_memory('bool')
         funcsDirectory.add_cte(p[-1], dirV)
         pOprnd.append(dirV)
 
@@ -574,7 +587,8 @@ def p_pointIfCond3(p):
 def p_input(p):
     ''' input : INPUT OPAREN ID CPAREN EOF '''
     print_control(p,"input",5)
-    pOprnd.append(p[3])
+    #pTypes.append(funcsDirectory.get_varType(p[3], internalScope))
+    pOprnd.append(funcsDirectory.get_varDirV(p[3], internalScope))
     res = pOprnd.pop()
     newCuac.create_cuac('input', None, None, res)
 

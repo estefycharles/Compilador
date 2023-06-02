@@ -27,18 +27,6 @@ class VirtualMachine:
 
     def set_cte_list(self, list):
         self.cteList = list
-
-    def get_cte_list(self):
-        return self.cteList
-    
-    def set_cte_value(self, op1):
-        if int(op1) > 9000 and int(op1) < 10000:
-            #ir al dirFuncs y traer la variable que este alamacenada en esa dir
-            for inner_list in self.cteList:
-                if int(op1) in inner_list[1].values():
-                    value = inner_list[0]
-                    op1I = int(value)
-            
         
 #text file
 #funciones
@@ -58,31 +46,84 @@ class VirtualMachine:
                 value2 = self.memoryMap.get_value(int(op2))
                 result = value1 + value2
                 self.memoryMap.set_value(int(res), result)
+                ip += 1
             elif opr == '-':
                 value1 = self.memoryMap.get_value(int(op1))
                 value2 = self.memoryMap.get_value(int(op2))
                 result = value1 - value2
                 self.memoryMap.set_value(int(res), result)
+                ip += 1
             elif opr == '*':
                 value1 = self.memoryMap.get_value(int(op1))
                 value2 = self.memoryMap.get_value(int(op2))
                 result = value1 * value2
                 self.memoryMap.set_value(int(res), result)
+                ip += 1
             elif opr == '/':
                 value1 = self.memoryMap.get_value(int(op1))
                 value2 = self.memoryMap.get_value(int(op2))
                 result = value1 / value2
                 self.memoryMap.set_value(int(res), result)
+                ip += 1
             elif opr == '=':
                 value = self.memoryMap.get_value(int(op1))
                 self.memoryMap.set_value(int(res), value)
+                ip += 1
             elif opr == 'output':
                 print(self.memoryMap.get_value(int(res)))
-                
-
-            if opr != 'goto':
                 ip += 1
+            elif opr == 'input': #se dejo a medias, solo están enteros
+               resType = int(res)
+               ip += 1
+               value = input()
+               if (resType >= 1000 and resType < 2000) or (resType >= 5000 and resType < 6000) or (resType >= 9000 and resType < 10000):
+                    try:
+                        value = int(value)
+                        self.memoryMap.set_value(int(res), value)
+                    except Exception:
+                        print("ERROR: El valor esperado tiene que ser INT")
+                        break
+            elif opr == '<':
+                value1 = self.memoryMap.get_value(int(op1))
+                value2 = self.memoryMap.get_value(int(op2))
+                result = value1 < value2 #bool
+                self.memoryMap.set_value(int(res), result)
+                ip += 1
+            elif opr == '>':
+                value1 = self.memoryMap.get_value(int(op1))
+                value2 = self.memoryMap.get_value(int(op2))
+                result = value1 > value2 #bool
+                self.memoryMap.set_value(int(res), result)
+                ip += 1
+            elif opr == '<=':
+                value1 = self.memoryMap.get_value(int(op1))
+                value2 = self.memoryMap.get_value(int(op2))
+                result = value1 <= value2 #bool
+                self.memoryMap.set_value(int(res), result)
+                ip += 1
+            elif opr == '>=':
+                value1 = self.memoryMap.get_value(int(op1))
+                value2 = self.memoryMap.get_value(int(op2))
+                result = value1 >= value2 #bool
+                self.memoryMap.set_value(int(res), result)
+                ip += 1
+            elif opr == '==':
+                value1 = self.memoryMap.get_value(int(op1))
+                value2 = self.memoryMap.get_value(int(op2))
+                result = value1 == value2 #bool
+                self.memoryMap.set_value(int(res), result)
+                ip += 1
+            elif opr == 'gotoF':
+                value1 = self.memoryMap.get_value(int(op1))
+                if value1 == True:
+                    ip += 1
+                else:
+                    ip = int(res) - 1
+                
+            else:
+                break
 
+        
 
 
 

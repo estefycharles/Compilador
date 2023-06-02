@@ -39,6 +39,8 @@ reserved = {
   'dec' : 'DEC',
   'string' : 'STRING',
   'bool' : 'BOOL',
+  'true' : 'TRUE',
+  'false' : 'FALSE',
   #'and' : 'AND',
   #'or' : 'OR',
   'input' : 'INPUT',
@@ -100,6 +102,7 @@ def t_STRING(t):
     r'"[^"]*"'
     t.type = reserved.get(t.value, 'STRING')
     t.value = str(t.value) 
+    t.value = str(t.value[1:-1])
     return t
 
 def t_DEC(t):
@@ -132,7 +135,7 @@ def t_error(t):
 lexer = lex.lex()
 
 #Leer archivo
-f = open('../Compilador/test/prueba1.dua')
+f = open('../Compilador/test/prueba2.dua')
 data = f.read()
 f.close()
 lexer.input(data)
