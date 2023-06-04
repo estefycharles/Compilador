@@ -68,9 +68,11 @@ def p_begin(p):
     mainList = funcsDirectory.get_main()
     cteList = funcsDirectory.get_cte()
     fxList = funcsDirectory.get_fx()
+    globalList = funcsDirectory.get_global()
     vm.set_main_list(mainList)
     vm.set_cte_list(cteList)
     vm.set_fx_list(fxList)
+    vm.set_global_list(globalList)
     vm.execute()
 
 def p_pointCreateMainCuac(p):
@@ -133,6 +135,11 @@ def p_pointFxId(p):
 def p_pointReturn(p):
     ''' pointReturn : '''
     newCuac.create_cuac('return', None, None, funcsDirectory.get_varDirV(p[-1], internalScope))
+    varType = funcsDirectory.get_varType(p[-1], internalScope)
+    if funcsDirectory.get_fxType(funcName) == varType:
+        funcsDirectory.add_global(funcName, memoryManagement.global_memory(varType))
+    else:
+        print('Cuack cuack cuack... Type mismatch :(')
 
 def p_pointParamCount(p):
     ''' pointParamCount : '''
@@ -324,7 +331,7 @@ def p_returnCall(p):
                    | ID pointEra OPAREN epsilon pointGoSub CPAREN '''
     if funcsDirectory.exists_fx(p[1]):
         pTypes.append(funcsDirectory.get_fxType(p[1]))
-        pOprnd.append(p[1])
+        pOprnd.append(funcsDirectory.get_globalDirV(p[1]))
     p[0] = p[1]   
 
 def p_expRelational(p):

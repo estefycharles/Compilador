@@ -15,6 +15,13 @@ class MemoryAddress:
         self.constBool = 11000
         self.constString = 12000
 
+        self.globalInt = 13000
+        self.globalDec = 14000
+        self.globalBool = 15000
+        self.globalString = 16000
+
+
+
     def local_memory(self, varType, varSize):
         if varType == 'int':
             self.localInt += varSize
@@ -62,7 +69,7 @@ class MemoryAddress:
                 return self.constBool
         elif consType == 'string':
             self.constString += 1
-            if self.constString > 13000:
+            if self.constString > self.globalInt:
                 print('ERROR: Out of memory')
             else:
                 return self.constString
@@ -92,6 +99,32 @@ class MemoryAddress:
                 print('ERROR: Out of memory')
             else:
                 return self.localStringTemp
+            
+    def global_memory(self, globalType):
+        if globalType == 'int':
+            self.globalInt += 1
+            if self.globalInt > self.globalDec:
+                print('ERROR: Out of memory')
+            else:
+                return self.globalInt
+        elif globalType == 'dec':
+            self.globalDec += 1
+            if self.globalDec > self.globalBool:
+                print('ERROR: Out of memory')
+            else:
+                return self.globalDec
+        elif globalType == 'bool':
+            self.globalBool += 1
+            if self.globalBool > self.globalString:
+                print('ERROR: Out of memory')
+            else:
+                return self.globalBool
+        elif globalType == 'string':
+            self.globalString += 1
+            if self.globalString > 17000:
+                print('ERROR: Out of memory')
+            else:
+                return self.globalString
 
     def delete_localMemory(self):
         self.localInt = 1000

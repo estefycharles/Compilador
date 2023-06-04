@@ -10,6 +10,7 @@ class VirtualMachine:
         self.mainList = []
         self.cteList = []
         self.fxList = []
+        self.globalList = []
         self.memoryMap = MemoryMap()
 
     def load_cuacs(self, filename):
@@ -32,20 +33,24 @@ class VirtualMachine:
     def set_fx_list(self, list):
         self.fxList = list
     
-        
+    def set_global_list(self, list):
+        self.globalList = list
+
 #text file
 #funciones
     def execute(self):
         print("----------------------- FRANK O> -----------------------")
         self.memoryMap.set_cte(self.cteList)
         self.memoryMap.set_fxMem(self.fxList)
-        #self.memoryMap.print()
+        self.memoryMap.set_globalMem(self.globalList)
+        self.memoryMap.print()
         self.memoryMap.set_cte_memory()
         self.memoryMap.set_cte_memoryFx()
         cuacs = self.load_cuacs('pato.txt')
         ip = 0 
         param = 0
         func = 0
+        fxName = ''
         while(ip < len(cuacs)):
             opr, op1, op2, res = cuacs[ip]
             if opr == 'goto':
@@ -199,6 +204,7 @@ class VirtualMachine:
                         ip = int(res) - 1
             elif opr == 'era':
                 func = 1
+                fxName = op1
                 ip += 1
             elif opr == 'gosub':
                 bread_crumb = ip
@@ -210,8 +216,14 @@ class VirtualMachine:
             elif opr == 'param':
                 param = param + 1
                 value1 = self.memoryMap.get_value(int(op1))
-                paramDir = self.memoryMap.get_paramDir(param)
+                paramDir = self.memoryMap.get_paramDir(fxName, param)
                 self.memoryMap.set_valueFunc(paramDir, value1)
+                ip += 1
+            elif opr == 'return':
+                value = self.memoryMap.get_valueFunc(int(res))
+                dir = self.memoryMap.get_returnDir(fxName)
+                self.memoryMap.set_value(dir, value)
+                fxName = ''
                 ip += 1
             else:
                 break

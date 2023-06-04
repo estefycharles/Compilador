@@ -13,6 +13,7 @@ class Directory:
         self.className = ''
         self.fxParams = {}
         self.cte = {}
+        self.globalVar ={}
 
     #fx scope   class scope     main scope
     def set_scope(self, scope):
@@ -67,6 +68,10 @@ class Directory:
     def add_cte(self, value, dirV):
         add = {'dirV':dirV}
         self.cte[value] = add 
+    
+    def add_global(self, fxName, dirV):
+        add = {'dirV':dirV}
+        self.globalVar[fxName] = add 
 
     def exists_fx(self, name): 
         if self.scope == 'class':  
@@ -127,6 +132,9 @@ class Directory:
             
     def get_cteDirV(self, value):
         return self.cte[value]['dirV']
+    
+    def get_globalDirV(self, fxName):
+        return self.globalVar[fxName]['dirV']
 
     def get_main(self): #genera el diccionario de main en una lista
         list = [] 
@@ -145,6 +153,12 @@ class Directory:
         for key, val in self.fx.items(): 
             list.append([key, val]) 
         return list
+    
+    def get_global(self): #genera el diccionario de constantes en una lista
+        list = [] 
+        for key, val in self.globalVar.items(): 
+            list.append([key, val]) 
+        return list
 
 
     def print_dict(self):
@@ -154,4 +168,6 @@ class Directory:
         #print(json.dumps(self.main, indent = 4))
         #print(json.dumps(self.classVars, indent = 4))
         #print(json.dumps(self.cte, indent = 4))
+        print(json.dumps(self.globalVar, indent = 4))
+
  

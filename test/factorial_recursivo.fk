@@ -1,12 +1,29 @@
 begin(factorial_recursivo)
 
-void fx factorial(int x){
-    output(x);
+int fx factorial(int x){
+    return x;
+}
+
+dec fx hola(dec x){
+    return x;
+}
+
+string fx bye(string x){
+    return x;
 }
 
 main(){
-    var int n;
+    var int n, m;
+    var dec t, p;
+    var string a, b;
+    t = 2.3;
     n = 6;
-    factorial(n);
+    a = "bye";
+    b = bye(a);
+    output(b);
+    m = factorial(n);
+    output(m);
+    p = hola(t);
+    output(p);
 }
 end(factorial_recursivo)
