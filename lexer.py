@@ -135,7 +135,7 @@ def t_error(t):
 lexer = lex.lex()
 
 #Leer archivo
-f = open('../Compilador/test/prueba2.dua')
+f = open('../Compilador/test/factorial_ciclo.fk')
 data = f.read()
 f.close()
 lexer.input(data)

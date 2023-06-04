@@ -1,0 +1,12 @@
+begin(factorial_recursivo)
+
+void fx factorial(int x){
+    output(x);
+}
+
+main(){
+    var int n;
+    n = 6;
+    factorial(n);
+}
+end(factorial_recursivo)

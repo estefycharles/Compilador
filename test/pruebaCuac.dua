@@ -1,26 +1,29 @@
 begin(nom_prog)
 
-int fx nombre_funcion2(int c, int d){
-	var int a,b;
-	a = 5 + b;
-    return a;
-}
-
-void fx factorial(int x, bool y){
-    output("ALL RIGHT");
+void fx factorial(dec x, dec y){
+    var dec z;
+    var dec i;
+    z = x + y;
+    output("Z");
+    output(z);
 }
 
 main(){
-    var int a,b,c,d;
+    var int a,b;
+    var dec c,d, j;
     var bool y;
-    while(a>b*c){
-        a = a - d;
-    }
-    a = nombre_funcion2(a,b);
-    factorial(a, y);
-    a = 48;
-    if(a<5){
-	    output("Pass");
-    }
+
+    j = 2.0;
+
+    a = 1;
+    c = 20.1;
+    d = 1.1;
+    factorial(c, d);
+
+    b = a + a;
+    output("J");
+    output(j);
+    output("B");
+	output(b);
 }
 end(nom_prog)

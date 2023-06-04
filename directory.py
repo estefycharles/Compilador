@@ -53,8 +53,8 @@ class Directory:
                 self.classes[self.className]['vars'][name] = add
 
     #numparam se refiere al numero de parametro, esto para poder identificarlo
-    def add_param(self, type, numParam):
-        add = {'type':type}
+    def add_param(self, type, numParam, dirV):
+        add = {'type':type, 'dirV': dirV}
         if self.scope == 'fx':
             self.fx[self.functionName]['params'][numParam] = add
         elif self.scope == 'class':
@@ -139,11 +139,18 @@ class Directory:
         for key, val in self.cte.items(): 
             list.append([key, val]) 
         return list
+    
+    def get_fx(self): #genera el diccionario de constantes en una lista
+        list = [] 
+        for key, val in self.fx.items(): 
+            list.append([key, val]) 
+        return list
+
 
     def print_dict(self):
         print("DIRECTORIO: ")
         #print(json.dumps(self.classes, indent = 4))
-        #print(json.dumps(self.fx, indent = 4))
+        print(json.dumps(self.fx, indent = 4))
         #print(json.dumps(self.main, indent = 4))
         #print(json.dumps(self.classVars, indent = 4))
         #print(json.dumps(self.cte, indent = 4))

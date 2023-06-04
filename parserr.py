@@ -67,8 +67,10 @@ def p_begin(p):
     output_file.close()
     mainList = funcsDirectory.get_main()
     cteList = funcsDirectory.get_cte()
+    fxList = funcsDirectory.get_fx()
     vm.set_main_list(mainList)
     vm.set_cte_list(cteList)
+    vm.set_fx_list(fxList)
     vm.execute()
 
 def p_pointCreateMainCuac(p):
@@ -90,10 +92,10 @@ def p_main(p):
     print_control(p,"main",6)
 
 def p_fxDef(p):
-    ''' fxDef : VOID FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body CBRACKET pointEndFunc fxDef
-                | VOID FX pointFx ID pointFxId OPAREN epsilon CPAREN OBRACKET body CBRACKET pointEndFunc fxDef
-                | fxType FX pointFx ID pointFxId OPAREN param CPAREN OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
-                | fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
+    ''' fxDef : VOID FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef
+                | VOID FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef
+                | fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
+                | fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
                 | epsilon '''
     print_control(p,"fxDef",13)
 
@@ -131,14 +133,21 @@ def p_pointFxId(p):
 def p_pointReturn(p):
     ''' pointReturn : '''
     newCuac.create_cuac('return', None, None, funcsDirectory.get_varDirV(p[-1], internalScope))
-    
-def p_pointEndFunc(p):
-    ''' pointEndFunc : '''
-    newCuac.create_cuac('endfunc', None, None, None)
+
+def p_pointParamCount(p):
+    ''' pointParamCount : '''
     global numParamsFx
     global funcName
     funcsDirectory.set_fxParams(funcName,numParamsFx)
     numParamsFx = 0 # para reiniciar el cont a 0 cada que acabe de declarar un fx
+    
+def p_pointEndFunc(p):
+    ''' pointEndFunc : '''
+    newCuac.create_cuac('endfunc', None, None, None)
+    #global numParamsFx
+    #global funcName
+    #funcsDirectory.set_fxParams(funcName,numParamsFx)
+    #numParamsFx = 0 # para reiniciar el cont a 0 cada que acabe de declarar un fx
 
 def p_param(p):
     ''' param : paramType ID pointParam
@@ -157,8 +166,9 @@ def p_pointParam(p):
     ''' pointParam : '''
     global numParamsFx
     numParamsFx += 1
-    funcsDirectory.add_param(paramType, numParamsFx)
+    #funcsDirectory.add_param(paramType, numParamsFx, dirV)
     dirV = memoryManagement.local_memory(paramType,1)
+    funcsDirectory.add_param(paramType, numParamsFx, dirV)
     funcsDirectory.add_var(p[-1], paramType, internalScope, dirV)
 
 def p_paramCall(p):
@@ -615,7 +625,7 @@ yacc.yacc()
 
 #Probar Archivo
 try:
-    f = open('../Compilador/test/prueba2.dua')
+    f = open('../Compilador/test/factorial_recursivo.fk')
     data = f.read()
     f.close()
 except EOFError:

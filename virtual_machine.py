@@ -9,6 +9,7 @@ class VirtualMachine:
         self.cuacs = []
         self.mainList = []
         self.cteList = []
+        self.fxList = []
         self.memoryMap = MemoryMap()
 
     def load_cuacs(self, filename):
@@ -27,52 +28,92 @@ class VirtualMachine:
 
     def set_cte_list(self, list):
         self.cteList = list
+
+    def set_fx_list(self, list):
+        self.fxList = list
+    
         
 #text file
 #funciones
     def execute(self):
         print("----------------------- FRANK O> -----------------------")
         self.memoryMap.set_cte(self.cteList)
+        self.memoryMap.set_fxMem(self.fxList)
+        #self.memoryMap.print()
         self.memoryMap.set_cte_memory()
+        self.memoryMap.set_cte_memoryFx()
         cuacs = self.load_cuacs('pato.txt')
         ip = 0 
+        param = 0
+        func = 0
         while(ip < len(cuacs)):
             opr, op1, op2, res = cuacs[ip]
             if opr == 'goto':
                 #salta a la linea # (res)
                 ip = int(res) - 1
             elif opr == '+':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 + value2
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 + value2
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 + value2
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '-':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 - value2
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 - value2
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 - value2
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '*':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 * value2
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 * value2
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 * value2
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '/':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 / value2
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 / value2
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 / value2
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '=':
-                value = self.memoryMap.get_value(int(op1))
-                self.memoryMap.set_value(int(res), value)
+                if func != 1:
+                    value = self.memoryMap.get_value(int(op1))
+                    self.memoryMap.set_value(int(res), value)
+                else:
+                    value = self.memoryMap.get_valueFunc(int(op1))
+                    self.memoryMap.set_valueFunc(int(res), value)
                 ip += 1
             elif opr == 'output':
-                print(self.memoryMap.get_value(int(res)))
+                if func != 1:
+                    print(self.memoryMap.get_value(int(res)))
+                else:
+                    print(self.memoryMap.get_valueFunc(int(res)))
                 ip += 1
-            elif opr == 'input': #se dejo a medias, solo están enteros
+            elif opr == 'input': #se dejo a medias, solo están enteros y falta hacer lo de las funciones
                resType = int(res)
                ip += 1
                value = input()
@@ -84,42 +125,94 @@ class VirtualMachine:
                         print("ERROR: El valor esperado tiene que ser INT")
                         break
             elif opr == '<':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 < value2 #bool
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 < value2 #bool
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 < value2 #bool
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '>':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 > value2 #bool
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 > value2 #bool
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 > value2 #bool
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '<=':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 <= value2 #bool
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 <= value2 #bool
+                    self.memoryMap.set_value(int(res), result)
+                else: 
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 <= value2 #bool
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '>=':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 >= value2 #bool
-                self.memoryMap.set_value(int(res), result)
+                if func != 0:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 >= value2 #bool
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 >= value2 #bool
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == '==':
-                value1 = self.memoryMap.get_value(int(op1))
-                value2 = self.memoryMap.get_value(int(op2))
-                result = value1 == value2 #bool
-                self.memoryMap.set_value(int(res), result)
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    value2 = self.memoryMap.get_value(int(op2))
+                    result = value1 == value2 #bool
+                    self.memoryMap.set_value(int(res), result)
+                else:
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    value2 = self.memoryMap.get_valueFunc(int(op2))
+                    result = value1 == value2 #bool
+                    self.memoryMap.set_valueFunc(int(res), result)
                 ip += 1
             elif opr == 'gotoF':
-                value1 = self.memoryMap.get_value(int(op1))
-                if value1 == True:
-                    ip += 1
+                if func != 1:
+                    value1 = self.memoryMap.get_value(int(op1))
+                    if value1 == True:
+                        ip += 1
+                    else:
+                        ip = int(res) - 1
                 else:
-                    ip = int(res) - 1
-                
+                    value1 = self.memoryMap.get_valueFunc(int(op1))
+                    if value1 == True:
+                        ip += 1
+                    else:
+                        ip = int(res) - 1
+            elif opr == 'era':
+                func = 1
+                ip += 1
+            elif opr == 'gosub':
+                bread_crumb = ip
+                ip = int(res) - 1
+                param = 0
+            elif opr == 'endfunc':
+                ip = bread_crumb + 1
+                func = 0
+            elif opr == 'param':
+                param = param + 1
+                value1 = self.memoryMap.get_value(int(op1))
+                paramDir = self.memoryMap.get_paramDir(param)
+                self.memoryMap.set_valueFunc(paramDir, value1)
+                ip += 1
             else:
                 break
 
