@@ -58,8 +58,8 @@ def print_control(p, nonterminal: str, max_symbols: int):
 def p_begin(p):
     ''' begin : BEGIN pointCreateMainCuac OPAREN ID CPAREN classDef fxDef  main end'''
     print_control(p,"begin",8)
-    funcsDirectory.print_dict()
-    newCuac.print1()
+    #funcsDirectory.print_dict()
+    #newCuac.print1()
     output_file = open("pato.txt", "w") #txt file con lista de cuádruplos
     cuacs_list = newCuac.getCuac()
     for cuac in cuacs_list:
@@ -73,6 +73,7 @@ def p_begin(p):
     vm.set_fx_list(fxList)
     vm.set_global_list(globalList)
     vm.execute()
+    print("-------------------------------------------- <O CUACK --------------------------------------------")
 
 def p_pointCreateMainCuac(p):
     ''' pointCreateMainCuac : '''
@@ -656,15 +657,16 @@ def p_error(p):
     print("Cuack cuack cuack... Syntax error TOKEN in '%s'" % p.value)
     sys.exit(1)
 
-yacc.yacc()
+#yacc.yacc()
+runParser = yacc.yacc()
 
 #Probar Archivo
-try:
-    f = open('../Compilador/test/fibonacci_ciclo.fk')
-    data = f.read()
-    f.close()
-except EOFError:
-    quit()
+# try:
+#     f = open('../Compilador/test/fibonacci_ciclo.fk')
+#     data = f.read()
+#     f.close()
+# except EOFError:
+#     quit()
 
-yacc.parse(data)
+#yacc.parse(data)
 #print("CÓDIGO CORRECTO")

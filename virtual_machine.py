@@ -52,7 +52,7 @@ class VirtualMachine:
 #text file
 #funciones
     def execute(self):
-        print("----------------------- FRANK O> -----------------------")
+        print("-------------------------------------------- FRANK O> --------------------------------------------")
         self.memoryMap.set_cte(self.cteList)
         self.memoryMap.set_fxMem(self.fxList)
         self.memoryMap.set_globalMem(self.globalList)
