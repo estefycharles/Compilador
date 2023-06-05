@@ -1,20 +1,25 @@
 import parserr
 import sys
+import os
 
-fkArchive = ['factorial_ciclo.fk', 
-         'factorial_recursivo.fk',
-         'fibonacci_ciclo.fk',
-         'fibonacci_recursivo.fk',
-         'fx_return.fk']
-if 1<len(sys.argv):
-    fkArchive = [str(sys.argv[1])]
+folder_path = "../Compilador/test/"  # Specify the path to the folder containing the archives
+fkArchive = []
 
-for i in fkArchive:
-    with open('../Compilador/test/'f'{i}') as f:
-        try:
+if len(sys.argv) > 1:
+    fkArchive.append(str(sys.argv[1]))
+else:
+    fkArchive = os.listdir(folder_path)
+
+for archive_name in fkArchive:
+    archive_path = os.path.join(folder_path, archive_name)
+    try:
+        with open(archive_path) as f:
             data = f.read()
-            f.close()
             result = parserr.runParser.parse(data)
-        except Exception:
-            print("Cuack cuack cuack... File does not exist")
-            sys.exit(1)
+    except FileNotFoundError:
+        print("Cuack cuack cuack... File does not exist:", archive_path)
+        sys.exit(1)
+    except Exception as e:
+        print("Cuack cuack cuack... An error occurred while processing the file:", archive_path)
+        print("Cuack cuack cuack... Error message:", str(e))
+        sys.exit(1)

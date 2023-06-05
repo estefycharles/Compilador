@@ -41,8 +41,8 @@ class Directory:
     def add_class(self, name):
         self.classes[name] = {'vars':{}, 'fx':{}}
 
-    def add_var(self, name, type, internalScope, dirV):
-        add = {'type': type, 'dirV': dirV}
+    def add_var(self, name, type, internalScope, dirV, dim):
+        add = {'type': type, 'dirV': dirV, 'dim': dim}
         if self.scope == 'main':
             self.main[name] = add
         elif self.scope == 'fx':
@@ -165,9 +165,9 @@ class Directory:
         print("DIRECTORIO: ")
         #print(json.dumps(self.classes, indent = 4))
         print(json.dumps(self.fx, indent = 4))
-        #print(json.dumps(self.main, indent = 4))
+        print(json.dumps(self.main, indent = 4))
         #print(json.dumps(self.classVars, indent = 4))
-        #print(json.dumps(self.cte, indent = 4))
+        print(json.dumps(self.cte, indent = 4))
         print(json.dumps(self.globalVar, indent = 4))
 
  

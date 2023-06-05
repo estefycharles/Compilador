@@ -1,5 +1,9 @@
 begin(factorial_ciclo)
 
+void fx nom_fx(int a){
+    output("HOLA");
+}
+
 main(){
     var int n,f,i;
     var string a;
@@ -16,6 +20,7 @@ main(){
     output(n);
     output("es ");
     output(f);
+    nom_fx(n);
 }
-end(fibonacci_ciclo)
+end(factorial_ciclo)
 

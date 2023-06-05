@@ -20,8 +20,6 @@ class MemoryAddress:
         self.globalBool = 15000
         self.globalString = 16000
 
-
-
     def local_memory(self, varType, varSize):
         if varType == 'int':
             self.localInt += varSize

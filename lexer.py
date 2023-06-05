@@ -1,3 +1,4 @@
+import sys
 import ply.lex as lex
 
 #Tokens
@@ -129,8 +130,9 @@ t_ignore  = ' \t'
  
 #Manejo de error lexico
 def t_error(t):
-     print("ERROR: Illegal character '%s'" % t.value[0])
-     t.lexer.skip(1)
+    print("Cuack cuack cuack... Sintax Error: Illegal TOKEN %s" % t.value[0])
+    sys.exit(1)
+     #t.lexer.skip(1)
 
 lexer = lex.lex()
 

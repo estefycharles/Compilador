@@ -178,7 +178,7 @@ def p_pointParam(p):
     #funcsDirectory.add_param(paramType, numParamsFx, dirV)
     dirV = memoryManagement.local_memory(paramType,1)
     funcsDirectory.add_param(paramType, numParamsFx, dirV)
-    funcsDirectory.add_var(p[-1], paramType, internalScope, dirV)
+    funcsDirectory.add_var(p[-1], paramType, internalScope, dirV,None)
 
 def p_paramCall(p):
     ''' paramCall : ID pointParamCall pointParamNum
@@ -292,12 +292,20 @@ def p_varsType(p):
             sys.exit(1)
         else:
             dirV = memoryManagement.local_memory(varType,1)
-            funcsDirectory.add_var(p[1], varType, internalScope, dirV)
+            funcsDirectory.add_var(p[1], varType, internalScope, dirV, None)
 
 
 def p_arrDef(p):
     ''' arrDef : ID OSQUAREBR varCte CSQUAREBR '''
     print_control(p,"arrDef",4)
+    if funcsDirectory.exists_var(p[1], internalScope):
+        print('Cuack cuack cuack... VAR name:', p[1], 'already declared')
+        sys.exit(1)
+    else:
+        dirV = memoryManagement.local_memory(varType,1)
+        funcsDirectory.add_var(p[1], varType, internalScope, dirV, None)
+
+
 
 
 def p_matrixDef(p):
@@ -654,19 +662,21 @@ def p_epsilon(p):
 
 #Manejo de error sintactico
 def p_error(p):
-    print("Cuack cuack cuack... Syntax error TOKEN in '%s'" % p.value)
+    print("Cuack cuack cuack... Semantic ERRROR in %s" % p.value)
     sys.exit(1)
 
 #yacc.yacc()
 runParser = yacc.yacc()
 
+#comentar para cuando se use archivo fly
 #Probar Archivo
 # try:
-#     f = open('../Compilador/test/fibonacci_ciclo.fk')
+#     f = open('../Compilador/test/test_arreglo.fk')
 #     data = f.read()
 #     f.close()
 # except EOFError:
 #     quit()
+# #comentar para cuando se use archivo fly
+# yacc.parse(data)
 
-#yacc.parse(data)
 #print("CÓDIGO CORRECTO")

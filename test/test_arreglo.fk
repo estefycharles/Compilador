@@ -1,0 +1,7 @@
+begin(test_arreglo)
+
+main(){
+    var int arr[5];
+}
+
+end(test_arreglo)
