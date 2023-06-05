@@ -65,11 +65,9 @@ def p_begin(p):
         cuac_str = ','.join(str(x) for x in cuac)  #convierte los elementos a strings
         output_file.write(cuac_str + '\n')
     output_file.close()
-    mainList = funcsDirectory.get_main()
     cteList = funcsDirectory.get_cte()
     fxList = funcsDirectory.get_fx()
     globalList = funcsDirectory.get_global()
-    vm.set_main_list(mainList)
     vm.set_cte_list(cteList)
     vm.set_fx_list(fxList)
     vm.set_global_list(globalList)
@@ -131,6 +129,7 @@ def p_pointFxId(p):
     else:
         dirI = newCuac.countCuacs
         funcsDirectory.add_function(funcName,funcType,dirI)
+       # funcsDirectory.add_global(funcName, memoryManagement.global_memory(funcType))
 
 def p_pointReturn(p):
     ''' pointReturn : '''
@@ -139,7 +138,7 @@ def p_pointReturn(p):
     if funcsDirectory.get_fxType(funcName) == varType:
         funcsDirectory.add_global(funcName, memoryManagement.global_memory(varType))
     else:
-        print('Cuack cuack cuack... Type mismatch :(')
+        print('Cuack cuack cuack... Type mismatch in return type :(')
 
 def p_pointParamCount(p):
     ''' pointParamCount : '''
@@ -327,11 +326,17 @@ def p_expAssignment(p):
     print_control(p,"expAssignment",2)
 
 def p_returnCall(p):
-    ''' returnCall : ID pointEra OPAREN paramCall pointGoSub CPAREN
+    ''' returnCall : ID pointEra OPAREN paramCall pointGoSub CPAREN 
                    | ID pointEra OPAREN epsilon pointGoSub CPAREN '''
     if funcsDirectory.exists_fx(p[1]):
         pTypes.append(funcsDirectory.get_fxType(p[1]))
         pOprnd.append(funcsDirectory.get_globalDirV(p[1]))
+    # elif funcsDirectory.exists_fx(p[1]) and internalScope == 'fx':
+    #     funcsDirectory.add_global(funcName, memoryManagement.global_memory(funcsDirectory.get_fxType(p[1])))
+    #     pTypes.append(funcsDirectory.get_fxType(p[1]))
+    #     pOprnd.append(funcsDirectory.get_globalDirV(p[1]))
+    else:
+        print('Cuack cuack cuack... Fuction does not exist :(')
     p[0] = p[1]   
 
 def p_expRelational(p):
@@ -632,7 +637,7 @@ yacc.yacc()
 
 #Probar Archivo
 try:
-    f = open('../Compilador/test/factorial_recursivo.fk')
+    f = open('../Compilador/test/fibonacci_ciclo.fk')
     data = f.read()
     f.close()
 except EOFError:

@@ -1,0 +1,20 @@
+begin(test)
+
+int fx test(int n){
+    var int res, n2;
+    if(n == 1){
+        res = 1;
+    }else{
+        n2 = n - 1;
+        res = test(n2);
+        res = n * res;
+    }
+    return res;
+}
+
+main(){
+    var int n, m;
+    n = 6;
+    m = test(n);
+    output(m);
+}

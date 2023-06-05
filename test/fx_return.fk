@@ -1,0 +1,29 @@
+begin(fx_return)
+
+int fx factorial(int x){
+    return x;
+}
+
+dec fx hola(dec x){
+    return x;
+}
+
+string fx bye(string x){
+    return x;
+}
+
+main(){
+    var int n, m;
+    var dec t, p;
+    var string a, b;
+    t = 2.3;
+    n = 6;
+    a = "bye";
+    b = bye(a);
+    output(b);
+    m = factorial(n);
+    output(m);
+    p = hola(t);
+    output(p);
+}
+end(fx_return)

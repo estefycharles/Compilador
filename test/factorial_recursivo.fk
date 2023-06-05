@@ -1,29 +1,29 @@
 begin(factorial_recursivo)
 
-int fx factorial(int x){
-    return x;
-}
-
-dec fx hola(dec x){
-    return x;
-}
-
-string fx bye(string x){
-    return x;
+int fx fibonacci(int n) {
+    var int n2, res, res2;
+    if(n<=1){
+        res=n;
+    } else {
+        n = n - 1;
+        n2 = n - 2;
+        res = fibonacci(n);
+        res2 = fibonacci(n2);
+        res = res + res2;
+        output(res);
+    }
+    return res;
+    
 }
 
 main(){
     var int n, m;
-    var dec t, p;
-    var string a, b;
-    t = 2.3;
-    n = 6;
-    a = "bye";
-    b = bye(a);
-    output(b);
-    m = factorial(n);
+    n = 20;
+    m = fibonacci(n);
+    output("El fibonacci de");
+    output(n);
+    output("es ");
     output(m);
-    p = hola(t);
-    output(p);
 }
+
 end(factorial_recursivo)

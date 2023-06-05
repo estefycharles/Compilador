@@ -1,8 +1,9 @@
 begin(nom_prog)
 
-void fx factorial(dec x, dec y){
-    var dec z;
-    var dec i;
+void fx hola(){
+    var int x,y,z;
+    x = 4;
+    y = 8;
     z = x + y;
     output("Z");
     output(z);
@@ -18,12 +19,13 @@ main(){
     a = 1;
     c = 20.1;
     d = 1.1;
-    factorial(c, d);
-
     b = a + a;
+    factorial();
+
+    
     output("J");
     output(j);
-    output("B");
+    output("A");
 	output(b);
 }
 end(nom_prog)

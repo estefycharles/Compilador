@@ -113,7 +113,7 @@ class Directory:
     def get_fxType(self, name):
         return self.fx[name]['fx type']
 
-    def get_dirI(self, name):
+    def get_dirI(self, name): #gets the direction where a fx starts
         return self.fx[name]['dirI']
     
     def get_paramType(self, name, numParam):
