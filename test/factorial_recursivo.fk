@@ -15,7 +15,10 @@ int fx factorial(int n) {
 
 main(){
     var int n, m;
-    n = 6;
+    var string a;
+    a = "Ingresa el número de para calcular su factorial";
+    output(a);
+    input(n);
     output("El factorial de ");
     output(n);
     output("es: ");

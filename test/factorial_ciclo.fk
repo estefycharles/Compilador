@@ -2,7 +2,10 @@ begin(factorial_ciclo)
 
 main(){
     var int n,f,i;
-    n = 6;
+    var string a;
+    a = "Ingresa el número de para calcular su factorial";
+    output(a);
+    input(n);
     f = 1;
     i = 1;
     while(i<=n){

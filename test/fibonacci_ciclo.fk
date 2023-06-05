@@ -2,11 +2,14 @@ begin(fibonacci_ciclo)
 
 main(){
     var int a,b,c,cont,num;
+    var string z;
+    z = "Ingresa el número para calcular fibonacci";
+    output(z);
+    input(num);
     a = 0;
     b = 1;
     c = 0;
     cont = 0;
-    num = 6;
     while(cont<num){
         output(c);
         a = b;

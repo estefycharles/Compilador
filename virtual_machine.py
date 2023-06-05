@@ -56,12 +56,8 @@ class VirtualMachine:
         self.memoryMap.set_cte(self.cteList)
         self.memoryMap.set_fxMem(self.fxList)
         self.memoryMap.set_globalMem(self.globalList)
-
-        #self.memoryMap.print()
         self.memoryMap.set_cte_memory()
         self.memoryMap.set_memory()
-        #print(self.cteList)
-        #print(self.globalList)
         self.memoryMapCte.set_cte(self.cteList)
         self.memoryMapCte.set_fxMem(self.fxList)
         self.memoryMapCte.set_globalMem(self.globalList)
@@ -82,9 +78,7 @@ class VirtualMachine:
             if opr == 'goto':
                 #salta a la linea # (res)
                 ip = int(res) - 1
-            elif opr == '+':
-                #value1 = self.memoryMap.get_value(int(op1))
-                #value1 = self.memoryStack[-1].get_value(int(op1))   
+            elif opr == '+': 
                 value1 = self.find_value(op1)
                 value2 = self.find_value(op2)
                 result = value1 + value2
@@ -110,9 +104,7 @@ class VirtualMachine:
                 ip += 1
             elif opr == '=':
                 value = self.find_value(op1)
-                #print('MEMORIA1', self.memoryStack[-1].get_memory())
                 self.memoryStack[-1].set_value(int(res), value)
-                #print('MEMORIA2', self.memoryStack[-1].get_memory())
                 ip += 1
             elif opr == 'output':
                 print(self.find_value(res))
@@ -121,13 +113,34 @@ class VirtualMachine:
                resType = int(res)
                ip += 1
                value = input()
-               if (resType >= 1000 and resType < 2000) or (resType >= 5000 and resType < 6000) or (resType >= 9000 and resType < 10000):
+               if (resType >= 1000 and resType < 2000) or (resType >= 5000 and resType < 6000) or (resType >= 9000 and resType < 10000) or (resType >= 13000 and resType <14000):#int
                     try:
                         value = int(value)
                         self.memoryStack[-1].set_value(int(res), value)
                     except Exception:
-                        print("ERROR: El valor esperado tiene que ser INT")
+                        print("Cuack cuack cuack... Type mismatch at input :( Expected INT in " + value)
                         break
+               elif (resType >= 2000 and resType < 3000) or (resType >= 6000 and resType < 7000) or (resType >= 10000 and resType < 11000) or (resType >= 14000 and resType <15000):#dec
+                    try:
+                        value = float(value)
+                        self.memoryStack[-1].set_value(int(res), value)
+                    except Exception:
+                        print("Cuack cuack cuack... Type mismatch at input :( Expected DEC in " + value)
+                        break
+               elif (resType >= 3000 and resType < 4000) or (resType >= 7000 and resType < 8000) or (resType >= 11000 and resType < 12000) or (resType >= 15000 and resType <16000):#bool
+                    if value == 'true' or value == 'false':
+                        value = str(value)
+                        self.memoryStack[-1].set_value(int(res), value)
+                    else: 
+                        print("Cuack cuack cuack... Type mismatch at input :( Expected BOOL in " + value)
+                        break
+               elif (resType >= 4000 and resType < 5000) or (resType >= 8000 and resType < 9000) or (resType >= 12000 and resType < 13000) or (resType >= 16000 and resType <17000):#string
+                   if value.isdigit():
+                        print("Cuack cuack cuack... Type mismatch at input :( Expected STRING in " + value)
+                        break
+                   else:
+                       value = str(value)
+                       self.memoryStack[-1].set_value(int(res), value)
             elif opr == '<':
                 value1 = self.find_value(op1)
                 value2 = self.find_value(op2)
@@ -169,7 +182,6 @@ class VirtualMachine:
                 #crear nuevo memory map y hacer append al memory stack
                 memStackTemp = MemoryMap()
                 self.memoryStack.append(memStackTemp) #agrega un memory map vacío para usarlo durante esta fx
-                #self.memoryMap.reset()
                 ip += 1
             elif opr == 'gosub':
                 bread_crumb.append(ip)
@@ -182,10 +194,6 @@ class VirtualMachine:
                 if returnFlag == 1:
                     #set a la lista de globales
                     self.memoryGlobal.set_value(returnDir, returnValue)
-                    # globalListTemp = {returnValue, returnDir}
-                    # self.globalList.append(globalListTemp)
-                    #print('holaaaaaaa', returnValue, returnDir)
-                    #self.memoryStack[-1].set_value(returnDir, returnValue)
                     returnFlag  = 0
             elif opr == 'param':
                 param = param + 1
@@ -194,28 +202,12 @@ class VirtualMachine:
                 self.memoryStack[-1].set_value(paramDir, value1)
                 ip += 1
             elif opr == 'return':
-                # if returnFlag > 1:
-                #     value = self.memoryStack[-2].get_value(int(res))
-                # else:
-                
                 value = self.find_value(res)
-                #print("ENTREE RETURN", res)
-                #print('MEMORIA3', self.memoryGlobal.get_memory())
-                #print('MEMORIA3', self.memoryStack[-1].get_memory())
-                #value = self.memoryStack[-2].get_value(int(res))
-                #print("Fxname", fxName)
-                # dir = self.memoryGlobal.get_returnDir(fxName)
                 dir = self.memoryGlobal.get_returnDir(fxName)
                 self.memoryGlobal.set_value(dir, value)
-                #print('MEMORIA4', self.memoryGlobal.get_memory())
-                #value = self.find_value(res)
-                #print("VALUE", value)
-                #dir = self.memoryMap.get_returnDir(fxName)
                 returnValue = value
                 returnDir = dir
                 returnFlag = 1
-                #self.memoryStack[-1].set_value(dir, value)
-                #fxName = ''
                 ip += 1 
             else:
                 break

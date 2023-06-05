@@ -1,3 +1,4 @@
+import sys
 import ply.yacc as yacc
 from lexer import tokens
 from directory import Directory
@@ -125,7 +126,8 @@ def p_pointFxId(p):
     funcName = p[-1]
     funcsDirectory.set_functionName(p[-1])
     if funcsDirectory.exists_fx(p[-1]):
-        print('ERROR: FX name:', funcName, 'already declared')
+        print('Cuack cuack cuack... FX name:', funcName, 'already declared')
+        sys.exit(1)
     else:
         dirI = newCuac.countCuacs
         funcsDirectory.add_function(funcName,funcType,dirI)
@@ -191,8 +193,8 @@ def p_pointParamNum(p):
     global nombreFx
     global numParams
     if numParams != funcsDirectory.get_fxParams(nombreFx):
-        print('ERROR: Expecting different number of parameters')
-        print('numParams', numParams)
+        print('Cuack cuack cuack... Expecting different number of parameters in FX:', nombreFx)
+        sys.exit(1)
 
 #pn para agregar el cuac de param en las llamadas de fx
 def p_pointParamCall(p):
@@ -200,11 +202,15 @@ def p_pointParamCall(p):
     global nombreFx
     global numParams
     numParams += 1
+    if numParams != funcsDirectory.get_fxParams(nombreFx):
+        print('Cuack cuack cuack... Expecting different number of parameters in FX:', nombreFx)
+        sys.exit(1)
     varTypeT = funcsDirectory.get_varType(p[-1], internalScope) #tipo de var que se ingresa como param en la llamada
     paramTypeT = funcsDirectory.get_paramType(nombreFx, numParams) #tipo que la fx espera
     #checar si el tipo del param de la llamada es igual al que la fx recibe
     if varTypeT != paramTypeT:
-        print('ERROR: Type mismatch in function call')
+        print('Cuack cuack cuack... Type mismatch in function call in parameters of FX:', nombreFx)
+        sys.exit(1)
     else:
         pOprnd.append(funcsDirectory.get_varDirV(p[-1], internalScope)) #guarda la dirrecion de memoria del param de llamada
         #pOprnd.append(p[-1]) #guarda el id del param de llamada
@@ -213,7 +219,7 @@ def p_pointParamCall(p):
 
 def p_voidCall(p):
     ''' voidCall : ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-                 | ID pointEra OPAREN epsilon pointGoSub CPAREN EOF '''
+                 | ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF '''
     print_control(p,"voidCall",5)
     p[0] = p[1]
 
@@ -275,12 +281,14 @@ def p_varsType(p):
     global objVar
     if objVar == 1:
         if funcsDirectory.exists_classVars(p[1]):
-            print('ERROR: CLASSVAR name:', p[1], 'already declared')
+            print('Cuack cuack cuack... CLASSVAR name:', p[1], 'already declared')
+            sys.exit(1)
         else:
             funcsDirectory.add_classVars(p[1], classVars)
     else:
         if funcsDirectory.exists_var(p[1], internalScope):
-            print('ERROR: VAR name:', p[1], 'already declared')
+            print('Cuack cuack cuack... VAR name:', p[1], 'already declared')
+            sys.exit(1)
         else:
             dirV = memoryManagement.local_memory(varType,1)
             funcsDirectory.add_var(p[1], varType, internalScope, dirV)
@@ -310,9 +318,11 @@ def p_assignmentDef(p):
         if resT == opT1:
             newCuac.create_cuac(opr, op1, None, res)
         else:
-            print('ERROR: Type mismatch')
+            print('Cuack cuack cuack... Type mismatch in VAR:', p[1])
+            sys.exit(1)
     else:
-        print('ERROR: var does not exist')
+        print('Cuack cuack cuack... VAR:', p[1], 'does not exist')
+        sys.exit(1)
 
 def p_pointPushAssignment(p):
     ''' pointPushAssignment : '''
@@ -327,18 +337,24 @@ def p_expAssignment(p):
 
 def p_returnCall(p):
     ''' returnCall : ID pointEra OPAREN paramCall pointGoSub CPAREN 
-                   | ID pointEra OPAREN epsilon pointGoSub CPAREN '''
+                   | ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN '''
     if funcsDirectory.exists_fx(p[1]):
         pTypes.append(funcsDirectory.get_fxType(p[1]))
-        print("VALUE GLOBAL:", funcsDirectory.get_globalDirV(p[1]))
         pOprnd.append(funcsDirectory.get_globalDirV(p[1]))
-    # elif funcsDirectory.exists_fx(p[1]) and internalScope == 'fx':
-    #     funcsDirectory.add_global(funcName, memoryManagement.global_memory(funcsDirectory.get_fxType(p[1])))
-    #     pTypes.append(funcsDirectory.get_fxType(p[1]))
-    #     pOprnd.append(funcsDirectory.get_globalDirV(p[1]))
     else:
-        print('Cuack cuack cuack... Fuction does not exist :(')
+        print('Cuack cuack cuack... Fuction ' + p[1] + ' does not exist :(')
+        sys.exit(1)
     p[0] = p[1]   
+
+def p_pointParamVacio(p):
+     ''' pointParamVacio : '''
+     if funcsDirectory.exists_fx(p[-4]):
+        if numParams != funcsDirectory.get_fxParams(nombreFx):
+            print('Cuack cuack cuack... Expecting different number of parameters in FX:', nombreFx)
+            sys.exit(1)
+     else:
+        print('Cuack cuack cuack... Fuction ' + p[-4] + ' does not exist :(')
+        sys.exit(1)
 
 def p_expRelational(p):
     ''' expRelational : plusMinus 
@@ -360,7 +376,8 @@ def p_pointCheckOpRel(p):
             res = add_temp(op1, op2, resT,opr)
             newCuac.create_cuac(opr, op1, op2, res)
         else:
-            print('ERROR: Type mismatch')
+            print('Cuack cuack cuack... Type mismatch in expression: ' + str(opr))
+            sys.exit(1)
 
 def p_opRelational(p):
     ''' opRelational : EQUAL
@@ -395,7 +412,8 @@ def p_pointCheckPlusMinus(p):
             #pOprnd.append(res)
             #pTypes.append(resT)
         else:
-            print('ERROR: Type mismatch')
+            print('Cuack cuack cuack... Type mismatch in expression: ' + str(opr))
+            sys.exit(1)
 
 #punto para hacer push del +- en pOper
 def p_pointPushPlusMinus(p):
@@ -425,7 +443,8 @@ def p_pointCheckMultDiv(p):
             #pOprnd.append(res)
             #pTypes.append(resT)
         else:
-            print('ERROR: Type mismatch')
+            print('Cuack cuack cuack... Type mismatch in expression: ' + str(opr))
+            sys.exit(1)
             
 
 #punto para hacer push del */ en pOper
@@ -471,7 +490,8 @@ def p_pointClassName(p):
     ''' pointClassName : '''
     funcsDirectory.set_className(p[-1])
     if funcsDirectory.exists_class(p[-1]):
-        print('ERROR: CLASS name:', p[-1], 'already declared')
+        print('Cuack cuack cuack... CLASS name:', p[-1], 'already declared')
+        sys.exit(1)
     else:
         funcsDirectory.add_class(p[-1])
 
@@ -565,7 +585,8 @@ def p_pointWhile2(p):
     ''' pointWhile2 : '''
     exp_type = pTypes.pop()
     if (exp_type != 'bool'):
-        print('ERROR: Type Mismatch')
+        print('Cuack cuack cuack... Type Mismatch in WHILE')
+        sys.exit(1)
     else:
         exp = pOprnd.pop()
         newCuac.create_cuac('gotoF',exp, None, 'dest')
@@ -588,7 +609,8 @@ def p_pointIfCond1(p):
     ''' pointIfCond1 : '''
     exp_type = pTypes.pop()
     if (exp_type != 'bool'):
-        print('ERROR: Type Mismatch')
+        print('Cuack cuack cuack... Type Mismatch in IF')
+        sys.exit(1)
     else:
         exp = pOprnd.pop()
         newCuac.create_cuac('gotoF',exp, None, 'dest')
@@ -631,18 +653,18 @@ def p_epsilon(p):
 
 #Manejo de error sintactico
 def p_error(p):
-    print("ERROR: Error de sintaxis: '%s'" % p.value, p)
-    exit()
+    print("Cuack cuack cuack... Syntax error TOKEN in '%s'" % p.value)
+    sys.exit(1)
 
 yacc.yacc()
 
 #Probar Archivo
 try:
-    f = open('../Compilador/test/fibonacci_recursivo.fk')
+    f = open('../Compilador/test/fibonacci_ciclo.fk')
     data = f.read()
     f.close()
 except EOFError:
     quit()
 
 yacc.parse(data)
-print("CÓDIGO CORRECTO")
+#print("CÓDIGO CORRECTO")

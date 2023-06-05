@@ -33,7 +33,7 @@ Rule 27    paramCall -> ID pointParamCall COMMA paramCall
 Rule 28    pointParamNum -> <empty>
 Rule 29    pointParamCall -> <empty>
 Rule 30    voidCall -> ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-Rule 31    voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
+Rule 31    voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
 Rule 32    pointEra -> <empty>
 Rule 33    pointGoSub -> <empty>
 Rule 34    body -> varsDef body
@@ -65,110 +65,111 @@ Rule 59    expAssignment -> expRelational EOF
 Rule 60    expAssignment -> returnCall EOF
 Rule 61    expAssignment -> classCall
 Rule 62    returnCall -> ID pointEra OPAREN paramCall pointGoSub CPAREN
-Rule 63    returnCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN
-Rule 64    expRelational -> plusMinus
-Rule 65    expRelational -> plusMinus opRelational expRelational pointCheckOpRel
-Rule 66    pointCheckOpRel -> <empty>
-Rule 67    opRelational -> EQUAL
-Rule 68    opRelational -> DIFFERENT
-Rule 69    opRelational -> GREATERTHAN
-Rule 70    opRelational -> GREATERTHANEQ
-Rule 71    opRelational -> LESSTHAN
-Rule 72    opRelational -> LESSTHANEQ
-Rule 73    plusMinus -> multDiv pointCheckPlusMinus
-Rule 74    plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-Rule 75    plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-Rule 76    pointCheckPlusMinus -> <empty>
-Rule 77    pointPushPlusMinus -> <empty>
-Rule 78    multDiv -> expParen pointCheckMultDiv
-Rule 79    multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-Rule 80    multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-Rule 81    pointCheckMultDiv -> <empty>
-Rule 82    pointPushMultDiv -> <empty>
-Rule 83    expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-Rule 84    expParen -> varCte
-Rule 85    pointFakeBackground -> <empty>
-Rule 86    pointRemoveFakeBackground -> <empty>
-Rule 87    classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
-Rule 88    classDef -> epsilon
-Rule 89    pointAtt -> varsDef
-Rule 90    pointAtt -> varsDef pointAtt
-Rule 91    pointScopeClass -> <empty>
-Rule 92    pointScopeClass2 -> <empty>
-Rule 93    pointClassName -> <empty>
-Rule 94    pointClass -> <empty>
-Rule 95    classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF
-Rule 96    classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF
-Rule 97    objType -> ID
-Rule 98    varCte -> INT pointINT
-Rule 99    varCte -> DEC pointDEC
-Rule 100   varCte -> STRING pointSTRING
-Rule 101   varCte -> TRUE pointBOOL
-Rule 102   varCte -> FALSE pointBOOL
-Rule 103   varCte -> ID
-Rule 104   pointINT -> <empty>
-Rule 105   pointDEC -> <empty>
-Rule 106   pointSTRING -> <empty>
-Rule 107   pointBOOL -> <empty>
-Rule 108   whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-Rule 109   pointWhile1 -> <empty>
-Rule 110   pointWhile2 -> <empty>
-Rule 111   pointWhile3 -> <empty>
-Rule 112   ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-Rule 113   ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-Rule 114   pointIfCond1 -> <empty>
-Rule 115   pointIfCond2 -> <empty>
-Rule 116   pointIfCond3 -> <empty>
-Rule 117   input -> INPUT OPAREN ID CPAREN EOF
-Rule 118   output -> OUTPUT OPAREN expRelational CPAREN EOF
-Rule 119   end -> END OPAREN ID CPAREN
-Rule 120   epsilon -> <empty>
+Rule 63    returnCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN
+Rule 64    pointParamVacio -> <empty>
+Rule 65    expRelational -> plusMinus
+Rule 66    expRelational -> plusMinus opRelational expRelational pointCheckOpRel
+Rule 67    pointCheckOpRel -> <empty>
+Rule 68    opRelational -> EQUAL
+Rule 69    opRelational -> DIFFERENT
+Rule 70    opRelational -> GREATERTHAN
+Rule 71    opRelational -> GREATERTHANEQ
+Rule 72    opRelational -> LESSTHAN
+Rule 73    opRelational -> LESSTHANEQ
+Rule 74    plusMinus -> multDiv pointCheckPlusMinus
+Rule 75    plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+Rule 76    plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+Rule 77    pointCheckPlusMinus -> <empty>
+Rule 78    pointPushPlusMinus -> <empty>
+Rule 79    multDiv -> expParen pointCheckMultDiv
+Rule 80    multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+Rule 81    multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+Rule 82    pointCheckMultDiv -> <empty>
+Rule 83    pointPushMultDiv -> <empty>
+Rule 84    expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+Rule 85    expParen -> varCte
+Rule 86    pointFakeBackground -> <empty>
+Rule 87    pointRemoveFakeBackground -> <empty>
+Rule 88    classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+Rule 89    classDef -> epsilon
+Rule 90    pointAtt -> varsDef
+Rule 91    pointAtt -> varsDef pointAtt
+Rule 92    pointScopeClass -> <empty>
+Rule 93    pointScopeClass2 -> <empty>
+Rule 94    pointClassName -> <empty>
+Rule 95    pointClass -> <empty>
+Rule 96    classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF
+Rule 97    classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF
+Rule 98    objType -> ID
+Rule 99    varCte -> INT pointINT
+Rule 100   varCte -> DEC pointDEC
+Rule 101   varCte -> STRING pointSTRING
+Rule 102   varCte -> TRUE pointBOOL
+Rule 103   varCte -> FALSE pointBOOL
+Rule 104   varCte -> ID
+Rule 105   pointINT -> <empty>
+Rule 106   pointDEC -> <empty>
+Rule 107   pointSTRING -> <empty>
+Rule 108   pointBOOL -> <empty>
+Rule 109   whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+Rule 110   pointWhile1 -> <empty>
+Rule 111   pointWhile2 -> <empty>
+Rule 112   pointWhile3 -> <empty>
+Rule 113   ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+Rule 114   ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+Rule 115   pointIfCond1 -> <empty>
+Rule 116   pointIfCond2 -> <empty>
+Rule 117   pointIfCond3 -> <empty>
+Rule 118   input -> INPUT OPAREN ID CPAREN EOF
+Rule 119   output -> OUTPUT OPAREN expRelational CPAREN EOF
+Rule 120   end -> END OPAREN ID CPAREN
+Rule 121   epsilon -> <empty>
 
 Terminals, with rules where they appear
 
 ASSIGNMENT           : 57
-ATTRIBUTES           : 87
+ATTRIBUTES           : 88
 BEGIN                : 1
 BOOL                 : 13 24 49
-CBRACKET             : 4 5 6 7 8 87 108 112 113 113
-CLASS                : 87
-COLON                : 87 87
+CBRACKET             : 4 5 6 7 8 88 109 113 114 114
+CLASS                : 88
+COLON                : 88 88
 COMMA                : 20 27 51
-CPAREN               : 1 4 5 6 7 8 30 31 62 63 83 95 96 108 112 113 117 118 119
+CPAREN               : 1 4 5 6 7 8 30 31 62 63 84 96 97 109 113 114 118 119 120
 CSQUAREBR            : 55 56
-DEC                  : 12 23 48 99
-DIFFERENT            : 68
-DIVIDE               : 80
-ELSE                 : 113
-END                  : 119
-EOF                  : 7 8 30 31 44 45 59 60 95 96 117 118
-EQUAL                : 67
-FALSE                : 102
+DEC                  : 12 23 48 100
+DIFFERENT            : 69
+DIVIDE               : 81
+ELSE                 : 114
+END                  : 120
+EOF                  : 7 8 30 31 44 45 59 60 96 97 118 119
+EQUAL                : 68
+FALSE                : 103
 FX                   : 5 6 7 8
-GREATERTHAN          : 69
-GREATERTHANEQ        : 70
-ID                   : 1 5 6 7 7 8 8 19 20 26 27 30 31 52 55 57 62 63 87 95 95 96 96 97 103 117 119
-IF                   : 112 113
-INPUT                : 117
-INT                  : 10 21 46 98
-LESSTHAN             : 71
-LESSTHANEQ           : 72
+GREATERTHAN          : 70
+GREATERTHANEQ        : 71
+ID                   : 1 5 6 7 7 8 8 19 20 26 27 30 31 52 55 57 62 63 88 96 96 97 97 98 104 118 120
+IF                   : 113 114
+INPUT                : 118
+INT                  : 10 21 46 99
+LESSTHAN             : 72
+LESSTHANEQ           : 73
 MAIN                 : 4
-METHODS              : 87
-MINUS                : 75
-MONEY                : 95 96
-MULTIPLY             : 79
-OBRACKET             : 4 5 6 7 8 87 108 112 113 113
-OPAREN               : 1 4 5 6 7 8 30 31 62 63 83 95 96 108 112 113 117 118 119
+METHODS              : 88
+MINUS                : 76
+MONEY                : 96 97
+MULTIPLY             : 80
+OBRACKET             : 4 5 6 7 8 88 109 113 114 114
+OPAREN               : 1 4 5 6 7 8 30 31 62 63 84 96 97 109 113 114 118 119 120
 OSQUAREBR            : 55 56
-OUTPUT               : 118
-PLUS                 : 74
+OUTPUT               : 119
+PLUS                 : 75
 RETURN               : 7 8
-STRING               : 11 22 47 100
-TRUE                 : 101
+STRING               : 11 22 47 101
+TRUE                 : 102
 VAR                  : 44 45
 VOID                 : 5 6
-WHILE                : 108
+WHILE                : 109
 error                : 
 
 Nonterminals, with rules where they appear
@@ -176,69 +177,70 @@ Nonterminals, with rules where they appear
 arrDef               : 53 56
 assignmentDef        : 37
 begin                : 0
-body                 : 4 5 6 7 8 34 35 108 112 113 113
+body                 : 4 5 6 7 8 34 35 109 113 114 114
 classCall            : 43 61
-classDef             : 1 87
+classDef             : 1 88
 end                  : 1
-epsilon              : 6 8 9 31 36 63 88 96
+epsilon              : 6 8 9 31 36 63 89 97
 expAssignment        : 57
-expParen             : 78 79 80
-expRelational        : 59 65 83 108 112 113 118
-fxDef                : 1 5 6 7 8 87
+expParen             : 79 80 81
+expRelational        : 59 66 84 109 113 114 119
+fxDef                : 1 5 6 7 8 88
 fxType               : 7 8
 ifCond               : 42
 input                : 38
 main                 : 1
 matrixDef            : 54
-multDiv              : 73 74 75 79 80
+multDiv              : 74 75 76 80 81
 objType              : 44
-opRelational         : 65
+opRelational         : 66
 output               : 39
 param                : 5 7 20
-paramCall            : 27 30 62 95
+paramCall            : 27 30 62 96
 paramType            : 19 20
-plusMinus            : 64 65 74 75
-pointAtt             : 87 90
-pointBOOL            : 101 102
-pointCheckMultDiv    : 78 79 80
-pointCheckOpRel      : 65
-pointCheckPlusMinus  : 73 74 75
-pointClass           : 87
-pointClassName       : 87
+plusMinus            : 65 66 75 76
+pointAtt             : 88 91
+pointBOOL            : 102 103
+pointCheckMultDiv    : 79 80 81
+pointCheckOpRel      : 66
+pointCheckPlusMinus  : 74 75 76
+pointClass           : 88
+pointClassName       : 88
 pointCreateMainCuac  : 1
-pointDEC             : 99
+pointDEC             : 100
 pointEndFunc         : 5 6 7 8
 pointEra             : 30 31 62 63
-pointFakeBackground  : 83
+pointFakeBackground  : 84
 pointFx              : 5 6 7 8
 pointFxId            : 5 6 7 8
 pointGoSub           : 30 31 62 63
-pointINT             : 98
-pointIfCond1         : 112 113
-pointIfCond2         : 112 113
-pointIfCond3         : 113
+pointINT             : 99
+pointIfCond1         : 113 114
+pointIfCond2         : 113 114
+pointIfCond3         : 114
 pointMain            : 4
 pointParam           : 19 20
 pointParamCall       : 26 27
 pointParamCount      : 5 6 7 8
 pointParamNum        : 26
+pointParamVacio      : 31 63
 pointPushAssignment  : 57
-pointPushMultDiv     : 79 80
-pointPushPlusMinus   : 74 75
-pointRemoveFakeBackground : 83
+pointPushMultDiv     : 80 81
+pointPushPlusMinus   : 75 76
+pointRemoveFakeBackground : 84
 pointReturn          : 7 8
-pointSTRING          : 100
-pointScopeClass      : 87
-pointScopeClass2     : 87
-pointWhile1          : 108
-pointWhile2          : 108
-pointWhile3          : 108
+pointSTRING          : 101
+pointScopeClass      : 88
+pointScopeClass2     : 88
+pointWhile1          : 109
+pointWhile2          : 109
+pointWhile3          : 109
 returnCall           : 60
 statements           : 35
 var                  : 44 45 51
-varCte               : 55 56 84
+varCte               : 55 56 85
 varSimpleType        : 45
-varsDef              : 34 89 90
+varsDef              : 34 90 91
 varsType             : 50 51
 voidCall             : 40
 whileCycle           : 41
@@ -293,17 +295,17 @@ state 5
 state 6
 
     (1) begin -> BEGIN pointCreateMainCuac OPAREN ID CPAREN . classDef fxDef main end
-    (87) classDef -> . CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
-    (88) classDef -> . epsilon
-    (120) epsilon -> .
+    (88) classDef -> . CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (89) classDef -> . epsilon
+    (121) epsilon -> .
 
     CLASS           shift and go to state 8
-    VOID            reduce using rule 120 (epsilon -> .)
-    INT             reduce using rule 120 (epsilon -> .)
-    STRING          reduce using rule 120 (epsilon -> .)
-    DEC             reduce using rule 120 (epsilon -> .)
-    BOOL            reduce using rule 120 (epsilon -> .)
-    MAIN            reduce using rule 120 (epsilon -> .)
+    VOID            reduce using rule 121 (epsilon -> .)
+    INT             reduce using rule 121 (epsilon -> .)
+    STRING          reduce using rule 121 (epsilon -> .)
+    DEC             reduce using rule 121 (epsilon -> .)
+    BOOL            reduce using rule 121 (epsilon -> .)
+    MAIN            reduce using rule 121 (epsilon -> .)
 
     classDef                       shift and go to state 7
     epsilon                        shift and go to state 9
@@ -320,14 +322,14 @@ state 7
     (11) fxType -> . STRING
     (12) fxType -> . DEC
     (13) fxType -> . BOOL
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     VOID            shift and go to state 11
     INT             shift and go to state 14
     STRING          shift and go to state 15
     DEC             shift and go to state 16
     BOOL            shift and go to state 17
-    MAIN            reduce using rule 120 (epsilon -> .)
+    MAIN            reduce using rule 121 (epsilon -> .)
 
     fxDef                          shift and go to state 10
     epsilon                        shift and go to state 12
@@ -335,23 +337,23 @@ state 7
 
 state 8
 
-    (87) classDef -> CLASS . pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
-    (94) pointClass -> .
+    (88) classDef -> CLASS . pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (95) pointClass -> .
 
-    ID              reduce using rule 94 (pointClass -> .)
+    ID              reduce using rule 95 (pointClass -> .)
 
     pointClass                     shift and go to state 18
 
 state 9
 
-    (88) classDef -> epsilon .
+    (89) classDef -> epsilon .
 
-    VOID            reduce using rule 88 (classDef -> epsilon .)
-    INT             reduce using rule 88 (classDef -> epsilon .)
-    STRING          reduce using rule 88 (classDef -> epsilon .)
-    DEC             reduce using rule 88 (classDef -> epsilon .)
-    BOOL            reduce using rule 88 (classDef -> epsilon .)
-    MAIN            reduce using rule 88 (classDef -> epsilon .)
+    VOID            reduce using rule 89 (classDef -> epsilon .)
+    INT             reduce using rule 89 (classDef -> epsilon .)
+    STRING          reduce using rule 89 (classDef -> epsilon .)
+    DEC             reduce using rule 89 (classDef -> epsilon .)
+    BOOL            reduce using rule 89 (classDef -> epsilon .)
+    MAIN            reduce using rule 89 (classDef -> epsilon .)
 
 
 state 10
@@ -417,7 +419,7 @@ state 17
 
 state 18
 
-    (87) classDef -> CLASS pointClass . ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (88) classDef -> CLASS pointClass . ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
     ID              shift and go to state 23
 
@@ -425,7 +427,7 @@ state 18
 state 19
 
     (1) begin -> BEGIN pointCreateMainCuac OPAREN ID CPAREN classDef fxDef main . end
-    (119) end -> . END OPAREN ID CPAREN
+    (120) end -> . END OPAREN ID CPAREN
 
     END             shift and go to state 25
 
@@ -462,10 +464,10 @@ state 22
 
 state 23
 
-    (87) classDef -> CLASS pointClass ID . pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
-    (93) pointClassName -> .
+    (88) classDef -> CLASS pointClass ID . pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (94) pointClassName -> .
 
-    OBRACKET        reduce using rule 93 (pointClassName -> .)
+    OBRACKET        reduce using rule 94 (pointClassName -> .)
 
     pointClassName                 shift and go to state 29
 
@@ -478,7 +480,7 @@ state 24
 
 state 25
 
-    (119) end -> END . OPAREN ID CPAREN
+    (120) end -> END . OPAREN ID CPAREN
 
     OPAREN          shift and go to state 30
 
@@ -508,14 +510,14 @@ state 28
 
 state 29
 
-    (87) classDef -> CLASS pointClass ID pointClassName . OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (88) classDef -> CLASS pointClass ID pointClassName . OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
     OBRACKET        shift and go to state 34
 
 
 state 30
 
-    (119) end -> END OPAREN . ID CPAREN
+    (120) end -> END OPAREN . ID CPAREN
 
     ID              shift and go to state 35
 
@@ -549,14 +551,14 @@ state 33
 
 state 34
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET . ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET . ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
     ATTRIBUTES      shift and go to state 39
 
 
 state 35
 
-    (119) end -> END OPAREN ID . CPAREN
+    (120) end -> END OPAREN ID . CPAREN
 
     CPAREN          shift and go to state 40
 
@@ -586,16 +588,16 @@ state 38
 
 state 39
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES . COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES . COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
     COLON           shift and go to state 44
 
 
 state 40
 
-    (119) end -> END OPAREN ID CPAREN .
+    (120) end -> END OPAREN ID CPAREN .
 
-    $end            reduce using rule 119 (end -> END OPAREN ID CPAREN .)
+    $end            reduce using rule 120 (end -> END OPAREN ID CPAREN .)
 
 
 state 41
@@ -613,20 +615,20 @@ state 41
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -651,13 +653,13 @@ state 42
     (6) fxDef -> VOID FX pointFx ID pointFxId OPAREN . epsilon CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef
     (19) param -> . paramType ID pointParam
     (20) param -> . paramType ID pointParam COMMA param
-    (120) epsilon -> .
+    (121) epsilon -> .
     (21) paramType -> . INT
     (22) paramType -> . STRING
     (23) paramType -> . DEC
     (24) paramType -> . BOOL
 
-    CPAREN          reduce using rule 120 (epsilon -> .)
+    CPAREN          reduce using rule 121 (epsilon -> .)
     INT             shift and go to state 65
     STRING          shift and go to state 66
     DEC             shift and go to state 67
@@ -673,13 +675,13 @@ state 43
     (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN . epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
     (19) param -> . paramType ID pointParam
     (20) param -> . paramType ID pointParam COMMA param
-    (120) epsilon -> .
+    (121) epsilon -> .
     (21) paramType -> . INT
     (22) paramType -> . STRING
     (23) paramType -> . DEC
     (24) paramType -> . BOOL
 
-    CPAREN          reduce using rule 120 (epsilon -> .)
+    CPAREN          reduce using rule 121 (epsilon -> .)
     INT             shift and go to state 65
     STRING          shift and go to state 66
     DEC             shift and go to state 67
@@ -691,9 +693,9 @@ state 43
 
 state 44
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON . pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
-    (89) pointAtt -> . varsDef
-    (90) pointAtt -> . varsDef pointAtt
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON . pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (90) pointAtt -> . varsDef
+    (91) pointAtt -> . varsDef pointAtt
     (44) varsDef -> . VAR objType var EOF
     (45) varsDef -> . VAR varSimpleType var EOF
 
@@ -724,21 +726,21 @@ state 46
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
-    RETURN          reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
+    RETURN          reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -772,21 +774,21 @@ state 47
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
-    RETURN          reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
+    RETURN          reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -817,7 +819,7 @@ state 49
 
     (44) varsDef -> VAR . objType var EOF
     (45) varsDef -> VAR . varSimpleType var EOF
-    (97) objType -> . ID
+    (98) objType -> . ID
     (46) varSimpleType -> . INT
     (47) varSimpleType -> . STRING
     (48) varSimpleType -> . DEC
@@ -934,9 +936,9 @@ state 57
 
     (57) assignmentDef -> ID . ASSIGNMENT pointPushAssignment expAssignment
     (30) voidCall -> ID . pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> ID . pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (95) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> ID . MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> ID . pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (96) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> ID . MONEY ID OPAREN epsilon CPAREN EOF
     (32) pointEra -> .
 
     ASSIGNMENT      shift and go to state 83
@@ -947,31 +949,31 @@ state 57
 
 state 58
 
-    (117) input -> INPUT . OPAREN ID CPAREN EOF
+    (118) input -> INPUT . OPAREN ID CPAREN EOF
 
     OPAREN          shift and go to state 86
 
 
 state 59
 
-    (118) output -> OUTPUT . OPAREN expRelational CPAREN EOF
+    (119) output -> OUTPUT . OPAREN expRelational CPAREN EOF
 
     OPAREN          shift and go to state 87
 
 
 state 60
 
-    (108) whileCycle -> WHILE . pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (109) pointWhile1 -> .
+    (109) whileCycle -> WHILE . pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (110) pointWhile1 -> .
 
-    OPAREN          reduce using rule 109 (pointWhile1 -> .)
+    OPAREN          reduce using rule 110 (pointWhile1 -> .)
 
     pointWhile1                    shift and go to state 88
 
 state 61
 
-    (112) ifCond -> IF . OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> IF . OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (113) ifCond -> IF . OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> IF . OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
 
     OPAREN          shift and go to state 89
 
@@ -1042,21 +1044,21 @@ state 70
 
 state 71
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt . METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt . METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
     METHODS         shift and go to state 95
 
 
 state 72
 
-    (89) pointAtt -> varsDef .
-    (90) pointAtt -> varsDef . pointAtt
-    (89) pointAtt -> . varsDef
-    (90) pointAtt -> . varsDef pointAtt
+    (90) pointAtt -> varsDef .
+    (91) pointAtt -> varsDef . pointAtt
+    (90) pointAtt -> . varsDef
+    (91) pointAtt -> . varsDef pointAtt
     (44) varsDef -> . VAR objType var EOF
     (45) varsDef -> . VAR varSimpleType var EOF
 
-    METHODS         reduce using rule 89 (pointAtt -> varsDef .)
+    METHODS         reduce using rule 90 (pointAtt -> varsDef .)
     VAR             shift and go to state 49
 
     varsDef                        shift and go to state 72
@@ -1123,9 +1125,9 @@ state 77
 
 state 78
 
-    (97) objType -> ID .
+    (98) objType -> ID .
 
-    ID              reduce using rule 97 (objType -> ID .)
+    ID              reduce using rule 98 (objType -> ID .)
 
 
 state 79
@@ -1174,45 +1176,45 @@ state 83
 state 84
 
     (30) voidCall -> ID pointEra . OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> ID pointEra . OPAREN epsilon pointGoSub CPAREN EOF
+    (31) voidCall -> ID pointEra . OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
 
     OPAREN          shift and go to state 104
 
 
 state 85
 
-    (95) classCall -> ID MONEY . ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> ID MONEY . ID OPAREN epsilon CPAREN EOF
+    (96) classCall -> ID MONEY . ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> ID MONEY . ID OPAREN epsilon CPAREN EOF
 
     ID              shift and go to state 105
 
 
 state 86
 
-    (117) input -> INPUT OPAREN . ID CPAREN EOF
+    (118) input -> INPUT OPAREN . ID CPAREN EOF
 
     ID              shift and go to state 106
 
 
 state 87
 
-    (118) output -> OUTPUT OPAREN . expRelational CPAREN EOF
-    (64) expRelational -> . plusMinus
-    (65) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (119) output -> OUTPUT OPAREN . expRelational CPAREN EOF
+    (65) expRelational -> . plusMinus
+    (66) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -1230,31 +1232,31 @@ state 87
 
 state 88
 
-    (108) whileCycle -> WHILE pointWhile1 . OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (109) whileCycle -> WHILE pointWhile1 . OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
 
     OPAREN          shift and go to state 119
 
 
 state 89
 
-    (112) ifCond -> IF OPAREN . expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> IF OPAREN . expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (64) expRelational -> . plusMinus
-    (65) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (113) ifCond -> IF OPAREN . expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN . expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (65) expRelational -> . plusMinus
+    (66) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -1319,16 +1321,16 @@ state 94
 
 state 95
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS . COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS . COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
 
     COLON           shift and go to state 126
 
 
 state 96
 
-    (90) pointAtt -> varsDef pointAtt .
+    (91) pointAtt -> varsDef pointAtt .
 
-    METHODS         reduce using rule 90 (pointAtt -> varsDef pointAtt .)
+    METHODS         reduce using rule 91 (pointAtt -> varsDef pointAtt .)
 
 
 state 97
@@ -1388,26 +1390,26 @@ state 103
     (59) expAssignment -> . expRelational EOF
     (60) expAssignment -> . returnCall EOF
     (61) expAssignment -> . classCall
-    (64) expRelational -> . plusMinus
-    (65) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
+    (65) expRelational -> . plusMinus
+    (66) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
     (62) returnCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN
-    (63) returnCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (63) returnCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     ID              shift and go to state 132
     OPAREN          shift and go to state 107
@@ -1429,67 +1431,67 @@ state 103
 state 104
 
     (30) voidCall -> ID pointEra OPAREN . paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> ID pointEra OPAREN . epsilon pointGoSub CPAREN EOF
+    (31) voidCall -> ID pointEra OPAREN . epsilon pointParamVacio pointGoSub CPAREN EOF
     (26) paramCall -> . ID pointParamCall pointParamNum
     (27) paramCall -> . ID pointParamCall COMMA paramCall
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     ID              shift and go to state 137
-    CPAREN          reduce using rule 120 (epsilon -> .)
+    CPAREN          reduce using rule 121 (epsilon -> .)
 
     paramCall                      shift and go to state 138
     epsilon                        shift and go to state 139
 
 state 105
 
-    (95) classCall -> ID MONEY ID . OPAREN paramCall CPAREN EOF
-    (96) classCall -> ID MONEY ID . OPAREN epsilon CPAREN EOF
+    (96) classCall -> ID MONEY ID . OPAREN paramCall CPAREN EOF
+    (97) classCall -> ID MONEY ID . OPAREN epsilon CPAREN EOF
 
     OPAREN          shift and go to state 140
 
 
 state 106
 
-    (117) input -> INPUT OPAREN ID . CPAREN EOF
+    (118) input -> INPUT OPAREN ID . CPAREN EOF
 
     CPAREN          shift and go to state 141
 
 
 state 107
 
-    (83) expParen -> OPAREN . pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (85) pointFakeBackground -> .
+    (84) expParen -> OPAREN . pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (86) pointFakeBackground -> .
 
-    OPAREN          reduce using rule 85 (pointFakeBackground -> .)
-    INT             reduce using rule 85 (pointFakeBackground -> .)
-    DEC             reduce using rule 85 (pointFakeBackground -> .)
-    STRING          reduce using rule 85 (pointFakeBackground -> .)
-    TRUE            reduce using rule 85 (pointFakeBackground -> .)
-    FALSE           reduce using rule 85 (pointFakeBackground -> .)
-    ID              reduce using rule 85 (pointFakeBackground -> .)
+    OPAREN          reduce using rule 86 (pointFakeBackground -> .)
+    INT             reduce using rule 86 (pointFakeBackground -> .)
+    DEC             reduce using rule 86 (pointFakeBackground -> .)
+    STRING          reduce using rule 86 (pointFakeBackground -> .)
+    TRUE            reduce using rule 86 (pointFakeBackground -> .)
+    FALSE           reduce using rule 86 (pointFakeBackground -> .)
+    ID              reduce using rule 86 (pointFakeBackground -> .)
 
     pointFakeBackground            shift and go to state 142
 
 state 108
 
-    (118) output -> OUTPUT OPAREN expRelational . CPAREN EOF
+    (119) output -> OUTPUT OPAREN expRelational . CPAREN EOF
 
     CPAREN          shift and go to state 143
 
 
 state 109
 
-    (64) expRelational -> plusMinus .
-    (65) expRelational -> plusMinus . opRelational expRelational pointCheckOpRel
-    (67) opRelational -> . EQUAL
-    (68) opRelational -> . DIFFERENT
-    (69) opRelational -> . GREATERTHAN
-    (70) opRelational -> . GREATERTHANEQ
-    (71) opRelational -> . LESSTHAN
-    (72) opRelational -> . LESSTHANEQ
+    (65) expRelational -> plusMinus .
+    (66) expRelational -> plusMinus . opRelational expRelational pointCheckOpRel
+    (68) opRelational -> . EQUAL
+    (69) opRelational -> . DIFFERENT
+    (70) opRelational -> . GREATERTHAN
+    (71) opRelational -> . GREATERTHANEQ
+    (72) opRelational -> . LESSTHAN
+    (73) opRelational -> . LESSTHANEQ
 
-    CPAREN          reduce using rule 64 (expRelational -> plusMinus .)
-    EOF             reduce using rule 64 (expRelational -> plusMinus .)
+    CPAREN          reduce using rule 65 (expRelational -> plusMinus .)
+    EOF             reduce using rule 65 (expRelational -> plusMinus .)
     EQUAL           shift and go to state 145
     DIFFERENT       shift and go to state 146
     GREATERTHAN     shift and go to state 147
@@ -1501,207 +1503,207 @@ state 109
 
 state 110
 
-    (73) plusMinus -> multDiv . pointCheckPlusMinus
-    (74) plusMinus -> multDiv . pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> multDiv . pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (76) pointCheckPlusMinus -> .
+    (74) plusMinus -> multDiv . pointCheckPlusMinus
+    (75) plusMinus -> multDiv . pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> multDiv . pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (77) pointCheckPlusMinus -> .
 
-    PLUS            reduce using rule 76 (pointCheckPlusMinus -> .)
-    MINUS           reduce using rule 76 (pointCheckPlusMinus -> .)
-    EQUAL           reduce using rule 76 (pointCheckPlusMinus -> .)
-    DIFFERENT       reduce using rule 76 (pointCheckPlusMinus -> .)
-    GREATERTHAN     reduce using rule 76 (pointCheckPlusMinus -> .)
-    GREATERTHANEQ   reduce using rule 76 (pointCheckPlusMinus -> .)
-    LESSTHAN        reduce using rule 76 (pointCheckPlusMinus -> .)
-    LESSTHANEQ      reduce using rule 76 (pointCheckPlusMinus -> .)
-    CPAREN          reduce using rule 76 (pointCheckPlusMinus -> .)
-    EOF             reduce using rule 76 (pointCheckPlusMinus -> .)
+    PLUS            reduce using rule 77 (pointCheckPlusMinus -> .)
+    MINUS           reduce using rule 77 (pointCheckPlusMinus -> .)
+    EQUAL           reduce using rule 77 (pointCheckPlusMinus -> .)
+    DIFFERENT       reduce using rule 77 (pointCheckPlusMinus -> .)
+    GREATERTHAN     reduce using rule 77 (pointCheckPlusMinus -> .)
+    GREATERTHANEQ   reduce using rule 77 (pointCheckPlusMinus -> .)
+    LESSTHAN        reduce using rule 77 (pointCheckPlusMinus -> .)
+    LESSTHANEQ      reduce using rule 77 (pointCheckPlusMinus -> .)
+    CPAREN          reduce using rule 77 (pointCheckPlusMinus -> .)
+    EOF             reduce using rule 77 (pointCheckPlusMinus -> .)
 
     pointCheckPlusMinus            shift and go to state 151
 
 state 111
 
-    (78) multDiv -> expParen . pointCheckMultDiv
-    (79) multDiv -> expParen . pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> expParen . pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (81) pointCheckMultDiv -> .
+    (79) multDiv -> expParen . pointCheckMultDiv
+    (80) multDiv -> expParen . pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> expParen . pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (82) pointCheckMultDiv -> .
 
-    MULTIPLY        reduce using rule 81 (pointCheckMultDiv -> .)
-    DIVIDE          reduce using rule 81 (pointCheckMultDiv -> .)
-    PLUS            reduce using rule 81 (pointCheckMultDiv -> .)
-    MINUS           reduce using rule 81 (pointCheckMultDiv -> .)
-    EQUAL           reduce using rule 81 (pointCheckMultDiv -> .)
-    DIFFERENT       reduce using rule 81 (pointCheckMultDiv -> .)
-    GREATERTHAN     reduce using rule 81 (pointCheckMultDiv -> .)
-    GREATERTHANEQ   reduce using rule 81 (pointCheckMultDiv -> .)
-    LESSTHAN        reduce using rule 81 (pointCheckMultDiv -> .)
-    LESSTHANEQ      reduce using rule 81 (pointCheckMultDiv -> .)
-    CPAREN          reduce using rule 81 (pointCheckMultDiv -> .)
-    EOF             reduce using rule 81 (pointCheckMultDiv -> .)
+    MULTIPLY        reduce using rule 82 (pointCheckMultDiv -> .)
+    DIVIDE          reduce using rule 82 (pointCheckMultDiv -> .)
+    PLUS            reduce using rule 82 (pointCheckMultDiv -> .)
+    MINUS           reduce using rule 82 (pointCheckMultDiv -> .)
+    EQUAL           reduce using rule 82 (pointCheckMultDiv -> .)
+    DIFFERENT       reduce using rule 82 (pointCheckMultDiv -> .)
+    GREATERTHAN     reduce using rule 82 (pointCheckMultDiv -> .)
+    GREATERTHANEQ   reduce using rule 82 (pointCheckMultDiv -> .)
+    LESSTHAN        reduce using rule 82 (pointCheckMultDiv -> .)
+    LESSTHANEQ      reduce using rule 82 (pointCheckMultDiv -> .)
+    CPAREN          reduce using rule 82 (pointCheckMultDiv -> .)
+    EOF             reduce using rule 82 (pointCheckMultDiv -> .)
 
     pointCheckMultDiv              shift and go to state 152
 
 state 112
 
-    (84) expParen -> varCte .
+    (85) expParen -> varCte .
 
-    MULTIPLY        reduce using rule 84 (expParen -> varCte .)
-    DIVIDE          reduce using rule 84 (expParen -> varCte .)
-    PLUS            reduce using rule 84 (expParen -> varCte .)
-    MINUS           reduce using rule 84 (expParen -> varCte .)
-    EQUAL           reduce using rule 84 (expParen -> varCte .)
-    DIFFERENT       reduce using rule 84 (expParen -> varCte .)
-    GREATERTHAN     reduce using rule 84 (expParen -> varCte .)
-    GREATERTHANEQ   reduce using rule 84 (expParen -> varCte .)
-    LESSTHAN        reduce using rule 84 (expParen -> varCte .)
-    LESSTHANEQ      reduce using rule 84 (expParen -> varCte .)
-    CPAREN          reduce using rule 84 (expParen -> varCte .)
-    EOF             reduce using rule 84 (expParen -> varCte .)
+    MULTIPLY        reduce using rule 85 (expParen -> varCte .)
+    DIVIDE          reduce using rule 85 (expParen -> varCte .)
+    PLUS            reduce using rule 85 (expParen -> varCte .)
+    MINUS           reduce using rule 85 (expParen -> varCte .)
+    EQUAL           reduce using rule 85 (expParen -> varCte .)
+    DIFFERENT       reduce using rule 85 (expParen -> varCte .)
+    GREATERTHAN     reduce using rule 85 (expParen -> varCte .)
+    GREATERTHANEQ   reduce using rule 85 (expParen -> varCte .)
+    LESSTHAN        reduce using rule 85 (expParen -> varCte .)
+    LESSTHANEQ      reduce using rule 85 (expParen -> varCte .)
+    CPAREN          reduce using rule 85 (expParen -> varCte .)
+    EOF             reduce using rule 85 (expParen -> varCte .)
 
 
 state 113
 
-    (98) varCte -> INT . pointINT
-    (104) pointINT -> .
+    (99) varCte -> INT . pointINT
+    (105) pointINT -> .
 
-    MULTIPLY        reduce using rule 104 (pointINT -> .)
-    DIVIDE          reduce using rule 104 (pointINT -> .)
-    PLUS            reduce using rule 104 (pointINT -> .)
-    MINUS           reduce using rule 104 (pointINT -> .)
-    EQUAL           reduce using rule 104 (pointINT -> .)
-    DIFFERENT       reduce using rule 104 (pointINT -> .)
-    GREATERTHAN     reduce using rule 104 (pointINT -> .)
-    GREATERTHANEQ   reduce using rule 104 (pointINT -> .)
-    LESSTHAN        reduce using rule 104 (pointINT -> .)
-    LESSTHANEQ      reduce using rule 104 (pointINT -> .)
-    CPAREN          reduce using rule 104 (pointINT -> .)
-    EOF             reduce using rule 104 (pointINT -> .)
-    CSQUAREBR       reduce using rule 104 (pointINT -> .)
+    MULTIPLY        reduce using rule 105 (pointINT -> .)
+    DIVIDE          reduce using rule 105 (pointINT -> .)
+    PLUS            reduce using rule 105 (pointINT -> .)
+    MINUS           reduce using rule 105 (pointINT -> .)
+    EQUAL           reduce using rule 105 (pointINT -> .)
+    DIFFERENT       reduce using rule 105 (pointINT -> .)
+    GREATERTHAN     reduce using rule 105 (pointINT -> .)
+    GREATERTHANEQ   reduce using rule 105 (pointINT -> .)
+    LESSTHAN        reduce using rule 105 (pointINT -> .)
+    LESSTHANEQ      reduce using rule 105 (pointINT -> .)
+    CPAREN          reduce using rule 105 (pointINT -> .)
+    EOF             reduce using rule 105 (pointINT -> .)
+    CSQUAREBR       reduce using rule 105 (pointINT -> .)
 
     pointINT                       shift and go to state 153
 
 state 114
 
-    (99) varCte -> DEC . pointDEC
-    (105) pointDEC -> .
+    (100) varCte -> DEC . pointDEC
+    (106) pointDEC -> .
 
-    MULTIPLY        reduce using rule 105 (pointDEC -> .)
-    DIVIDE          reduce using rule 105 (pointDEC -> .)
-    PLUS            reduce using rule 105 (pointDEC -> .)
-    MINUS           reduce using rule 105 (pointDEC -> .)
-    EQUAL           reduce using rule 105 (pointDEC -> .)
-    DIFFERENT       reduce using rule 105 (pointDEC -> .)
-    GREATERTHAN     reduce using rule 105 (pointDEC -> .)
-    GREATERTHANEQ   reduce using rule 105 (pointDEC -> .)
-    LESSTHAN        reduce using rule 105 (pointDEC -> .)
-    LESSTHANEQ      reduce using rule 105 (pointDEC -> .)
-    CPAREN          reduce using rule 105 (pointDEC -> .)
-    EOF             reduce using rule 105 (pointDEC -> .)
-    CSQUAREBR       reduce using rule 105 (pointDEC -> .)
+    MULTIPLY        reduce using rule 106 (pointDEC -> .)
+    DIVIDE          reduce using rule 106 (pointDEC -> .)
+    PLUS            reduce using rule 106 (pointDEC -> .)
+    MINUS           reduce using rule 106 (pointDEC -> .)
+    EQUAL           reduce using rule 106 (pointDEC -> .)
+    DIFFERENT       reduce using rule 106 (pointDEC -> .)
+    GREATERTHAN     reduce using rule 106 (pointDEC -> .)
+    GREATERTHANEQ   reduce using rule 106 (pointDEC -> .)
+    LESSTHAN        reduce using rule 106 (pointDEC -> .)
+    LESSTHANEQ      reduce using rule 106 (pointDEC -> .)
+    CPAREN          reduce using rule 106 (pointDEC -> .)
+    EOF             reduce using rule 106 (pointDEC -> .)
+    CSQUAREBR       reduce using rule 106 (pointDEC -> .)
 
     pointDEC                       shift and go to state 154
 
 state 115
 
-    (100) varCte -> STRING . pointSTRING
-    (106) pointSTRING -> .
+    (101) varCte -> STRING . pointSTRING
+    (107) pointSTRING -> .
 
-    MULTIPLY        reduce using rule 106 (pointSTRING -> .)
-    DIVIDE          reduce using rule 106 (pointSTRING -> .)
-    PLUS            reduce using rule 106 (pointSTRING -> .)
-    MINUS           reduce using rule 106 (pointSTRING -> .)
-    EQUAL           reduce using rule 106 (pointSTRING -> .)
-    DIFFERENT       reduce using rule 106 (pointSTRING -> .)
-    GREATERTHAN     reduce using rule 106 (pointSTRING -> .)
-    GREATERTHANEQ   reduce using rule 106 (pointSTRING -> .)
-    LESSTHAN        reduce using rule 106 (pointSTRING -> .)
-    LESSTHANEQ      reduce using rule 106 (pointSTRING -> .)
-    CPAREN          reduce using rule 106 (pointSTRING -> .)
-    EOF             reduce using rule 106 (pointSTRING -> .)
-    CSQUAREBR       reduce using rule 106 (pointSTRING -> .)
+    MULTIPLY        reduce using rule 107 (pointSTRING -> .)
+    DIVIDE          reduce using rule 107 (pointSTRING -> .)
+    PLUS            reduce using rule 107 (pointSTRING -> .)
+    MINUS           reduce using rule 107 (pointSTRING -> .)
+    EQUAL           reduce using rule 107 (pointSTRING -> .)
+    DIFFERENT       reduce using rule 107 (pointSTRING -> .)
+    GREATERTHAN     reduce using rule 107 (pointSTRING -> .)
+    GREATERTHANEQ   reduce using rule 107 (pointSTRING -> .)
+    LESSTHAN        reduce using rule 107 (pointSTRING -> .)
+    LESSTHANEQ      reduce using rule 107 (pointSTRING -> .)
+    CPAREN          reduce using rule 107 (pointSTRING -> .)
+    EOF             reduce using rule 107 (pointSTRING -> .)
+    CSQUAREBR       reduce using rule 107 (pointSTRING -> .)
 
     pointSTRING                    shift and go to state 155
 
 state 116
 
-    (101) varCte -> TRUE . pointBOOL
-    (107) pointBOOL -> .
+    (102) varCte -> TRUE . pointBOOL
+    (108) pointBOOL -> .
 
-    MULTIPLY        reduce using rule 107 (pointBOOL -> .)
-    DIVIDE          reduce using rule 107 (pointBOOL -> .)
-    PLUS            reduce using rule 107 (pointBOOL -> .)
-    MINUS           reduce using rule 107 (pointBOOL -> .)
-    EQUAL           reduce using rule 107 (pointBOOL -> .)
-    DIFFERENT       reduce using rule 107 (pointBOOL -> .)
-    GREATERTHAN     reduce using rule 107 (pointBOOL -> .)
-    GREATERTHANEQ   reduce using rule 107 (pointBOOL -> .)
-    LESSTHAN        reduce using rule 107 (pointBOOL -> .)
-    LESSTHANEQ      reduce using rule 107 (pointBOOL -> .)
-    CPAREN          reduce using rule 107 (pointBOOL -> .)
-    EOF             reduce using rule 107 (pointBOOL -> .)
-    CSQUAREBR       reduce using rule 107 (pointBOOL -> .)
+    MULTIPLY        reduce using rule 108 (pointBOOL -> .)
+    DIVIDE          reduce using rule 108 (pointBOOL -> .)
+    PLUS            reduce using rule 108 (pointBOOL -> .)
+    MINUS           reduce using rule 108 (pointBOOL -> .)
+    EQUAL           reduce using rule 108 (pointBOOL -> .)
+    DIFFERENT       reduce using rule 108 (pointBOOL -> .)
+    GREATERTHAN     reduce using rule 108 (pointBOOL -> .)
+    GREATERTHANEQ   reduce using rule 108 (pointBOOL -> .)
+    LESSTHAN        reduce using rule 108 (pointBOOL -> .)
+    LESSTHANEQ      reduce using rule 108 (pointBOOL -> .)
+    CPAREN          reduce using rule 108 (pointBOOL -> .)
+    EOF             reduce using rule 108 (pointBOOL -> .)
+    CSQUAREBR       reduce using rule 108 (pointBOOL -> .)
 
     pointBOOL                      shift and go to state 156
 
 state 117
 
-    (102) varCte -> FALSE . pointBOOL
-    (107) pointBOOL -> .
+    (103) varCte -> FALSE . pointBOOL
+    (108) pointBOOL -> .
 
-    MULTIPLY        reduce using rule 107 (pointBOOL -> .)
-    DIVIDE          reduce using rule 107 (pointBOOL -> .)
-    PLUS            reduce using rule 107 (pointBOOL -> .)
-    MINUS           reduce using rule 107 (pointBOOL -> .)
-    EQUAL           reduce using rule 107 (pointBOOL -> .)
-    DIFFERENT       reduce using rule 107 (pointBOOL -> .)
-    GREATERTHAN     reduce using rule 107 (pointBOOL -> .)
-    GREATERTHANEQ   reduce using rule 107 (pointBOOL -> .)
-    LESSTHAN        reduce using rule 107 (pointBOOL -> .)
-    LESSTHANEQ      reduce using rule 107 (pointBOOL -> .)
-    CPAREN          reduce using rule 107 (pointBOOL -> .)
-    EOF             reduce using rule 107 (pointBOOL -> .)
-    CSQUAREBR       reduce using rule 107 (pointBOOL -> .)
+    MULTIPLY        reduce using rule 108 (pointBOOL -> .)
+    DIVIDE          reduce using rule 108 (pointBOOL -> .)
+    PLUS            reduce using rule 108 (pointBOOL -> .)
+    MINUS           reduce using rule 108 (pointBOOL -> .)
+    EQUAL           reduce using rule 108 (pointBOOL -> .)
+    DIFFERENT       reduce using rule 108 (pointBOOL -> .)
+    GREATERTHAN     reduce using rule 108 (pointBOOL -> .)
+    GREATERTHANEQ   reduce using rule 108 (pointBOOL -> .)
+    LESSTHAN        reduce using rule 108 (pointBOOL -> .)
+    LESSTHANEQ      reduce using rule 108 (pointBOOL -> .)
+    CPAREN          reduce using rule 108 (pointBOOL -> .)
+    EOF             reduce using rule 108 (pointBOOL -> .)
+    CSQUAREBR       reduce using rule 108 (pointBOOL -> .)
 
     pointBOOL                      shift and go to state 157
 
 state 118
 
-    (103) varCte -> ID .
+    (104) varCte -> ID .
 
-    MULTIPLY        reduce using rule 103 (varCte -> ID .)
-    DIVIDE          reduce using rule 103 (varCte -> ID .)
-    PLUS            reduce using rule 103 (varCte -> ID .)
-    MINUS           reduce using rule 103 (varCte -> ID .)
-    EQUAL           reduce using rule 103 (varCte -> ID .)
-    DIFFERENT       reduce using rule 103 (varCte -> ID .)
-    GREATERTHAN     reduce using rule 103 (varCte -> ID .)
-    GREATERTHANEQ   reduce using rule 103 (varCte -> ID .)
-    LESSTHAN        reduce using rule 103 (varCte -> ID .)
-    LESSTHANEQ      reduce using rule 103 (varCte -> ID .)
-    CPAREN          reduce using rule 103 (varCte -> ID .)
-    CSQUAREBR       reduce using rule 103 (varCte -> ID .)
-    EOF             reduce using rule 103 (varCte -> ID .)
+    MULTIPLY        reduce using rule 104 (varCte -> ID .)
+    DIVIDE          reduce using rule 104 (varCte -> ID .)
+    PLUS            reduce using rule 104 (varCte -> ID .)
+    MINUS           reduce using rule 104 (varCte -> ID .)
+    EQUAL           reduce using rule 104 (varCte -> ID .)
+    DIFFERENT       reduce using rule 104 (varCte -> ID .)
+    GREATERTHAN     reduce using rule 104 (varCte -> ID .)
+    GREATERTHANEQ   reduce using rule 104 (varCte -> ID .)
+    LESSTHAN        reduce using rule 104 (varCte -> ID .)
+    LESSTHANEQ      reduce using rule 104 (varCte -> ID .)
+    CPAREN          reduce using rule 104 (varCte -> ID .)
+    CSQUAREBR       reduce using rule 104 (varCte -> ID .)
+    EOF             reduce using rule 104 (varCte -> ID .)
 
 
 state 119
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN . expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (64) expRelational -> . plusMinus
-    (65) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (109) whileCycle -> WHILE pointWhile1 OPAREN . expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (65) expRelational -> . plusMinus
+    (66) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -1719,8 +1721,8 @@ state 119
 
 state 120
 
-    (112) ifCond -> IF OPAREN expRelational . CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> IF OPAREN expRelational . CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (113) ifCond -> IF OPAREN expRelational . CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational . CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
 
     CPAREN          shift and go to state 159
 
@@ -1764,15 +1766,15 @@ state 125
 
 state 126
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON . pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
-    (91) pointScopeClass -> .
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON . pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (92) pointScopeClass -> .
 
-    VOID            reduce using rule 91 (pointScopeClass -> .)
-    INT             reduce using rule 91 (pointScopeClass -> .)
-    STRING          reduce using rule 91 (pointScopeClass -> .)
-    DEC             reduce using rule 91 (pointScopeClass -> .)
-    BOOL            reduce using rule 91 (pointScopeClass -> .)
-    CBRACKET        reduce using rule 91 (pointScopeClass -> .)
+    VOID            reduce using rule 92 (pointScopeClass -> .)
+    INT             reduce using rule 92 (pointScopeClass -> .)
+    STRING          reduce using rule 92 (pointScopeClass -> .)
+    DEC             reduce using rule 92 (pointScopeClass -> .)
+    BOOL            reduce using rule 92 (pointScopeClass -> .)
+    CBRACKET        reduce using rule 92 (pointScopeClass -> .)
 
     pointScopeClass                shift and go to state 165
 
@@ -1812,12 +1814,12 @@ state 128
 state 129
 
     (55) arrDef -> ID OSQUAREBR . varCte CSQUAREBR
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     INT             shift and go to state 113
     DEC             shift and go to state 114
@@ -1831,12 +1833,12 @@ state 129
 state 130
 
     (56) matrixDef -> arrDef OSQUAREBR . varCte CSQUAREBR
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     INT             shift and go to state 113
     DEC             shift and go to state 114
@@ -1865,24 +1867,24 @@ state 131
 state 132
 
     (62) returnCall -> ID . pointEra OPAREN paramCall pointGoSub CPAREN
-    (63) returnCall -> ID . pointEra OPAREN epsilon pointGoSub CPAREN
-    (95) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> ID . MONEY ID OPAREN epsilon CPAREN EOF
-    (103) varCte -> ID .
+    (63) returnCall -> ID . pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN
+    (96) classCall -> ID . MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> ID . MONEY ID OPAREN epsilon CPAREN EOF
+    (104) varCte -> ID .
     (32) pointEra -> .
 
     MONEY           shift and go to state 85
-    MULTIPLY        reduce using rule 103 (varCte -> ID .)
-    DIVIDE          reduce using rule 103 (varCte -> ID .)
-    PLUS            reduce using rule 103 (varCte -> ID .)
-    MINUS           reduce using rule 103 (varCte -> ID .)
-    EQUAL           reduce using rule 103 (varCte -> ID .)
-    DIFFERENT       reduce using rule 103 (varCte -> ID .)
-    GREATERTHAN     reduce using rule 103 (varCte -> ID .)
-    GREATERTHANEQ   reduce using rule 103 (varCte -> ID .)
-    LESSTHAN        reduce using rule 103 (varCte -> ID .)
-    LESSTHANEQ      reduce using rule 103 (varCte -> ID .)
-    EOF             reduce using rule 103 (varCte -> ID .)
+    MULTIPLY        reduce using rule 104 (varCte -> ID .)
+    DIVIDE          reduce using rule 104 (varCte -> ID .)
+    PLUS            reduce using rule 104 (varCte -> ID .)
+    MINUS           reduce using rule 104 (varCte -> ID .)
+    EQUAL           reduce using rule 104 (varCte -> ID .)
+    DIFFERENT       reduce using rule 104 (varCte -> ID .)
+    GREATERTHAN     reduce using rule 104 (varCte -> ID .)
+    GREATERTHANEQ   reduce using rule 104 (varCte -> ID .)
+    LESSTHAN        reduce using rule 104 (varCte -> ID .)
+    LESSTHANEQ      reduce using rule 104 (varCte -> ID .)
+    EOF             reduce using rule 104 (varCte -> ID .)
     OPAREN          reduce using rule 32 (pointEra -> .)
 
     pointEra                       shift and go to state 169
@@ -1951,53 +1953,53 @@ state 138
 
 state 139
 
-    (31) voidCall -> ID pointEra OPAREN epsilon . pointGoSub CPAREN EOF
-    (33) pointGoSub -> .
+    (31) voidCall -> ID pointEra OPAREN epsilon . pointParamVacio pointGoSub CPAREN EOF
+    (64) pointParamVacio -> .
 
-    CPAREN          reduce using rule 33 (pointGoSub -> .)
+    CPAREN          reduce using rule 64 (pointParamVacio -> .)
 
-    pointGoSub                     shift and go to state 174
+    pointParamVacio                shift and go to state 174
 
 state 140
 
-    (95) classCall -> ID MONEY ID OPAREN . paramCall CPAREN EOF
-    (96) classCall -> ID MONEY ID OPAREN . epsilon CPAREN EOF
+    (96) classCall -> ID MONEY ID OPAREN . paramCall CPAREN EOF
+    (97) classCall -> ID MONEY ID OPAREN . epsilon CPAREN EOF
     (26) paramCall -> . ID pointParamCall pointParamNum
     (27) paramCall -> . ID pointParamCall COMMA paramCall
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     ID              shift and go to state 137
-    CPAREN          reduce using rule 120 (epsilon -> .)
+    CPAREN          reduce using rule 121 (epsilon -> .)
 
     paramCall                      shift and go to state 175
     epsilon                        shift and go to state 176
 
 state 141
 
-    (117) input -> INPUT OPAREN ID CPAREN . EOF
+    (118) input -> INPUT OPAREN ID CPAREN . EOF
 
     EOF             shift and go to state 177
 
 
 state 142
 
-    (83) expParen -> OPAREN pointFakeBackground . expRelational CPAREN pointRemoveFakeBackground
-    (64) expRelational -> . plusMinus
-    (65) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (84) expParen -> OPAREN pointFakeBackground . expRelational CPAREN pointRemoveFakeBackground
+    (65) expRelational -> . plusMinus
+    (66) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -2015,30 +2017,30 @@ state 142
 
 state 143
 
-    (118) output -> OUTPUT OPAREN expRelational CPAREN . EOF
+    (119) output -> OUTPUT OPAREN expRelational CPAREN . EOF
 
     EOF             shift and go to state 179
 
 
 state 144
 
-    (65) expRelational -> plusMinus opRelational . expRelational pointCheckOpRel
-    (64) expRelational -> . plusMinus
-    (65) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (66) expRelational -> plusMinus opRelational . expRelational pointCheckOpRel
+    (65) expRelational -> . plusMinus
+    (66) expRelational -> . plusMinus opRelational expRelational pointCheckOpRel
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -2056,229 +2058,229 @@ state 144
 
 state 145
 
-    (67) opRelational -> EQUAL .
+    (68) opRelational -> EQUAL .
 
-    OPAREN          reduce using rule 67 (opRelational -> EQUAL .)
-    INT             reduce using rule 67 (opRelational -> EQUAL .)
-    DEC             reduce using rule 67 (opRelational -> EQUAL .)
-    STRING          reduce using rule 67 (opRelational -> EQUAL .)
-    TRUE            reduce using rule 67 (opRelational -> EQUAL .)
-    FALSE           reduce using rule 67 (opRelational -> EQUAL .)
-    ID              reduce using rule 67 (opRelational -> EQUAL .)
+    OPAREN          reduce using rule 68 (opRelational -> EQUAL .)
+    INT             reduce using rule 68 (opRelational -> EQUAL .)
+    DEC             reduce using rule 68 (opRelational -> EQUAL .)
+    STRING          reduce using rule 68 (opRelational -> EQUAL .)
+    TRUE            reduce using rule 68 (opRelational -> EQUAL .)
+    FALSE           reduce using rule 68 (opRelational -> EQUAL .)
+    ID              reduce using rule 68 (opRelational -> EQUAL .)
 
 
 state 146
 
-    (68) opRelational -> DIFFERENT .
+    (69) opRelational -> DIFFERENT .
 
-    OPAREN          reduce using rule 68 (opRelational -> DIFFERENT .)
-    INT             reduce using rule 68 (opRelational -> DIFFERENT .)
-    DEC             reduce using rule 68 (opRelational -> DIFFERENT .)
-    STRING          reduce using rule 68 (opRelational -> DIFFERENT .)
-    TRUE            reduce using rule 68 (opRelational -> DIFFERENT .)
-    FALSE           reduce using rule 68 (opRelational -> DIFFERENT .)
-    ID              reduce using rule 68 (opRelational -> DIFFERENT .)
+    OPAREN          reduce using rule 69 (opRelational -> DIFFERENT .)
+    INT             reduce using rule 69 (opRelational -> DIFFERENT .)
+    DEC             reduce using rule 69 (opRelational -> DIFFERENT .)
+    STRING          reduce using rule 69 (opRelational -> DIFFERENT .)
+    TRUE            reduce using rule 69 (opRelational -> DIFFERENT .)
+    FALSE           reduce using rule 69 (opRelational -> DIFFERENT .)
+    ID              reduce using rule 69 (opRelational -> DIFFERENT .)
 
 
 state 147
 
-    (69) opRelational -> GREATERTHAN .
+    (70) opRelational -> GREATERTHAN .
 
-    OPAREN          reduce using rule 69 (opRelational -> GREATERTHAN .)
-    INT             reduce using rule 69 (opRelational -> GREATERTHAN .)
-    DEC             reduce using rule 69 (opRelational -> GREATERTHAN .)
-    STRING          reduce using rule 69 (opRelational -> GREATERTHAN .)
-    TRUE            reduce using rule 69 (opRelational -> GREATERTHAN .)
-    FALSE           reduce using rule 69 (opRelational -> GREATERTHAN .)
-    ID              reduce using rule 69 (opRelational -> GREATERTHAN .)
+    OPAREN          reduce using rule 70 (opRelational -> GREATERTHAN .)
+    INT             reduce using rule 70 (opRelational -> GREATERTHAN .)
+    DEC             reduce using rule 70 (opRelational -> GREATERTHAN .)
+    STRING          reduce using rule 70 (opRelational -> GREATERTHAN .)
+    TRUE            reduce using rule 70 (opRelational -> GREATERTHAN .)
+    FALSE           reduce using rule 70 (opRelational -> GREATERTHAN .)
+    ID              reduce using rule 70 (opRelational -> GREATERTHAN .)
 
 
 state 148
 
-    (70) opRelational -> GREATERTHANEQ .
+    (71) opRelational -> GREATERTHANEQ .
 
-    OPAREN          reduce using rule 70 (opRelational -> GREATERTHANEQ .)
-    INT             reduce using rule 70 (opRelational -> GREATERTHANEQ .)
-    DEC             reduce using rule 70 (opRelational -> GREATERTHANEQ .)
-    STRING          reduce using rule 70 (opRelational -> GREATERTHANEQ .)
-    TRUE            reduce using rule 70 (opRelational -> GREATERTHANEQ .)
-    FALSE           reduce using rule 70 (opRelational -> GREATERTHANEQ .)
-    ID              reduce using rule 70 (opRelational -> GREATERTHANEQ .)
+    OPAREN          reduce using rule 71 (opRelational -> GREATERTHANEQ .)
+    INT             reduce using rule 71 (opRelational -> GREATERTHANEQ .)
+    DEC             reduce using rule 71 (opRelational -> GREATERTHANEQ .)
+    STRING          reduce using rule 71 (opRelational -> GREATERTHANEQ .)
+    TRUE            reduce using rule 71 (opRelational -> GREATERTHANEQ .)
+    FALSE           reduce using rule 71 (opRelational -> GREATERTHANEQ .)
+    ID              reduce using rule 71 (opRelational -> GREATERTHANEQ .)
 
 
 state 149
 
-    (71) opRelational -> LESSTHAN .
+    (72) opRelational -> LESSTHAN .
 
-    OPAREN          reduce using rule 71 (opRelational -> LESSTHAN .)
-    INT             reduce using rule 71 (opRelational -> LESSTHAN .)
-    DEC             reduce using rule 71 (opRelational -> LESSTHAN .)
-    STRING          reduce using rule 71 (opRelational -> LESSTHAN .)
-    TRUE            reduce using rule 71 (opRelational -> LESSTHAN .)
-    FALSE           reduce using rule 71 (opRelational -> LESSTHAN .)
-    ID              reduce using rule 71 (opRelational -> LESSTHAN .)
+    OPAREN          reduce using rule 72 (opRelational -> LESSTHAN .)
+    INT             reduce using rule 72 (opRelational -> LESSTHAN .)
+    DEC             reduce using rule 72 (opRelational -> LESSTHAN .)
+    STRING          reduce using rule 72 (opRelational -> LESSTHAN .)
+    TRUE            reduce using rule 72 (opRelational -> LESSTHAN .)
+    FALSE           reduce using rule 72 (opRelational -> LESSTHAN .)
+    ID              reduce using rule 72 (opRelational -> LESSTHAN .)
 
 
 state 150
 
-    (72) opRelational -> LESSTHANEQ .
+    (73) opRelational -> LESSTHANEQ .
 
-    OPAREN          reduce using rule 72 (opRelational -> LESSTHANEQ .)
-    INT             reduce using rule 72 (opRelational -> LESSTHANEQ .)
-    DEC             reduce using rule 72 (opRelational -> LESSTHANEQ .)
-    STRING          reduce using rule 72 (opRelational -> LESSTHANEQ .)
-    TRUE            reduce using rule 72 (opRelational -> LESSTHANEQ .)
-    FALSE           reduce using rule 72 (opRelational -> LESSTHANEQ .)
-    ID              reduce using rule 72 (opRelational -> LESSTHANEQ .)
+    OPAREN          reduce using rule 73 (opRelational -> LESSTHANEQ .)
+    INT             reduce using rule 73 (opRelational -> LESSTHANEQ .)
+    DEC             reduce using rule 73 (opRelational -> LESSTHANEQ .)
+    STRING          reduce using rule 73 (opRelational -> LESSTHANEQ .)
+    TRUE            reduce using rule 73 (opRelational -> LESSTHANEQ .)
+    FALSE           reduce using rule 73 (opRelational -> LESSTHANEQ .)
+    ID              reduce using rule 73 (opRelational -> LESSTHANEQ .)
 
 
 state 151
 
-    (73) plusMinus -> multDiv pointCheckPlusMinus .
-    (74) plusMinus -> multDiv pointCheckPlusMinus . PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> multDiv pointCheckPlusMinus . MINUS pointPushPlusMinus plusMinus
+    (74) plusMinus -> multDiv pointCheckPlusMinus .
+    (75) plusMinus -> multDiv pointCheckPlusMinus . PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> multDiv pointCheckPlusMinus . MINUS pointPushPlusMinus plusMinus
 
-    EQUAL           reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
-    DIFFERENT       reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
-    GREATERTHAN     reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
-    GREATERTHANEQ   reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
-    LESSTHAN        reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
-    LESSTHANEQ      reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
-    CPAREN          reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
-    EOF             reduce using rule 73 (plusMinus -> multDiv pointCheckPlusMinus .)
+    EQUAL           reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
+    DIFFERENT       reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
+    GREATERTHAN     reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
+    GREATERTHANEQ   reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
+    LESSTHAN        reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
+    LESSTHANEQ      reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
+    CPAREN          reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
+    EOF             reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus .)
     PLUS            shift and go to state 181
     MINUS           shift and go to state 182
 
 
 state 152
 
-    (78) multDiv -> expParen pointCheckMultDiv .
-    (79) multDiv -> expParen pointCheckMultDiv . MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> expParen pointCheckMultDiv . DIVIDE pointPushMultDiv multDiv
+    (79) multDiv -> expParen pointCheckMultDiv .
+    (80) multDiv -> expParen pointCheckMultDiv . MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> expParen pointCheckMultDiv . DIVIDE pointPushMultDiv multDiv
 
-    PLUS            reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    MINUS           reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    EQUAL           reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    DIFFERENT       reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    GREATERTHAN     reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    GREATERTHANEQ   reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    LESSTHAN        reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    LESSTHANEQ      reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    CPAREN          reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
-    EOF             reduce using rule 78 (multDiv -> expParen pointCheckMultDiv .)
+    PLUS            reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    MINUS           reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    EQUAL           reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    DIFFERENT       reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    GREATERTHAN     reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    GREATERTHANEQ   reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    LESSTHAN        reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    LESSTHANEQ      reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    CPAREN          reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
+    EOF             reduce using rule 79 (multDiv -> expParen pointCheckMultDiv .)
     MULTIPLY        shift and go to state 183
     DIVIDE          shift and go to state 184
 
 
 state 153
 
-    (98) varCte -> INT pointINT .
+    (99) varCte -> INT pointINT .
 
-    MULTIPLY        reduce using rule 98 (varCte -> INT pointINT .)
-    DIVIDE          reduce using rule 98 (varCte -> INT pointINT .)
-    PLUS            reduce using rule 98 (varCte -> INT pointINT .)
-    MINUS           reduce using rule 98 (varCte -> INT pointINT .)
-    EQUAL           reduce using rule 98 (varCte -> INT pointINT .)
-    DIFFERENT       reduce using rule 98 (varCte -> INT pointINT .)
-    GREATERTHAN     reduce using rule 98 (varCte -> INT pointINT .)
-    GREATERTHANEQ   reduce using rule 98 (varCte -> INT pointINT .)
-    LESSTHAN        reduce using rule 98 (varCte -> INT pointINT .)
-    LESSTHANEQ      reduce using rule 98 (varCte -> INT pointINT .)
-    CPAREN          reduce using rule 98 (varCte -> INT pointINT .)
-    EOF             reduce using rule 98 (varCte -> INT pointINT .)
-    CSQUAREBR       reduce using rule 98 (varCte -> INT pointINT .)
+    MULTIPLY        reduce using rule 99 (varCte -> INT pointINT .)
+    DIVIDE          reduce using rule 99 (varCte -> INT pointINT .)
+    PLUS            reduce using rule 99 (varCte -> INT pointINT .)
+    MINUS           reduce using rule 99 (varCte -> INT pointINT .)
+    EQUAL           reduce using rule 99 (varCte -> INT pointINT .)
+    DIFFERENT       reduce using rule 99 (varCte -> INT pointINT .)
+    GREATERTHAN     reduce using rule 99 (varCte -> INT pointINT .)
+    GREATERTHANEQ   reduce using rule 99 (varCte -> INT pointINT .)
+    LESSTHAN        reduce using rule 99 (varCte -> INT pointINT .)
+    LESSTHANEQ      reduce using rule 99 (varCte -> INT pointINT .)
+    CPAREN          reduce using rule 99 (varCte -> INT pointINT .)
+    EOF             reduce using rule 99 (varCte -> INT pointINT .)
+    CSQUAREBR       reduce using rule 99 (varCte -> INT pointINT .)
 
 
 state 154
 
-    (99) varCte -> DEC pointDEC .
+    (100) varCte -> DEC pointDEC .
 
-    MULTIPLY        reduce using rule 99 (varCte -> DEC pointDEC .)
-    DIVIDE          reduce using rule 99 (varCte -> DEC pointDEC .)
-    PLUS            reduce using rule 99 (varCte -> DEC pointDEC .)
-    MINUS           reduce using rule 99 (varCte -> DEC pointDEC .)
-    EQUAL           reduce using rule 99 (varCte -> DEC pointDEC .)
-    DIFFERENT       reduce using rule 99 (varCte -> DEC pointDEC .)
-    GREATERTHAN     reduce using rule 99 (varCte -> DEC pointDEC .)
-    GREATERTHANEQ   reduce using rule 99 (varCte -> DEC pointDEC .)
-    LESSTHAN        reduce using rule 99 (varCte -> DEC pointDEC .)
-    LESSTHANEQ      reduce using rule 99 (varCte -> DEC pointDEC .)
-    CPAREN          reduce using rule 99 (varCte -> DEC pointDEC .)
-    EOF             reduce using rule 99 (varCte -> DEC pointDEC .)
-    CSQUAREBR       reduce using rule 99 (varCte -> DEC pointDEC .)
+    MULTIPLY        reduce using rule 100 (varCte -> DEC pointDEC .)
+    DIVIDE          reduce using rule 100 (varCte -> DEC pointDEC .)
+    PLUS            reduce using rule 100 (varCte -> DEC pointDEC .)
+    MINUS           reduce using rule 100 (varCte -> DEC pointDEC .)
+    EQUAL           reduce using rule 100 (varCte -> DEC pointDEC .)
+    DIFFERENT       reduce using rule 100 (varCte -> DEC pointDEC .)
+    GREATERTHAN     reduce using rule 100 (varCte -> DEC pointDEC .)
+    GREATERTHANEQ   reduce using rule 100 (varCte -> DEC pointDEC .)
+    LESSTHAN        reduce using rule 100 (varCte -> DEC pointDEC .)
+    LESSTHANEQ      reduce using rule 100 (varCte -> DEC pointDEC .)
+    CPAREN          reduce using rule 100 (varCte -> DEC pointDEC .)
+    EOF             reduce using rule 100 (varCte -> DEC pointDEC .)
+    CSQUAREBR       reduce using rule 100 (varCte -> DEC pointDEC .)
 
 
 state 155
 
-    (100) varCte -> STRING pointSTRING .
+    (101) varCte -> STRING pointSTRING .
 
-    MULTIPLY        reduce using rule 100 (varCte -> STRING pointSTRING .)
-    DIVIDE          reduce using rule 100 (varCte -> STRING pointSTRING .)
-    PLUS            reduce using rule 100 (varCte -> STRING pointSTRING .)
-    MINUS           reduce using rule 100 (varCte -> STRING pointSTRING .)
-    EQUAL           reduce using rule 100 (varCte -> STRING pointSTRING .)
-    DIFFERENT       reduce using rule 100 (varCte -> STRING pointSTRING .)
-    GREATERTHAN     reduce using rule 100 (varCte -> STRING pointSTRING .)
-    GREATERTHANEQ   reduce using rule 100 (varCte -> STRING pointSTRING .)
-    LESSTHAN        reduce using rule 100 (varCte -> STRING pointSTRING .)
-    LESSTHANEQ      reduce using rule 100 (varCte -> STRING pointSTRING .)
-    CPAREN          reduce using rule 100 (varCte -> STRING pointSTRING .)
-    EOF             reduce using rule 100 (varCte -> STRING pointSTRING .)
-    CSQUAREBR       reduce using rule 100 (varCte -> STRING pointSTRING .)
+    MULTIPLY        reduce using rule 101 (varCte -> STRING pointSTRING .)
+    DIVIDE          reduce using rule 101 (varCte -> STRING pointSTRING .)
+    PLUS            reduce using rule 101 (varCte -> STRING pointSTRING .)
+    MINUS           reduce using rule 101 (varCte -> STRING pointSTRING .)
+    EQUAL           reduce using rule 101 (varCte -> STRING pointSTRING .)
+    DIFFERENT       reduce using rule 101 (varCte -> STRING pointSTRING .)
+    GREATERTHAN     reduce using rule 101 (varCte -> STRING pointSTRING .)
+    GREATERTHANEQ   reduce using rule 101 (varCte -> STRING pointSTRING .)
+    LESSTHAN        reduce using rule 101 (varCte -> STRING pointSTRING .)
+    LESSTHANEQ      reduce using rule 101 (varCte -> STRING pointSTRING .)
+    CPAREN          reduce using rule 101 (varCte -> STRING pointSTRING .)
+    EOF             reduce using rule 101 (varCte -> STRING pointSTRING .)
+    CSQUAREBR       reduce using rule 101 (varCte -> STRING pointSTRING .)
 
 
 state 156
 
-    (101) varCte -> TRUE pointBOOL .
+    (102) varCte -> TRUE pointBOOL .
 
-    MULTIPLY        reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    DIVIDE          reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    PLUS            reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    MINUS           reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    EQUAL           reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    DIFFERENT       reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    GREATERTHAN     reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    GREATERTHANEQ   reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    LESSTHAN        reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    LESSTHANEQ      reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    CPAREN          reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    EOF             reduce using rule 101 (varCte -> TRUE pointBOOL .)
-    CSQUAREBR       reduce using rule 101 (varCte -> TRUE pointBOOL .)
+    MULTIPLY        reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    DIVIDE          reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    PLUS            reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    MINUS           reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    EQUAL           reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    DIFFERENT       reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    GREATERTHAN     reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    GREATERTHANEQ   reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    LESSTHAN        reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    LESSTHANEQ      reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    CPAREN          reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    EOF             reduce using rule 102 (varCte -> TRUE pointBOOL .)
+    CSQUAREBR       reduce using rule 102 (varCte -> TRUE pointBOOL .)
 
 
 state 157
 
-    (102) varCte -> FALSE pointBOOL .
+    (103) varCte -> FALSE pointBOOL .
 
-    MULTIPLY        reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    DIVIDE          reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    PLUS            reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    MINUS           reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    EQUAL           reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    DIFFERENT       reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    GREATERTHAN     reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    GREATERTHANEQ   reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    LESSTHAN        reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    LESSTHANEQ      reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    CPAREN          reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    EOF             reduce using rule 102 (varCte -> FALSE pointBOOL .)
-    CSQUAREBR       reduce using rule 102 (varCte -> FALSE pointBOOL .)
+    MULTIPLY        reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    DIVIDE          reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    PLUS            reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    MINUS           reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    EQUAL           reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    DIFFERENT       reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    GREATERTHAN     reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    GREATERTHANEQ   reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    LESSTHAN        reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    LESSTHANEQ      reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    CPAREN          reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    EOF             reduce using rule 103 (varCte -> FALSE pointBOOL .)
+    CSQUAREBR       reduce using rule 103 (varCte -> FALSE pointBOOL .)
 
 
 state 158
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN expRelational . CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (109) whileCycle -> WHILE pointWhile1 OPAREN expRelational . CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
 
     CPAREN          shift and go to state 185
 
 
 state 159
 
-    (112) ifCond -> IF OPAREN expRelational CPAREN . pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> IF OPAREN expRelational CPAREN . pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (114) pointIfCond1 -> .
+    (113) ifCond -> IF OPAREN expRelational CPAREN . pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational CPAREN . pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (115) pointIfCond1 -> .
 
-    OBRACKET        reduce using rule 114 (pointIfCond1 -> .)
+    OBRACKET        reduce using rule 115 (pointIfCond1 -> .)
 
     pointIfCond1                   shift and go to state 186
 
@@ -2297,20 +2299,20 @@ state 160
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -2344,20 +2346,20 @@ state 161
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -2409,20 +2411,20 @@ state 163
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    RETURN          reduce using rule 120 (epsilon -> .)
+    RETURN          reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -2456,20 +2458,20 @@ state 164
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    RETURN          reduce using rule 120 (epsilon -> .)
+    RETURN          reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -2490,7 +2492,7 @@ state 164
 
 state 165
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass . fxDef pointScopeClass2 CBRACKET classDef
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass . fxDef pointScopeClass2 CBRACKET classDef
     (5) fxDef -> . VOID FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef
     (6) fxDef -> . VOID FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef
     (7) fxDef -> . fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef
@@ -2500,14 +2502,14 @@ state 165
     (11) fxType -> . STRING
     (12) fxType -> . DEC
     (13) fxType -> . BOOL
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     VOID            shift and go to state 11
     INT             shift and go to state 14
     STRING          shift and go to state 15
     DEC             shift and go to state 16
     BOOL            shift and go to state 17
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
 
     fxDef                          shift and go to state 192
     epsilon                        shift and go to state 12
@@ -2537,7 +2539,7 @@ state 168
 state 169
 
     (62) returnCall -> ID pointEra . OPAREN paramCall pointGoSub CPAREN
-    (63) returnCall -> ID pointEra . OPAREN epsilon pointGoSub CPAREN
+    (63) returnCall -> ID pointEra . OPAREN epsilon pointParamVacio pointGoSub CPAREN
 
     OPAREN          shift and go to state 195
 
@@ -2590,143 +2592,145 @@ state 173
 
 state 174
 
-    (31) voidCall -> ID pointEra OPAREN epsilon pointGoSub . CPAREN EOF
+    (31) voidCall -> ID pointEra OPAREN epsilon pointParamVacio . pointGoSub CPAREN EOF
+    (33) pointGoSub -> .
 
-    CPAREN          shift and go to state 199
+    CPAREN          reduce using rule 33 (pointGoSub -> .)
 
+    pointGoSub                     shift and go to state 199
 
 state 175
 
-    (95) classCall -> ID MONEY ID OPAREN paramCall . CPAREN EOF
+    (96) classCall -> ID MONEY ID OPAREN paramCall . CPAREN EOF
 
     CPAREN          shift and go to state 200
 
 
 state 176
 
-    (96) classCall -> ID MONEY ID OPAREN epsilon . CPAREN EOF
+    (97) classCall -> ID MONEY ID OPAREN epsilon . CPAREN EOF
 
     CPAREN          shift and go to state 201
 
 
 state 177
 
-    (117) input -> INPUT OPAREN ID CPAREN EOF .
+    (118) input -> INPUT OPAREN ID CPAREN EOF .
 
-    VAR             reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
-    ID              reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
-    INPUT           reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
-    OUTPUT          reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
-    WHILE           reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
-    IF              reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
-    CBRACKET        reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
-    RETURN          reduce using rule 117 (input -> INPUT OPAREN ID CPAREN EOF .)
+    VAR             reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
+    ID              reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
+    INPUT           reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
+    OUTPUT          reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
+    WHILE           reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
+    IF              reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
+    CBRACKET        reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
+    RETURN          reduce using rule 118 (input -> INPUT OPAREN ID CPAREN EOF .)
 
 
 state 178
 
-    (83) expParen -> OPAREN pointFakeBackground expRelational . CPAREN pointRemoveFakeBackground
+    (84) expParen -> OPAREN pointFakeBackground expRelational . CPAREN pointRemoveFakeBackground
 
     CPAREN          shift and go to state 202
 
 
 state 179
 
-    (118) output -> OUTPUT OPAREN expRelational CPAREN EOF .
+    (119) output -> OUTPUT OPAREN expRelational CPAREN EOF .
 
-    VAR             reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    ID              reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    INPUT           reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    OUTPUT          reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    WHILE           reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    IF              reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    CBRACKET        reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
-    RETURN          reduce using rule 118 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    VAR             reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    ID              reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    INPUT           reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    OUTPUT          reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    WHILE           reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    IF              reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    CBRACKET        reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
+    RETURN          reduce using rule 119 (output -> OUTPUT OPAREN expRelational CPAREN EOF .)
 
 
 state 180
 
-    (65) expRelational -> plusMinus opRelational expRelational . pointCheckOpRel
-    (66) pointCheckOpRel -> .
+    (66) expRelational -> plusMinus opRelational expRelational . pointCheckOpRel
+    (67) pointCheckOpRel -> .
 
-    CPAREN          reduce using rule 66 (pointCheckOpRel -> .)
-    EOF             reduce using rule 66 (pointCheckOpRel -> .)
+    CPAREN          reduce using rule 67 (pointCheckOpRel -> .)
+    EOF             reduce using rule 67 (pointCheckOpRel -> .)
 
     pointCheckOpRel                shift and go to state 203
 
 state 181
 
-    (74) plusMinus -> multDiv pointCheckPlusMinus PLUS . pointPushPlusMinus plusMinus
-    (77) pointPushPlusMinus -> .
+    (75) plusMinus -> multDiv pointCheckPlusMinus PLUS . pointPushPlusMinus plusMinus
+    (78) pointPushPlusMinus -> .
 
-    OPAREN          reduce using rule 77 (pointPushPlusMinus -> .)
-    INT             reduce using rule 77 (pointPushPlusMinus -> .)
-    DEC             reduce using rule 77 (pointPushPlusMinus -> .)
-    STRING          reduce using rule 77 (pointPushPlusMinus -> .)
-    TRUE            reduce using rule 77 (pointPushPlusMinus -> .)
-    FALSE           reduce using rule 77 (pointPushPlusMinus -> .)
-    ID              reduce using rule 77 (pointPushPlusMinus -> .)
+    OPAREN          reduce using rule 78 (pointPushPlusMinus -> .)
+    INT             reduce using rule 78 (pointPushPlusMinus -> .)
+    DEC             reduce using rule 78 (pointPushPlusMinus -> .)
+    STRING          reduce using rule 78 (pointPushPlusMinus -> .)
+    TRUE            reduce using rule 78 (pointPushPlusMinus -> .)
+    FALSE           reduce using rule 78 (pointPushPlusMinus -> .)
+    ID              reduce using rule 78 (pointPushPlusMinus -> .)
 
     pointPushPlusMinus             shift and go to state 204
 
 state 182
 
-    (75) plusMinus -> multDiv pointCheckPlusMinus MINUS . pointPushPlusMinus plusMinus
-    (77) pointPushPlusMinus -> .
+    (76) plusMinus -> multDiv pointCheckPlusMinus MINUS . pointPushPlusMinus plusMinus
+    (78) pointPushPlusMinus -> .
 
-    OPAREN          reduce using rule 77 (pointPushPlusMinus -> .)
-    INT             reduce using rule 77 (pointPushPlusMinus -> .)
-    DEC             reduce using rule 77 (pointPushPlusMinus -> .)
-    STRING          reduce using rule 77 (pointPushPlusMinus -> .)
-    TRUE            reduce using rule 77 (pointPushPlusMinus -> .)
-    FALSE           reduce using rule 77 (pointPushPlusMinus -> .)
-    ID              reduce using rule 77 (pointPushPlusMinus -> .)
+    OPAREN          reduce using rule 78 (pointPushPlusMinus -> .)
+    INT             reduce using rule 78 (pointPushPlusMinus -> .)
+    DEC             reduce using rule 78 (pointPushPlusMinus -> .)
+    STRING          reduce using rule 78 (pointPushPlusMinus -> .)
+    TRUE            reduce using rule 78 (pointPushPlusMinus -> .)
+    FALSE           reduce using rule 78 (pointPushPlusMinus -> .)
+    ID              reduce using rule 78 (pointPushPlusMinus -> .)
 
     pointPushPlusMinus             shift and go to state 205
 
 state 183
 
-    (79) multDiv -> expParen pointCheckMultDiv MULTIPLY . pointPushMultDiv multDiv
-    (82) pointPushMultDiv -> .
+    (80) multDiv -> expParen pointCheckMultDiv MULTIPLY . pointPushMultDiv multDiv
+    (83) pointPushMultDiv -> .
 
-    OPAREN          reduce using rule 82 (pointPushMultDiv -> .)
-    INT             reduce using rule 82 (pointPushMultDiv -> .)
-    DEC             reduce using rule 82 (pointPushMultDiv -> .)
-    STRING          reduce using rule 82 (pointPushMultDiv -> .)
-    TRUE            reduce using rule 82 (pointPushMultDiv -> .)
-    FALSE           reduce using rule 82 (pointPushMultDiv -> .)
-    ID              reduce using rule 82 (pointPushMultDiv -> .)
+    OPAREN          reduce using rule 83 (pointPushMultDiv -> .)
+    INT             reduce using rule 83 (pointPushMultDiv -> .)
+    DEC             reduce using rule 83 (pointPushMultDiv -> .)
+    STRING          reduce using rule 83 (pointPushMultDiv -> .)
+    TRUE            reduce using rule 83 (pointPushMultDiv -> .)
+    FALSE           reduce using rule 83 (pointPushMultDiv -> .)
+    ID              reduce using rule 83 (pointPushMultDiv -> .)
 
     pointPushMultDiv               shift and go to state 206
 
 state 184
 
-    (80) multDiv -> expParen pointCheckMultDiv DIVIDE . pointPushMultDiv multDiv
-    (82) pointPushMultDiv -> .
+    (81) multDiv -> expParen pointCheckMultDiv DIVIDE . pointPushMultDiv multDiv
+    (83) pointPushMultDiv -> .
 
-    OPAREN          reduce using rule 82 (pointPushMultDiv -> .)
-    INT             reduce using rule 82 (pointPushMultDiv -> .)
-    DEC             reduce using rule 82 (pointPushMultDiv -> .)
-    STRING          reduce using rule 82 (pointPushMultDiv -> .)
-    TRUE            reduce using rule 82 (pointPushMultDiv -> .)
-    FALSE           reduce using rule 82 (pointPushMultDiv -> .)
-    ID              reduce using rule 82 (pointPushMultDiv -> .)
+    OPAREN          reduce using rule 83 (pointPushMultDiv -> .)
+    INT             reduce using rule 83 (pointPushMultDiv -> .)
+    DEC             reduce using rule 83 (pointPushMultDiv -> .)
+    STRING          reduce using rule 83 (pointPushMultDiv -> .)
+    TRUE            reduce using rule 83 (pointPushMultDiv -> .)
+    FALSE           reduce using rule 83 (pointPushMultDiv -> .)
+    ID              reduce using rule 83 (pointPushMultDiv -> .)
 
     pointPushMultDiv               shift and go to state 207
 
 state 185
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN . pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (110) pointWhile2 -> .
+    (109) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN . pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (111) pointWhile2 -> .
 
-    OBRACKET        reduce using rule 110 (pointWhile2 -> .)
+    OBRACKET        reduce using rule 111 (pointWhile2 -> .)
 
     pointWhile2                    shift and go to state 208
 
 state 186
 
-    (112) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 . OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 . OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 . OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 . OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
 
     OBRACKET        shift and go to state 209
 
@@ -2768,10 +2772,10 @@ state 191
 
 state 192
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef . pointScopeClass2 CBRACKET classDef
-    (92) pointScopeClass2 -> .
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef . pointScopeClass2 CBRACKET classDef
+    (93) pointScopeClass2 -> .
 
-    CBRACKET        reduce using rule 92 (pointScopeClass2 -> .)
+    CBRACKET        reduce using rule 93 (pointScopeClass2 -> .)
 
     pointScopeClass2               shift and go to state 214
 
@@ -2795,13 +2799,13 @@ state 194
 state 195
 
     (62) returnCall -> ID pointEra OPAREN . paramCall pointGoSub CPAREN
-    (63) returnCall -> ID pointEra OPAREN . epsilon pointGoSub CPAREN
+    (63) returnCall -> ID pointEra OPAREN . epsilon pointParamVacio pointGoSub CPAREN
     (26) paramCall -> . ID pointParamCall pointParamNum
     (27) paramCall -> . ID pointParamCall COMMA paramCall
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     ID              shift and go to state 137
-    CPAREN          reduce using rule 120 (epsilon -> .)
+    CPAREN          reduce using rule 121 (epsilon -> .)
 
     paramCall                      shift and go to state 215
     epsilon                        shift and go to state 216
@@ -2832,70 +2836,70 @@ state 198
 
 state 199
 
-    (31) voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN . EOF
+    (31) voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub . CPAREN EOF
 
-    EOF             shift and go to state 219
+    CPAREN          shift and go to state 219
 
 
 state 200
 
-    (95) classCall -> ID MONEY ID OPAREN paramCall CPAREN . EOF
+    (96) classCall -> ID MONEY ID OPAREN paramCall CPAREN . EOF
 
     EOF             shift and go to state 220
 
 
 state 201
 
-    (96) classCall -> ID MONEY ID OPAREN epsilon CPAREN . EOF
+    (97) classCall -> ID MONEY ID OPAREN epsilon CPAREN . EOF
 
     EOF             shift and go to state 221
 
 
 state 202
 
-    (83) expParen -> OPAREN pointFakeBackground expRelational CPAREN . pointRemoveFakeBackground
-    (86) pointRemoveFakeBackground -> .
+    (84) expParen -> OPAREN pointFakeBackground expRelational CPAREN . pointRemoveFakeBackground
+    (87) pointRemoveFakeBackground -> .
 
-    MULTIPLY        reduce using rule 86 (pointRemoveFakeBackground -> .)
-    DIVIDE          reduce using rule 86 (pointRemoveFakeBackground -> .)
-    PLUS            reduce using rule 86 (pointRemoveFakeBackground -> .)
-    MINUS           reduce using rule 86 (pointRemoveFakeBackground -> .)
-    EQUAL           reduce using rule 86 (pointRemoveFakeBackground -> .)
-    DIFFERENT       reduce using rule 86 (pointRemoveFakeBackground -> .)
-    GREATERTHAN     reduce using rule 86 (pointRemoveFakeBackground -> .)
-    GREATERTHANEQ   reduce using rule 86 (pointRemoveFakeBackground -> .)
-    LESSTHAN        reduce using rule 86 (pointRemoveFakeBackground -> .)
-    LESSTHANEQ      reduce using rule 86 (pointRemoveFakeBackground -> .)
-    CPAREN          reduce using rule 86 (pointRemoveFakeBackground -> .)
-    EOF             reduce using rule 86 (pointRemoveFakeBackground -> .)
+    MULTIPLY        reduce using rule 87 (pointRemoveFakeBackground -> .)
+    DIVIDE          reduce using rule 87 (pointRemoveFakeBackground -> .)
+    PLUS            reduce using rule 87 (pointRemoveFakeBackground -> .)
+    MINUS           reduce using rule 87 (pointRemoveFakeBackground -> .)
+    EQUAL           reduce using rule 87 (pointRemoveFakeBackground -> .)
+    DIFFERENT       reduce using rule 87 (pointRemoveFakeBackground -> .)
+    GREATERTHAN     reduce using rule 87 (pointRemoveFakeBackground -> .)
+    GREATERTHANEQ   reduce using rule 87 (pointRemoveFakeBackground -> .)
+    LESSTHAN        reduce using rule 87 (pointRemoveFakeBackground -> .)
+    LESSTHANEQ      reduce using rule 87 (pointRemoveFakeBackground -> .)
+    CPAREN          reduce using rule 87 (pointRemoveFakeBackground -> .)
+    EOF             reduce using rule 87 (pointRemoveFakeBackground -> .)
 
     pointRemoveFakeBackground      shift and go to state 222
 
 state 203
 
-    (65) expRelational -> plusMinus opRelational expRelational pointCheckOpRel .
+    (66) expRelational -> plusMinus opRelational expRelational pointCheckOpRel .
 
-    CPAREN          reduce using rule 65 (expRelational -> plusMinus opRelational expRelational pointCheckOpRel .)
-    EOF             reduce using rule 65 (expRelational -> plusMinus opRelational expRelational pointCheckOpRel .)
+    CPAREN          reduce using rule 66 (expRelational -> plusMinus opRelational expRelational pointCheckOpRel .)
+    EOF             reduce using rule 66 (expRelational -> plusMinus opRelational expRelational pointCheckOpRel .)
 
 
 state 204
 
-    (74) plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus . plusMinus
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (75) plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus . plusMinus
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -2912,21 +2916,21 @@ state 204
 
 state 205
 
-    (75) plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus . plusMinus
-    (73) plusMinus -> . multDiv pointCheckPlusMinus
-    (74) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
-    (75) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (76) plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus . plusMinus
+    (74) plusMinus -> . multDiv pointCheckPlusMinus
+    (75) plusMinus -> . multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus
+    (76) plusMinus -> . multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -2943,18 +2947,18 @@ state 205
 
 state 206
 
-    (79) multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv . multDiv
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (80) multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv . multDiv
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -2970,18 +2974,18 @@ state 206
 
 state 207
 
-    (80) multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv . multDiv
-    (78) multDiv -> . expParen pointCheckMultDiv
-    (79) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
-    (80) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
-    (83) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
-    (84) expParen -> . varCte
-    (98) varCte -> . INT pointINT
-    (99) varCte -> . DEC pointDEC
-    (100) varCte -> . STRING pointSTRING
-    (101) varCte -> . TRUE pointBOOL
-    (102) varCte -> . FALSE pointBOOL
-    (103) varCte -> . ID
+    (81) multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv . multDiv
+    (79) multDiv -> . expParen pointCheckMultDiv
+    (80) multDiv -> . expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv
+    (81) multDiv -> . expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv
+    (84) expParen -> . OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground
+    (85) expParen -> . varCte
+    (99) varCte -> . INT pointINT
+    (100) varCte -> . DEC pointDEC
+    (101) varCte -> . STRING pointSTRING
+    (102) varCte -> . TRUE pointBOOL
+    (103) varCte -> . FALSE pointBOOL
+    (104) varCte -> . ID
 
     OPAREN          shift and go to state 107
     INT             shift and go to state 113
@@ -2997,15 +3001,15 @@ state 207
 
 state 208
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 . OBRACKET body CBRACKET pointWhile3
+    (109) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 . OBRACKET body CBRACKET pointWhile3
 
     OBRACKET        shift and go to state 227
 
 
 state 209
 
-    (112) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET . body CBRACKET pointIfCond2
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET . body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET . body CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET . body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
     (34) body -> . varsDef body
     (35) body -> . statements body
     (36) body -> . epsilon
@@ -3018,20 +3022,20 @@ state 209
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
@@ -3096,7 +3100,7 @@ state 213
 
 state 214
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 . CBRACKET classDef
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 . CBRACKET classDef
 
     CBRACKET        shift and go to state 233
 
@@ -3112,12 +3116,12 @@ state 215
 
 state 216
 
-    (63) returnCall -> ID pointEra OPAREN epsilon . pointGoSub CPAREN
-    (33) pointGoSub -> .
+    (63) returnCall -> ID pointEra OPAREN epsilon . pointParamVacio pointGoSub CPAREN
+    (64) pointParamVacio -> .
 
-    CPAREN          reduce using rule 33 (pointGoSub -> .)
+    CPAREN          reduce using rule 64 (pointParamVacio -> .)
 
-    pointGoSub                     shift and go to state 235
+    pointParamVacio                shift and go to state 235
 
 state 217
 
@@ -3142,127 +3146,120 @@ state 218
 
 state 219
 
-    (31) voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .
+    (31) voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN . EOF
 
-    VAR             reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
-    ID              reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
-    INPUT           reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
-    OUTPUT          reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
-    WHILE           reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
-    IF              reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
-    CBRACKET        reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
-    RETURN          reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN EOF .)
+    EOF             shift and go to state 236
 
 
 state 220
 
-    (95) classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .
+    (96) classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .
 
-    VAR             reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    ID              reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    INPUT           reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    OUTPUT          reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    WHILE           reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    IF              reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    CBRACKET        reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
-    RETURN          reduce using rule 95 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    VAR             reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    ID              reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    INPUT           reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    OUTPUT          reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    WHILE           reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    IF              reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    CBRACKET        reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
+    RETURN          reduce using rule 96 (classCall -> ID MONEY ID OPAREN paramCall CPAREN EOF .)
 
 
 state 221
 
-    (96) classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .
+    (97) classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .
 
-    VAR             reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
-    ID              reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
-    INPUT           reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
-    OUTPUT          reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
-    WHILE           reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
-    IF              reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
-    CBRACKET        reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
-    RETURN          reduce using rule 96 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    VAR             reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    ID              reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    INPUT           reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    OUTPUT          reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    WHILE           reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    IF              reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    CBRACKET        reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
+    RETURN          reduce using rule 97 (classCall -> ID MONEY ID OPAREN epsilon CPAREN EOF .)
 
 
 state 222
 
-    (83) expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .
+    (84) expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .
 
-    MULTIPLY        reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    DIVIDE          reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    PLUS            reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    MINUS           reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    EQUAL           reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    DIFFERENT       reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    GREATERTHAN     reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    GREATERTHANEQ   reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    LESSTHAN        reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    LESSTHANEQ      reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    CPAREN          reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
-    EOF             reduce using rule 83 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    MULTIPLY        reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    DIVIDE          reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    PLUS            reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    MINUS           reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    EQUAL           reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    DIFFERENT       reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    GREATERTHAN     reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    GREATERTHANEQ   reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    LESSTHAN        reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    LESSTHANEQ      reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    CPAREN          reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
+    EOF             reduce using rule 84 (expParen -> OPAREN pointFakeBackground expRelational CPAREN pointRemoveFakeBackground .)
 
 
 state 223
 
-    (74) plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .
+    (75) plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .
 
-    EQUAL           reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
-    DIFFERENT       reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
-    GREATERTHAN     reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
-    GREATERTHANEQ   reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
-    LESSTHAN        reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
-    LESSTHANEQ      reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
-    CPAREN          reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
-    EOF             reduce using rule 74 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    EQUAL           reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    DIFFERENT       reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    GREATERTHAN     reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    GREATERTHANEQ   reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    LESSTHAN        reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    LESSTHANEQ      reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    CPAREN          reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
+    EOF             reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus PLUS pointPushPlusMinus plusMinus .)
 
 
 state 224
 
-    (75) plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .
+    (76) plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .
 
-    EQUAL           reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
-    DIFFERENT       reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
-    GREATERTHAN     reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
-    GREATERTHANEQ   reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
-    LESSTHAN        reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
-    LESSTHANEQ      reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
-    CPAREN          reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
-    EOF             reduce using rule 75 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    EQUAL           reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    DIFFERENT       reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    GREATERTHAN     reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    GREATERTHANEQ   reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    LESSTHAN        reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    LESSTHANEQ      reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    CPAREN          reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
+    EOF             reduce using rule 76 (plusMinus -> multDiv pointCheckPlusMinus MINUS pointPushPlusMinus plusMinus .)
 
 
 state 225
 
-    (79) multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .
+    (80) multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .
 
-    PLUS            reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    MINUS           reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    EQUAL           reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    DIFFERENT       reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    GREATERTHAN     reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    GREATERTHANEQ   reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    LESSTHAN        reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    LESSTHANEQ      reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    CPAREN          reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
-    EOF             reduce using rule 79 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    PLUS            reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    MINUS           reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    EQUAL           reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    DIFFERENT       reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    GREATERTHAN     reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    GREATERTHANEQ   reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    LESSTHAN        reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    LESSTHANEQ      reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    CPAREN          reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
+    EOF             reduce using rule 80 (multDiv -> expParen pointCheckMultDiv MULTIPLY pointPushMultDiv multDiv .)
 
 
 state 226
 
-    (80) multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .
+    (81) multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .
 
-    PLUS            reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    MINUS           reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    EQUAL           reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    DIFFERENT       reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    GREATERTHAN     reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    GREATERTHANEQ   reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    LESSTHAN        reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    LESSTHANEQ      reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    CPAREN          reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
-    EOF             reduce using rule 80 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    PLUS            reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    MINUS           reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    EQUAL           reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    DIFFERENT       reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    GREATERTHAN     reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    GREATERTHANEQ   reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    LESSTHAN        reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    LESSTHANEQ      reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    CPAREN          reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
+    EOF             reduce using rule 81 (multDiv -> expParen pointCheckMultDiv DIVIDE pointPushMultDiv multDiv .)
 
 
 state 227
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET . body CBRACKET pointWhile3
+    (109) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET . body CBRACKET pointWhile3
     (34) body -> . varsDef body
     (35) body -> . statements body
     (36) body -> . epsilon
@@ -3275,27 +3272,27 @@ state 227
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
     WHILE           shift and go to state 60
     IF              shift and go to state 61
 
-    body                           shift and go to state 236
+    body                           shift and go to state 237
     varsDef                        shift and go to state 46
     statements                     shift and go to state 47
     epsilon                        shift and go to state 48
@@ -3309,10 +3306,10 @@ state 227
 
 state 228
 
-    (112) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body . CBRACKET pointIfCond2
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body . CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body . CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body . CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
 
-    CBRACKET        shift and go to state 237
+    CBRACKET        shift and go to state 238
 
 
 state 229
@@ -3327,17 +3324,17 @@ state 229
     (11) fxType -> . STRING
     (12) fxType -> . DEC
     (13) fxType -> . BOOL
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     VOID            shift and go to state 11
     INT             shift and go to state 14
     STRING          shift and go to state 15
     DEC             shift and go to state 16
     BOOL            shift and go to state 17
-    MAIN            reduce using rule 120 (epsilon -> .)
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    MAIN            reduce using rule 121 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
 
-    fxDef                          shift and go to state 238
+    fxDef                          shift and go to state 239
     epsilon                        shift and go to state 12
     fxType                         shift and go to state 13
 
@@ -3353,18 +3350,18 @@ state 230
     (11) fxType -> . STRING
     (12) fxType -> . DEC
     (13) fxType -> . BOOL
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     VOID            shift and go to state 11
     INT             shift and go to state 14
     STRING          shift and go to state 15
     DEC             shift and go to state 16
     BOOL            shift and go to state 17
-    MAIN            reduce using rule 120 (epsilon -> .)
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    MAIN            reduce using rule 121 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
 
     epsilon                        shift and go to state 12
-    fxDef                          shift and go to state 239
+    fxDef                          shift and go to state 240
     fxType                         shift and go to state 13
 
 state 231
@@ -3374,7 +3371,7 @@ state 231
 
     EOF             reduce using rule 16 (pointReturn -> .)
 
-    pointReturn                    shift and go to state 240
+    pointReturn                    shift and go to state 241
 
 state 232
 
@@ -3383,66 +3380,82 @@ state 232
 
     EOF             reduce using rule 16 (pointReturn -> .)
 
-    pointReturn                    shift and go to state 241
+    pointReturn                    shift and go to state 242
 
 state 233
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET . classDef
-    (87) classDef -> . CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
-    (88) classDef -> . epsilon
-    (120) epsilon -> .
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET . classDef
+    (88) classDef -> . CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef
+    (89) classDef -> . epsilon
+    (121) epsilon -> .
 
     CLASS           shift and go to state 8
-    VOID            reduce using rule 120 (epsilon -> .)
-    INT             reduce using rule 120 (epsilon -> .)
-    STRING          reduce using rule 120 (epsilon -> .)
-    DEC             reduce using rule 120 (epsilon -> .)
-    BOOL            reduce using rule 120 (epsilon -> .)
-    MAIN            reduce using rule 120 (epsilon -> .)
+    VOID            reduce using rule 121 (epsilon -> .)
+    INT             reduce using rule 121 (epsilon -> .)
+    STRING          reduce using rule 121 (epsilon -> .)
+    DEC             reduce using rule 121 (epsilon -> .)
+    BOOL            reduce using rule 121 (epsilon -> .)
+    MAIN            reduce using rule 121 (epsilon -> .)
 
-    classDef                       shift and go to state 242
+    classDef                       shift and go to state 243
     epsilon                        shift and go to state 9
 
 state 234
 
     (62) returnCall -> ID pointEra OPAREN paramCall pointGoSub . CPAREN
 
-    CPAREN          shift and go to state 243
+    CPAREN          shift and go to state 244
 
 
 state 235
 
-    (63) returnCall -> ID pointEra OPAREN epsilon pointGoSub . CPAREN
+    (63) returnCall -> ID pointEra OPAREN epsilon pointParamVacio . pointGoSub CPAREN
+    (33) pointGoSub -> .
 
-    CPAREN          shift and go to state 244
+    CPAREN          reduce using rule 33 (pointGoSub -> .)
 
+    pointGoSub                     shift and go to state 245
 
 state 236
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body . CBRACKET pointWhile3
+    (31) voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .
 
-    CBRACKET        shift and go to state 245
+    VAR             reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
+    ID              reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
+    INPUT           reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
+    OUTPUT          reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
+    WHILE           reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
+    IF              reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
+    CBRACKET        reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
+    RETURN          reduce using rule 31 (voidCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF .)
 
 
 state 237
 
-    (112) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET . pointIfCond2
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET . ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (115) pointIfCond2 -> .
+    (109) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body . CBRACKET pointWhile3
 
-    ELSE            shift and go to state 247
-    VAR             reduce using rule 115 (pointIfCond2 -> .)
-    ID              reduce using rule 115 (pointIfCond2 -> .)
-    INPUT           reduce using rule 115 (pointIfCond2 -> .)
-    OUTPUT          reduce using rule 115 (pointIfCond2 -> .)
-    WHILE           reduce using rule 115 (pointIfCond2 -> .)
-    IF              reduce using rule 115 (pointIfCond2 -> .)
-    CBRACKET        reduce using rule 115 (pointIfCond2 -> .)
-    RETURN          reduce using rule 115 (pointIfCond2 -> .)
+    CBRACKET        shift and go to state 246
 
-    pointIfCond2                   shift and go to state 246
 
 state 238
+
+    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET . pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET . ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (116) pointIfCond2 -> .
+
+    ELSE            shift and go to state 248
+    VAR             reduce using rule 116 (pointIfCond2 -> .)
+    ID              reduce using rule 116 (pointIfCond2 -> .)
+    INPUT           reduce using rule 116 (pointIfCond2 -> .)
+    OUTPUT          reduce using rule 116 (pointIfCond2 -> .)
+    WHILE           reduce using rule 116 (pointIfCond2 -> .)
+    IF              reduce using rule 116 (pointIfCond2 -> .)
+    CBRACKET        reduce using rule 116 (pointIfCond2 -> .)
+    RETURN          reduce using rule 116 (pointIfCond2 -> .)
+
+    pointIfCond2                   shift and go to state 247
+
+state 239
 
     (5) fxDef -> VOID FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef .
 
@@ -3450,7 +3463,7 @@ state 238
     CBRACKET        reduce using rule 5 (fxDef -> VOID FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef .)
 
 
-state 239
+state 240
 
     (6) fxDef -> VOID FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef .
 
@@ -3458,121 +3471,128 @@ state 239
     CBRACKET        reduce using rule 6 (fxDef -> VOID FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef .)
 
 
-state 240
-
-    (7) fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn . EOF CBRACKET pointEndFunc fxDef
-
-    EOF             shift and go to state 248
-
-
 state 241
 
-    (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn . EOF CBRACKET pointEndFunc fxDef
+    (7) fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn . EOF CBRACKET pointEndFunc fxDef
 
     EOF             shift and go to state 249
 
 
 state 242
 
-    (87) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .
+    (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn . EOF CBRACKET pointEndFunc fxDef
 
-    VOID            reduce using rule 87 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
-    INT             reduce using rule 87 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
-    STRING          reduce using rule 87 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
-    DEC             reduce using rule 87 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
-    BOOL            reduce using rule 87 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
-    MAIN            reduce using rule 87 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    EOF             shift and go to state 250
 
 
 state 243
+
+    (88) classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .
+
+    VOID            reduce using rule 88 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    INT             reduce using rule 88 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    STRING          reduce using rule 88 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    DEC             reduce using rule 88 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    BOOL            reduce using rule 88 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+    MAIN            reduce using rule 88 (classDef -> CLASS pointClass ID pointClassName OBRACKET ATTRIBUTES COLON pointAtt METHODS COLON pointScopeClass fxDef pointScopeClass2 CBRACKET classDef .)
+
+
+state 244
 
     (62) returnCall -> ID pointEra OPAREN paramCall pointGoSub CPAREN .
 
     EOF             reduce using rule 62 (returnCall -> ID pointEra OPAREN paramCall pointGoSub CPAREN .)
 
 
-state 244
-
-    (63) returnCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN .
-
-    EOF             reduce using rule 63 (returnCall -> ID pointEra OPAREN epsilon pointGoSub CPAREN .)
-
-
 state 245
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET . pointWhile3
-    (111) pointWhile3 -> .
+    (63) returnCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub . CPAREN
 
-    VAR             reduce using rule 111 (pointWhile3 -> .)
-    ID              reduce using rule 111 (pointWhile3 -> .)
-    INPUT           reduce using rule 111 (pointWhile3 -> .)
-    OUTPUT          reduce using rule 111 (pointWhile3 -> .)
-    WHILE           reduce using rule 111 (pointWhile3 -> .)
-    IF              reduce using rule 111 (pointWhile3 -> .)
-    CBRACKET        reduce using rule 111 (pointWhile3 -> .)
-    RETURN          reduce using rule 111 (pointWhile3 -> .)
+    CPAREN          shift and go to state 251
 
-    pointWhile3                    shift and go to state 250
 
 state 246
 
-    (112) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .
+    (109) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET . pointWhile3
+    (112) pointWhile3 -> .
 
-    VAR             reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
-    ID              reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
-    INPUT           reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
-    OUTPUT          reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
-    WHILE           reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
-    IF              reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
-    CBRACKET        reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
-    RETURN          reduce using rule 112 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    VAR             reduce using rule 112 (pointWhile3 -> .)
+    ID              reduce using rule 112 (pointWhile3 -> .)
+    INPUT           reduce using rule 112 (pointWhile3 -> .)
+    OUTPUT          reduce using rule 112 (pointWhile3 -> .)
+    WHILE           reduce using rule 112 (pointWhile3 -> .)
+    IF              reduce using rule 112 (pointWhile3 -> .)
+    CBRACKET        reduce using rule 112 (pointWhile3 -> .)
+    RETURN          reduce using rule 112 (pointWhile3 -> .)
 
+    pointWhile3                    shift and go to state 252
 
 state 247
 
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE . pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (116) pointIfCond3 -> .
+    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .
 
-    OBRACKET        reduce using rule 116 (pointIfCond3 -> .)
+    VAR             reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    ID              reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    INPUT           reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    OUTPUT          reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    WHILE           reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    IF              reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    CBRACKET        reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
+    RETURN          reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2 .)
 
-    pointIfCond3                   shift and go to state 251
 
 state 248
 
-    (7) fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF . CBRACKET pointEndFunc fxDef
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE . pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (117) pointIfCond3 -> .
 
-    CBRACKET        shift and go to state 252
+    OBRACKET        reduce using rule 117 (pointIfCond3 -> .)
 
+    pointIfCond3                   shift and go to state 253
 
 state 249
 
-    (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF . CBRACKET pointEndFunc fxDef
+    (7) fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF . CBRACKET pointEndFunc fxDef
 
-    CBRACKET        shift and go to state 253
+    CBRACKET        shift and go to state 254
 
 
 state 250
 
-    (108) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .
+    (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF . CBRACKET pointEndFunc fxDef
 
-    VAR             reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
-    ID              reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
-    INPUT           reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
-    OUTPUT          reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
-    WHILE           reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
-    IF              reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
-    CBRACKET        reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
-    RETURN          reduce using rule 108 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    CBRACKET        shift and go to state 255
 
 
 state 251
 
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 . OBRACKET body CBRACKET pointIfCond2
+    (63) returnCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN .
 
-    OBRACKET        shift and go to state 254
+    EOF             reduce using rule 63 (returnCall -> ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN .)
 
 
 state 252
+
+    (109) whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .
+
+    VAR             reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    ID              reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    INPUT           reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    OUTPUT          reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    WHILE           reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    IF              reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    CBRACKET        reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+    RETURN          reduce using rule 109 (whileCycle -> WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3 .)
+
+
+state 253
+
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 . OBRACKET body CBRACKET pointIfCond2
+
+    OBRACKET        shift and go to state 256
+
+
+state 254
 
     (7) fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET . pointEndFunc fxDef
     (18) pointEndFunc -> .
@@ -3585,9 +3605,9 @@ state 252
     MAIN            reduce using rule 18 (pointEndFunc -> .)
     CBRACKET        reduce using rule 18 (pointEndFunc -> .)
 
-    pointEndFunc                   shift and go to state 255
+    pointEndFunc                   shift and go to state 257
 
-state 253
+state 255
 
     (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET . pointEndFunc fxDef
     (18) pointEndFunc -> .
@@ -3600,11 +3620,11 @@ state 253
     MAIN            reduce using rule 18 (pointEndFunc -> .)
     CBRACKET        reduce using rule 18 (pointEndFunc -> .)
 
-    pointEndFunc                   shift and go to state 256
+    pointEndFunc                   shift and go to state 258
 
-state 254
+state 256
 
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET . body CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET . body CBRACKET pointIfCond2
     (34) body -> . varsDef body
     (35) body -> . statements body
     (36) body -> . epsilon
@@ -3617,27 +3637,27 @@ state 254
     (41) statements -> . whileCycle
     (42) statements -> . ifCond
     (43) statements -> . classCall
-    (120) epsilon -> .
+    (121) epsilon -> .
     (57) assignmentDef -> . ID ASSIGNMENT pointPushAssignment expAssignment
-    (117) input -> . INPUT OPAREN ID CPAREN EOF
-    (118) output -> . OUTPUT OPAREN expRelational CPAREN EOF
+    (118) input -> . INPUT OPAREN ID CPAREN EOF
+    (119) output -> . OUTPUT OPAREN expRelational CPAREN EOF
     (30) voidCall -> . ID pointEra OPAREN paramCall pointGoSub CPAREN EOF
-    (31) voidCall -> . ID pointEra OPAREN epsilon pointGoSub CPAREN EOF
-    (108) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
-    (112) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
-    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
-    (95) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
-    (96) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
+    (31) voidCall -> . ID pointEra OPAREN epsilon pointParamVacio pointGoSub CPAREN EOF
+    (109) whileCycle -> . WHILE pointWhile1 OPAREN expRelational CPAREN pointWhile2 OBRACKET body CBRACKET pointWhile3
+    (113) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET pointIfCond2
+    (114) ifCond -> . IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2
+    (96) classCall -> . ID MONEY ID OPAREN paramCall CPAREN EOF
+    (97) classCall -> . ID MONEY ID OPAREN epsilon CPAREN EOF
 
     VAR             shift and go to state 49
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
     ID              shift and go to state 57
     INPUT           shift and go to state 58
     OUTPUT          shift and go to state 59
     WHILE           shift and go to state 60
     IF              shift and go to state 61
 
-    body                           shift and go to state 257
+    body                           shift and go to state 259
     varsDef                        shift and go to state 46
     statements                     shift and go to state 47
     epsilon                        shift and go to state 48
@@ -3649,7 +3669,7 @@ state 254
     ifCond                         shift and go to state 55
     classCall                      shift and go to state 56
 
-state 255
+state 257
 
     (7) fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc . fxDef
     (5) fxDef -> . VOID FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef
@@ -3661,21 +3681,21 @@ state 255
     (11) fxType -> . STRING
     (12) fxType -> . DEC
     (13) fxType -> . BOOL
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     VOID            shift and go to state 11
     INT             shift and go to state 14
     STRING          shift and go to state 15
     DEC             shift and go to state 16
     BOOL            shift and go to state 17
-    MAIN            reduce using rule 120 (epsilon -> .)
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    MAIN            reduce using rule 121 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
 
     fxType                         shift and go to state 13
-    fxDef                          shift and go to state 258
+    fxDef                          shift and go to state 260
     epsilon                        shift and go to state 12
 
-state 256
+state 258
 
     (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc . fxDef
     (5) fxDef -> . VOID FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body CBRACKET pointEndFunc fxDef
@@ -3687,28 +3707,28 @@ state 256
     (11) fxType -> . STRING
     (12) fxType -> . DEC
     (13) fxType -> . BOOL
-    (120) epsilon -> .
+    (121) epsilon -> .
 
     VOID            shift and go to state 11
     INT             shift and go to state 14
     STRING          shift and go to state 15
     DEC             shift and go to state 16
     BOOL            shift and go to state 17
-    MAIN            reduce using rule 120 (epsilon -> .)
-    CBRACKET        reduce using rule 120 (epsilon -> .)
+    MAIN            reduce using rule 121 (epsilon -> .)
+    CBRACKET        reduce using rule 121 (epsilon -> .)
 
     fxType                         shift and go to state 13
     epsilon                        shift and go to state 12
-    fxDef                          shift and go to state 259
+    fxDef                          shift and go to state 261
 
-state 257
+state 259
 
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body . CBRACKET pointIfCond2
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body . CBRACKET pointIfCond2
 
-    CBRACKET        shift and go to state 260
+    CBRACKET        shift and go to state 262
 
 
-state 258
+state 260
 
     (7) fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef .
 
@@ -3716,7 +3736,7 @@ state 258
     CBRACKET        reduce using rule 7 (fxDef -> fxType FX pointFx ID pointFxId OPAREN param CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef .)
 
 
-state 259
+state 261
 
     (8) fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef .
 
@@ -3724,32 +3744,32 @@ state 259
     CBRACKET        reduce using rule 8 (fxDef -> fxType FX pointFx ID pointFxId OPAREN epsilon CPAREN pointParamCount OBRACKET body RETURN ID pointReturn EOF CBRACKET pointEndFunc fxDef .)
 
 
-state 260
+state 262
 
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET . pointIfCond2
-    (115) pointIfCond2 -> .
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET . pointIfCond2
+    (116) pointIfCond2 -> .
 
-    VAR             reduce using rule 115 (pointIfCond2 -> .)
-    ID              reduce using rule 115 (pointIfCond2 -> .)
-    INPUT           reduce using rule 115 (pointIfCond2 -> .)
-    OUTPUT          reduce using rule 115 (pointIfCond2 -> .)
-    WHILE           reduce using rule 115 (pointIfCond2 -> .)
-    IF              reduce using rule 115 (pointIfCond2 -> .)
-    CBRACKET        reduce using rule 115 (pointIfCond2 -> .)
-    RETURN          reduce using rule 115 (pointIfCond2 -> .)
+    VAR             reduce using rule 116 (pointIfCond2 -> .)
+    ID              reduce using rule 116 (pointIfCond2 -> .)
+    INPUT           reduce using rule 116 (pointIfCond2 -> .)
+    OUTPUT          reduce using rule 116 (pointIfCond2 -> .)
+    WHILE           reduce using rule 116 (pointIfCond2 -> .)
+    IF              reduce using rule 116 (pointIfCond2 -> .)
+    CBRACKET        reduce using rule 116 (pointIfCond2 -> .)
+    RETURN          reduce using rule 116 (pointIfCond2 -> .)
 
-    pointIfCond2                   shift and go to state 261
+    pointIfCond2                   shift and go to state 263
 
-state 261
+state 263
 
-    (113) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .
+    (114) ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .
 
-    VAR             reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
-    ID              reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
-    INPUT           reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
-    OUTPUT          reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
-    WHILE           reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
-    IF              reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
-    CBRACKET        reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
-    RETURN          reduce using rule 113 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    VAR             reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    ID              reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    INPUT           reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    OUTPUT          reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    WHILE           reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    IF              reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    CBRACKET        reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
+    RETURN          reduce using rule 114 (ifCond -> IF OPAREN expRelational CPAREN pointIfCond1 OBRACKET body CBRACKET ELSE pointIfCond3 OBRACKET body CBRACKET pointIfCond2 .)
 
