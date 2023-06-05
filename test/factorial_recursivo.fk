@@ -1,28 +1,25 @@
 begin(factorial_recursivo)
 
-int fx fibonacci(int n) {
-    var int n2, res, res2;
-    if(n<=1){
-        res=n;
-    } else {
-        n = n - 1;
-        n2 = n - 2;
-        res = fibonacci(n);
-        res2 = fibonacci(n2);
-        res = res + res2;
-        output(res);
+int fx factorial(int n) {
+    var int res, temp, n2;
+    if(n == 0){
+        res = 1;
+    }
+    else{
+        n2 = n - 1;
+        temp = factorial(n2);
+        res = n * temp;
     }
     return res;
-    
 }
 
 main(){
     var int n, m;
-    n = 20;
-    m = fibonacci(n);
-    output("El fibonacci de");
+    n = 6;
+    output("El factorial de ");
     output(n);
-    output("es ");
+    output("es: ");
+    m = factorial(n);
     output(m);
 }
 

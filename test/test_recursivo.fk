@@ -1,6 +1,7 @@
 begin(test)
 
 int fx test(int n){
+    output("entreeeeee fx");
     var int res, n2;
     if(n == 1){
         res = 1;
@@ -14,7 +15,9 @@ int fx test(int n){
 
 main(){
     var int n, m;
-    n = 6;
+    n = 3;
     m = test(n);
     output(m);
 }
+
+end(test)

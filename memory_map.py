@@ -56,8 +56,7 @@ class MemoryMap:
     
     def get_returnDir(self, fxName):
         for entry in self.globalMem:
-            if entry[0] == fxName: 
-             # Check if the first element matches the name
+            if entry[0] == fxName: # Check if the first element matches the name
                 dirV = entry[1]['dirV']
                 break
         return dirV

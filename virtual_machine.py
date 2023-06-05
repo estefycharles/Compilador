@@ -12,6 +12,7 @@ class VirtualMachine:
         self.globalList = []
         self.memoryMap = MemoryMap()
         self.memoryMapCte = MemoryMap()
+        self.memoryGlobal = MemoryMap()
         self.memoryStack = []
 
     def load_cuacs(self, filename):
@@ -39,7 +40,10 @@ class VirtualMachine:
             if 'dirV' in element[1]: 
                  dir = element[1]['dirV']
                  if dir == int(op):
-                     return element[0]            
+                     return element[0]
+        for element in self.memoryGlobal.get_memory().values():
+            if int(op) in element.keys():
+                return element[int(op)]           
         for element in self.memoryStack[-1].get_memory().values():
             if int(op) in element.keys():
                 return element[int(op)]
@@ -56,11 +60,13 @@ class VirtualMachine:
         #self.memoryMap.print()
         self.memoryMap.set_cte_memory()
         self.memoryMap.set_memory()
-
+        #print(self.cteList)
+        #print(self.globalList)
         self.memoryMapCte.set_cte(self.cteList)
         self.memoryMapCte.set_fxMem(self.fxList)
         self.memoryMapCte.set_globalMem(self.globalList)
         self.memoryMapCte.set_cte_memory()
+        self.memoryGlobal.set_globalMem(self.globalList)
         cuacs = self.load_cuacs('pato.txt')
         ip = 0 
         param = 0
@@ -69,12 +75,12 @@ class VirtualMachine:
         returnDir = 0
         returnFlag = 0
         bread_crumb = []
+        self.memoryStack.append(self.memoryMap) #memory map inicial
         while(ip < len(cuacs)):
             #print(cuacs[ip])
             opr, op1, op2, res = cuacs[ip]
             if opr == 'goto':
                 #salta a la linea # (res)
-                self.memoryStack.append(self.memoryMap) #memory map inicial
                 ip = int(res) - 1
             elif opr == '+':
                 #value1 = self.memoryMap.get_value(int(op1))
@@ -104,7 +110,9 @@ class VirtualMachine:
                 ip += 1
             elif opr == '=':
                 value = self.find_value(op1)
+                #print('MEMORIA1', self.memoryStack[-1].get_memory())
                 self.memoryStack[-1].set_value(int(res), value)
+                #print('MEMORIA2', self.memoryStack[-1].get_memory())
                 ip += 1
             elif opr == 'output':
                 print(self.find_value(res))
@@ -172,8 +180,13 @@ class VirtualMachine:
                     ip = bread_crumb.pop() + 1
                 self.memoryStack.pop()
                 if returnFlag == 1:
-                    self.memoryStack[-1].set_value(returnDir, returnValue)
-                    returnFlag = 0
+                    #set a la lista de globales
+                    self.memoryGlobal.set_value(returnDir, returnValue)
+                    # globalListTemp = {returnValue, returnDir}
+                    # self.globalList.append(globalListTemp)
+                    #print('holaaaaaaa', returnValue, returnDir)
+                    #self.memoryStack[-1].set_value(returnDir, returnValue)
+                    returnFlag  = 0
             elif opr == 'param':
                 param = param + 1
                 value1 = self.memoryStack[-2].get_value(int(op1))
@@ -181,13 +194,28 @@ class VirtualMachine:
                 self.memoryStack[-1].set_value(paramDir, value1)
                 ip += 1
             elif opr == 'return':
+                # if returnFlag > 1:
+                #     value = self.memoryStack[-2].get_value(int(res))
+                # else:
+                
                 value = self.find_value(res)
-                dir = self.memoryMap.get_returnDir(fxName)
+                #print("ENTREE RETURN", res)
+                #print('MEMORIA3', self.memoryGlobal.get_memory())
+                #print('MEMORIA3', self.memoryStack[-1].get_memory())
+                #value = self.memoryStack[-2].get_value(int(res))
+                #print("Fxname", fxName)
+                # dir = self.memoryGlobal.get_returnDir(fxName)
+                dir = self.memoryGlobal.get_returnDir(fxName)
+                self.memoryGlobal.set_value(dir, value)
+                #print('MEMORIA4', self.memoryGlobal.get_memory())
+                #value = self.find_value(res)
+                #print("VALUE", value)
+                #dir = self.memoryMap.get_returnDir(fxName)
                 returnValue = value
                 returnDir = dir
                 returnFlag = 1
                 #self.memoryStack[-1].set_value(dir, value)
-                fxName = ''
+                #fxName = ''
                 ip += 1 
             else:
                 break

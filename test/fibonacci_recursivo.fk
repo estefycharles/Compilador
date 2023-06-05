@@ -1,0 +1,30 @@
+begin(fibonacci_recursivo)
+
+int fx fibonacci(int n) {
+    var int res, temp, temp2, n2;
+    if(n <= 1){
+        res = n;
+    }
+    else{
+        n2 = n - 1;
+        temp = fibonacci(n2);
+        n2 = n2 - 1;
+        temp2 = fibonacci(n2);
+        res = temp + temp2;
+    }
+    return res;
+}
+
+main(){
+    var int n, m, o;
+    n = 6;
+    m = 0;
+    output("Fibonacci: ");
+    while(m < n){
+        o = fibonacci(m);
+        output(o);
+        m = m + 1;
+    }
+}
+
+end(fibonacci_recursivo)

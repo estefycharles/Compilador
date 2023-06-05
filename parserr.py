@@ -129,16 +129,16 @@ def p_pointFxId(p):
     else:
         dirI = newCuac.countCuacs
         funcsDirectory.add_function(funcName,funcType,dirI)
-       # funcsDirectory.add_global(funcName, memoryManagement.global_memory(funcType))
+        funcsDirectory.add_global(funcName, memoryManagement.global_memory(funcType))
 
 def p_pointReturn(p):
     ''' pointReturn : '''
     newCuac.create_cuac('return', None, None, funcsDirectory.get_varDirV(p[-1], internalScope))
-    varType = funcsDirectory.get_varType(p[-1], internalScope)
-    if funcsDirectory.get_fxType(funcName) == varType:
-        funcsDirectory.add_global(funcName, memoryManagement.global_memory(varType))
-    else:
-        print('Cuack cuack cuack... Type mismatch in return type :(')
+    # varType = funcsDirectory.get_varType(p[-1], internalScope)
+    # if funcsDirectory.get_fxType(funcName) == varType:
+    #     funcsDirectory.add_global(funcName, memoryManagement.global_memory(varType))
+    # else:
+    #     print('Cuack cuack cuack... Type mismatch in return type :(')
 
 def p_pointParamCount(p):
     ''' pointParamCount : '''
@@ -330,6 +330,7 @@ def p_returnCall(p):
                    | ID pointEra OPAREN epsilon pointGoSub CPAREN '''
     if funcsDirectory.exists_fx(p[1]):
         pTypes.append(funcsDirectory.get_fxType(p[1]))
+        print("VALUE GLOBAL:", funcsDirectory.get_globalDirV(p[1]))
         pOprnd.append(funcsDirectory.get_globalDirV(p[1]))
     # elif funcsDirectory.exists_fx(p[1]) and internalScope == 'fx':
     #     funcsDirectory.add_global(funcName, memoryManagement.global_memory(funcsDirectory.get_fxType(p[1])))
@@ -637,7 +638,7 @@ yacc.yacc()
 
 #Probar Archivo
 try:
-    f = open('../Compilador/test/fibonacci_ciclo.fk')
+    f = open('../Compilador/test/fibonacci_recursivo.fk')
     data = f.read()
     f.close()
 except EOFError:
