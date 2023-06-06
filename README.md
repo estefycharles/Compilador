@@ -38,5 +38,23 @@ Se generan cuádruplos de estatutos condicionales: if else y while.
 
 ![cuac_conds](ss/cuac_conds.png)
 
+## Avance 5
+Se generan cuádruplos de funciones.
 
+![cuac_fx](ss/cuac_fx.png)
+
+## Avance 6
+Máquina virtual de expresiones artiméticas.
+
+![mv_expArit](ss/mv_expArit.png)
+
+## Avance 7
+Máquina virtual de estatutos condicionales y ciclos.
+
+![mv_ciclos](ss/mv_ciclos.png)
+
+## Avance 8
+Máquina virtual de funciones void, de retorno y recursividad.
+
+![mv_recursividad](ss/mv_recursividad.png)
 

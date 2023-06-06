@@ -671,12 +671,12 @@ runParser = yacc.yacc()
 #comentar para cuando se use archivo fly
 #Probar Archivo
 # try:
-#     f = open('../Compilador/test/test_arreglo.fk')
+#     f = open('../Compilador/test/exp_aritmeticas.fk')
 #     data = f.read()
 #     f.close()
 # except EOFError:
 #     quit()
-# #comentar para cuando se use archivo fly
+#comentar para cuando se use archivo fly
 # yacc.parse(data)
 
 #print("CÓDIGO CORRECTO")

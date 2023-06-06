@@ -1,0 +1,12 @@
+begin(exp_aritmeticas)
+
+main(){
+    var int a, b, c, d;
+    a = 2;
+    b = 4;
+    c = 8;
+    d = (a * b + c / 8) + c / b * a - 2;
+    output("El resultado es: ");
+    output(d);
+}
+end(exp_aritmeticas)
