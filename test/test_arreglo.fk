@@ -1,7 +1,22 @@
 begin(test_arreglo)
 
 main(){
-    var int arr[5];
+    var int arr[1:5], x, i, j;
+    var dec a[2:6], y;
+    x = 5;
+    i = 4;
+    j = 8;
+    arr[4] = 2; 
+    x = arr[4];
+    a[x] = 1.6;
+    y = a[x];
+    output(y);
+    while(i > 0){
+        arr[i] = j;
+        x = arr[i];
+        i = i - 1;
+        j = j - 1;
+        output(x);
+    }
 }
-
 end(test_arreglo)

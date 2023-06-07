@@ -7,6 +7,7 @@ from cuac import Cuac
 from memory import MemoryAddress
 from virtual_machine import VirtualMachine
 from memory_map import MemoryMap
+from dim import Dimension
 
 funcsDirectory = Directory()
 cube = Semantic_cube()
@@ -14,6 +15,7 @@ newCuac = Cuac()
 memoryManagement = MemoryAddress()
 vm = VirtualMachine()
 memMap = MemoryMap()
+dim = Dimension()
 
 varType = ''
 funcType = ''
@@ -27,6 +29,7 @@ res = 0
 numParams = 0 #cont de params para fx calls
 numParamsFx = 0 #cont de params de declaración de fx
 nombreFx = ''
+arrDir = 0 ##address from the index of the array
 
 pOper = ['$'] #operators stack
 pOprnd = [] #operands stack 
@@ -34,7 +37,7 @@ pTypes = [] #operands types stack
 pJumps = [] #jumps on conditionals stack 
 
 # Helper function to add temps
-def add_temp(op1, op2, resT, opr):
+def add_temp(resT):
     temp = memoryManagement.temp_memory(resT)
     #temp = newCuac.add_temps()
     #pTempsTypes.append(resT)
@@ -58,8 +61,8 @@ def print_control(p, nonterminal: str, max_symbols: int):
 def p_begin(p):
     ''' begin : BEGIN pointCreateMainCuac OPAREN ID CPAREN classDef fxDef  main end'''
     print_control(p,"begin",8)
-    #funcsDirectory.print_dict()
-    #newCuac.print1()
+    funcsDirectory.print_dict()
+    newCuac.print1()
     output_file = open("pato.txt", "w") #txt file con lista de cuádruplos
     cuacs_list = newCuac.getCuac()
     for cuac in cuacs_list:
@@ -178,7 +181,7 @@ def p_pointParam(p):
     #funcsDirectory.add_param(paramType, numParamsFx, dirV)
     dirV = memoryManagement.local_memory(paramType,1)
     funcsDirectory.add_param(paramType, numParamsFx, dirV)
-    funcsDirectory.add_var(p[-1], paramType, internalScope, dirV,None)
+    funcsDirectory.add_var(p[-1], paramType, internalScope, dirV,0)
 
 def p_paramCall(p):
     ''' paramCall : ID pointParamCall pointParamNum
@@ -275,60 +278,129 @@ def p_var(p):
 
 
 def p_varsType(p):
-    ''' varsType : ID
+    ''' varsType : ID pointID
                 | arrDef
                 | matrixDef '''
     print_control(p,"varsType",1)
+    
+def p_pointID(p):
+    ''' pointID : '''
     global objVar
     if objVar == 1:
-        if funcsDirectory.exists_classVars(p[1]):
-            print('Cuack cuack cuack... CLASSVAR name:', p[1], 'already declared')
+        if funcsDirectory.exists_classVars(p[-1]):
+            print('Cuack cuack cuack... CLASSVAR name:', p[-1], 'already declared')
             sys.exit(1)
         else:
-            funcsDirectory.add_classVars(p[1], classVars)
+            funcsDirectory.add_classVars(p[-1], classVars)
     else:
-        if funcsDirectory.exists_var(p[1], internalScope):
-            print('Cuack cuack cuack... VAR name:', p[1], 'already declared')
+        if funcsDirectory.exists_var(p[-1], internalScope):
+            print('Cuack cuack cuack... VAR name:', p[-1], 'already declared')
             sys.exit(1)
         else:
             dirV = memoryManagement.local_memory(varType,1)
-            funcsDirectory.add_var(p[1], varType, internalScope, dirV, None)
-
+            funcsDirectory.add_var(p[-1], varType, internalScope, dirV, 0)
 
 def p_arrDef(p):
-    ''' arrDef : ID OSQUAREBR varCte CSQUAREBR '''
+    ''' arrDef : ID OSQUAREBR INT COLON INT CSQUAREBR '''
     print_control(p,"arrDef",4)
     if funcsDirectory.exists_var(p[1], internalScope):
         print('Cuack cuack cuack... VAR name:', p[1], 'already declared')
         sys.exit(1)
     else:
-        dirV = memoryManagement.local_memory(varType,1)
-        funcsDirectory.add_var(p[1], varType, internalScope, dirV, None)
+        size = p[5] - p[3] + 1
+        dirV = memoryManagement.local_memory(varType, size) #separa el tamaño del arr en memoria
+        dirV = (dirV + 1) - size 
+        funcsDirectory.add_var(p[1], varType, internalScope, dirV, 1)
+        dim.set_dim(p[1], p[3], p[5])
+    if funcsDirectory.exists_cte(p[3]): #esto se hace en pointINT pero no queremos agregar int a pOprnd
+        dirV = funcsDirectory.get_cteDirV(p[3])
+    else:
+        dirV = memoryManagement.const_memory('int')
+        funcsDirectory.add_cte(p[3], dirV)
+    if funcsDirectory.exists_cte(p[5]): 
+        dirV = funcsDirectory.get_cteDirV(p[5])
+    else:
+        dirV = memoryManagement.const_memory('int')
+        funcsDirectory.add_cte(p[5], dirV)
+        
 
+def p_arr(p): #solo puede haber int y id
+    ''' arr : ID OSQUAREBR varCte pointCheckTypeInt CSQUAREBR '''
+    p[0] = p[1]
+    if funcsDirectory.exists_var(p[1], internalScope):
+        global arrDir #address from the index of the array
+        limInf = dim.get_limInf(p[1])
+        limSup = dim.get_limSup(p[1])
+        limInf = funcsDirectory.get_cteDirV(limInf)
+        limSup = funcsDirectory.get_cteDirV(limSup)
+        newCuac.create_cuac('ver', arrDir, limInf, limSup)
+        resTemp = add_temp('int')
+        if funcsDirectory.exists_cte(1):
+            dirV = funcsDirectory.get_cteDirV(1)
+        else:
+            dirV = memoryManagement.const_memory('int')
+            funcsDirectory.add_cte(1, dirV)
+        newCuac.create_cuac('-', arrDir, dirV, resTemp) #s1 - 1
+        arrIdDir = funcsDirectory.get_varDirV(p[1], internalScope)
+        dirPointer = memoryManagement.pointer_memory()
+        pOprnd.append(dirPointer)
+        pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
+        newCuac.create_cuac('+', resTemp, arrIdDir, dirPointer) #+driB
+    else:
+        print('Cuack cuack cuack... VAR:', p[1], 'does not exist')
+        sys.exit(1)
+    
 
+def p_pointCheckTypeInt(p):
+    ''' pointCheckTypeInt : '''
+    global arrDir
+    if isinstance(p[-1], int): #cuando p[-1] es un nuemro
+        arrDir = funcsDirectory.get_cteDirV(p[-1])
+    elif isinstance(p[-1], float):
+        print('Cuack cuack cuack... Array:', p[-3], 'index', p[-1], 'can only be INT')
+        sys.exit(1)
+    elif funcsDirectory.get_varType(p[-1], internalScope) != 'int': #si entra con ID verifica que type = int
+        print('Cuack cuack cuack... Array:', p[-3], 'index', p[-1], 'can only be INT')
+        sys.exit(1)
+    else:
+        arrDir = funcsDirectory.get_varDirV(p[-1], internalScope)
 
+    
 
 def p_matrixDef(p):
-    ''' matrixDef : arrDef OSQUAREBR varCte CSQUAREBR '''
+    ''' matrixDef : arrDef OSQUAREBR varCte COLON varCte CSQUAREBR '''
     print_control(p,"matrixDef",4)
 
 
 def p_assignmentDef(p):
-    ''' assignmentDef : ID ASSIGNMENT pointPushAssignment expAssignment '''
+    ''' assignmentDef : ID ASSIGNMENT pointPushAssignment expAssignment
+                      | arr ASSIGNMENT pointPushAssignment expAssignment '''
     print_control(p,"assignmentDef",3)
     if funcsDirectory.exists_var(p[1], internalScope):
-        pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
-        pOprnd.append(funcsDirectory.get_varDirV(p[1], internalScope))
-        res = pOprnd.pop()
-        resT = pTypes.pop()
-        op1 = pOprnd.pop()
-        opT1 = pTypes.pop()
-        opr = pOper.pop()
-        if resT == opT1:
-            newCuac.create_cuac(opr, op1, None, res)
-        else:
-            print('Cuack cuack cuack... Type mismatch in VAR:', p[1])
-            sys.exit(1)
+        if funcsDirectory.get_varDim(p[1], internalScope) != 1:
+            pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
+            pOprnd.append(funcsDirectory.get_varDirV(p[1], internalScope))
+            res = pOprnd.pop()
+            resT = pTypes.pop()
+            op1 = pOprnd.pop()
+            opT1 = pTypes.pop()
+            opr = pOper.pop()
+            if resT == opT1:
+                newCuac.create_cuac(opr, op1, None, res)
+            else:
+                print('Cuack cuack cuack... Type mismatch in VAR:', p[1])
+                sys.exit(1)
+        else: #si es un arreglo
+            op1 = pOprnd.pop()
+            opT1 = pTypes.pop()
+            res = pOprnd.pop()
+            resT = pTypes.pop()
+            opr = pOper.pop()
+            if resT == opT1:
+                newCuac.create_cuac(opr, op1, None, res)
+            else:
+                print('Cuack cuack cuack... Type mismatch in VAR:', p[1])
+                sys.exit(1)
     else:
         print('Cuack cuack cuack... VAR:', p[1], 'does not exist')
         sys.exit(1)
@@ -382,7 +454,7 @@ def p_pointCheckOpRel(p):
         opr = pOper.pop()
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
-            res = add_temp(op1, op2, resT,opr)
+            res = add_temp(resT)
             newCuac.create_cuac(opr, op1, op2, res)
         else:
             print('Cuack cuack cuack... Type mismatch in expression: ' + str(opr))
@@ -416,7 +488,7 @@ def p_pointCheckPlusMinus(p):
         opr = pOper.pop()
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
-            res = add_temp(op1, op2, resT, opr)
+            res = add_temp(resT)
             newCuac.create_cuac(opr, op1, op2, res)
             #pOprnd.append(res)
             #pTypes.append(resT)
@@ -447,7 +519,7 @@ def p_pointCheckMultDiv(p):
         opr = pOper.pop()
         resT = cube.cube[op1T][op2T][opr]
         if resT != 'error':
-            res = add_temp(op1, op2, resT, opr)
+            res = add_temp(resT)
             newCuac.create_cuac(opr, op1, op2, res)
             #pOprnd.append(res)
             #pTypes.append(resT)
@@ -530,13 +602,20 @@ def p_varCte(p):
                 | STRING pointSTRING
                 | TRUE pointBOOL
                 | FALSE pointBOOL
-                | ID '''
+                | ID
+                | arr '''
     print_control(p,"varCte",1)
     p[0] = p[1]
-    if funcsDirectory.exists_var(p[1], internalScope):
-        pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
-        pOprnd.append(funcsDirectory.get_varDirV(p[1], internalScope))
-    
+    if len(p) == 2:
+        if funcsDirectory.exists_var(p[1], internalScope):
+            if funcsDirectory.get_varDim(p[1], internalScope) != 1:
+                print('var dim2: ', funcsDirectory.get_varDim(p[1], internalScope))
+                pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
+                pOprnd.append(funcsDirectory.get_varDirV(p[1], internalScope))
+        else:
+            print('Cuack cuack cuack... VAR:', p[1], 'does not exist')
+            sys.exit(1)
+          
 def p_pointINT(p):
     ''' pointINT : '''
     pTypes.append('int')
@@ -668,15 +747,15 @@ def p_error(p):
 #yacc.yacc()
 runParser = yacc.yacc()
 
+# comentar para cuando se use archivo fly
+# Probar Archivo
+try:
+    f = open('../Compilador/test/test_arreglo.fk')
+    data = f.read()
+    f.close()
+except EOFError:
+    quit()
 #comentar para cuando se use archivo fly
-#Probar Archivo
-# try:
-#     f = open('../Compilador/test/exp_aritmeticas.fk')
-#     data = f.read()
-#     f.close()
-# except EOFError:
-#     quit()
-#comentar para cuando se use archivo fly
-# yacc.parse(data)
+yacc.parse(data)
 
 #print("CÓDIGO CORRECTO")

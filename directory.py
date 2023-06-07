@@ -159,15 +159,27 @@ class Directory:
         for key, val in self.globalVar.items(): 
             list.append([key, val]) 
         return list
+    
+    def get_varDim(self, name, internalScope): #para identificar si es un arreglo
+        if self.scope == 'main':
+            return self.main[name]['dim']
+        elif self.scope == 'fx':
+            return self.fx[self.functionName]['vars'][name]['dim']
+        elif self.scope == 'class':
+            if internalScope == 'fx':
+                return self.classes[self.className]['fx'][self.functionName]['vars'][name]['dim']
+            elif internalScope == 'class':
+                return self.classes[self.className]['vars'][name]['dim']
+            
 
 
     def print_dict(self):
         print("DIRECTORIO: ")
         #print(json.dumps(self.classes, indent = 4))
-        print(json.dumps(self.fx, indent = 4))
+        #print(json.dumps(self.fx, indent = 4))
         print(json.dumps(self.main, indent = 4))
         #print(json.dumps(self.classVars, indent = 4))
         print(json.dumps(self.cte, indent = 4))
-        print(json.dumps(self.globalVar, indent = 4))
+        #print(json.dumps(self.globalVar, indent = 4))
 
  

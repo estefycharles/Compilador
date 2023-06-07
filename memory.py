@@ -20,6 +20,8 @@ class MemoryAddress:
         self.globalBool = 15000
         self.globalString = 16000
 
+        self.pointer= 17000
+
     def local_memory(self, varType, varSize):
         if varType == 'int':
             self.localInt += varSize
@@ -123,6 +125,13 @@ class MemoryAddress:
                 print('ERROR: Out of memory')
             else:
                 return self.globalString
+            
+    def pointer_memory(self):
+        self.pointer += 1
+        if self.pointer > 18000:
+            print('ERROR: Out of memory')
+        else:
+            return self.pointer
 
     def delete_localMemory(self):
         self.localInt = 1000

@@ -71,6 +71,7 @@ class VirtualMachine:
         returnDir = 0
         returnFlag = 0
         bread_crumb = []
+        arrFlag = 0
         self.memoryStack.append(self.memoryMap) #memory map inicial
         while(ip < len(cuacs)):
             #print(cuacs[ip])
@@ -79,10 +80,15 @@ class VirtualMachine:
                 #salta a la linea # (res)
                 ip = int(res) - 1
             elif opr == '+': 
-                value1 = self.find_value(op1)
-                value2 = self.find_value(op2)
-                result = value1 + value2
-                self.memoryStack[-1].set_value(int(res), result)
+                if arrFlag == 1: #suma la dirBase del arr y calcula la dir del indice
+                    value1 = self.find_value(op1)
+                    result = value1 + int(op2)
+                    self.memoryStack[-1].set_value(int(res), result)
+                else:
+                    value1 = self.find_value(op1)
+                    value2 = self.find_value(op2)
+                    result = value1 + value2
+                    self.memoryStack[-1].set_value(int(res), result)
                 ip += 1
             elif opr == '-':
                 value1 = self.find_value(op1)
@@ -103,8 +109,20 @@ class VirtualMachine:
                 self.memoryStack[-1].set_value(int(res), result)
                 ip += 1
             elif opr == '=':
-                value = self.find_value(op1)
-                self.memoryStack[-1].set_value(int(res), value)
+                if arrFlag == 1:
+                    if int(op1) > 17000: #cuando asignas arr a una var
+                        dirArr = self.find_value(op1) #trae dir de arr
+                        value = self.find_value(dirArr) #trae la dir de lo que esta en esa posicion del arr
+                        #value = self.find_value(dirValue)
+                        self.memoryStack[-1].set_value(int(res), value)
+                    elif int(res) > 17000:
+                        dir = self.find_value(res) #trae dir de arr
+                        value = self.find_value(op1)
+                        self.memoryStack[-1].set_value(dir, value)
+                    arrFlag = 0
+                else:
+                    value = self.find_value(op1)
+                    self.memoryStack[-1].set_value(int(res), value)
                 ip += 1
             elif opr == 'output':
                 print(self.find_value(res))
@@ -208,6 +226,15 @@ class VirtualMachine:
                 returnValue = value
                 returnDir = dir
                 returnFlag = 1
+                ip += 1 
+            elif opr == 'ver':
+                arrFlag = 1
+                value = self.find_value(op1)
+                limInf = self.find_value(op2)
+                limSup = self.find_value(res)
+                if (value < limInf) or (value > limSup):
+                    print("Cuack cuack cuack... Index out of range with value: " + str(value))
+                    break
                 ip += 1 
             else:
                 break

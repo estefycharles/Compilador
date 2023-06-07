@@ -10,6 +10,7 @@ class MemoryMap:
         self.fxMem = []
         self.globalMem = []
         self.memory = {}
+        self.pointer = {}
 
     
     def get_value(self, dir):
@@ -21,6 +22,9 @@ class MemoryMap:
             return self.bool[dir]
         elif (dir >= 4000 and dir < 5000) or (dir >= 8000 and dir < 9000) or (dir >= 12000 and dir < 13000) or (dir >= 16000 and dir <17000): #string
             return self.string[dir]
+        elif (dir >= 17000):
+            return self.pointer[dir]
+    
         
     def set_value(self, dir, value):
         if (dir >= 1000 and dir < 2000) or (dir >= 5000 and dir < 6000) or (dir >= 9000 and dir < 10000) or (dir >= 13000 and dir <14000): #int
@@ -31,6 +35,8 @@ class MemoryMap:
             self.bool[dir] = value
         elif (dir >= 4000 and dir < 5000) or (dir >= 8000 and dir < 9000) or (dir >= 12000 and dir < 13000) or (dir >= 16000 and dir <17000): #string
             self.string[dir] = value
+        elif (dir >= 17000):
+            self.pointer[dir] = value
 
     def set_cte(self, list):
         self.cteMem = list
@@ -83,13 +89,15 @@ class MemoryMap:
         self.memory = {'int': self.int, 
                        'dec': self.dec, 
                        'string': self.string, 
-                       'bool': self.bool}
+                       'bool': self.bool,
+                       'pointer': self.pointer}
     
     def get_memory(self):
         return {'int': self.int, 
                 'dec': self.dec, 
                 'string': self.string, 
-                'bool': self.bool}
+                'bool': self.bool,
+                'pointer': self.pointer}
     
     def reset(self):
         self.int = {}
