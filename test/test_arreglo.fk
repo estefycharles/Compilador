@@ -10,13 +10,13 @@ main(){
     x = arr[4];
     a[x] = 1.6;
     y = a[x];
-    output(y);
-    while(i > 0){
+    output(arr[i]);
+    while(i > 1){
         arr[i] = j;
         x = arr[i];
+        output(x);
         i = i - 1;
         j = j - 1;
-        output(x);
     }
 }
 end(test_arreglo)

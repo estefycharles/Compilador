@@ -1,0 +1,41 @@
+begin(array_find)
+
+main(){
+    var int arr[1:5], size, index, i, j, x, target;
+    var string flag;
+
+    size = 5;
+    index = 1;
+    i = 1;
+    flag = "off";
+
+    while(i<5){
+        output("Ingresa el elemento de la posición: ");
+        output(i);
+        output("---------------------------------------------------------");
+        input(j);
+        output("---------------------------------------------------------");
+        arr[i] = j;
+        i = i + 1;
+    }
+
+    output("Ingresa el elemento que deseas buscar dentro del arreglo");
+    input(target);
+    output("---------------------------------------------------------");
+
+    while(index < size){
+        x = arr[index];
+        if(x == target){
+            output("Elemento encontrado en posición:");
+            output(index);
+            index = size + 1;
+            flag = "on";
+        }
+        index = index + 1;
+    }
+    if(flag == "off"){
+        output("Elemento no encontrado");
+    }
+}
+//python3 parserr.py
+end(array_find)

@@ -48,6 +48,25 @@ class VirtualMachine:
             if int(op) in element.keys():
                 return element[int(op)]
 
+    def pointer_values(self, op1, op2):
+        if int(op1) > 17000 and int(op2) > 17000:
+            dir = self.find_value(op1)
+            value1 = self.find_value(dir)
+            dir = self.find_value(op2)
+            value2 = self.find_value(dir)
+        elif int(op1) > 17000:
+            dir = self.find_value(op1)
+            value1 = self.find_value(dir)
+            value2 = self.find_value(op2)
+        elif int(op2) > 17000:
+            value1 = self.find_value(op1)
+            dir = self.find_value(op2)
+            value2 = self.find_value(dir)
+        else:    
+            value1 = self.find_value(op1)
+            value2 = self.find_value(op2)
+        return value1, value2
+
 
 #text file
 #funciones
@@ -125,8 +144,13 @@ class VirtualMachine:
                     self.memoryStack[-1].set_value(int(res), value)
                 ip += 1
             elif opr == 'output':
-                print(self.find_value(res))
                 ip += 1
+                if int(res) > 17000:
+                    dir = self.find_value(res)
+                    value = self.find_value(dir)
+                    print(value)
+                else:
+                    print(self.find_value(res))
             elif opr == 'input': #se dejo a medias, solo están enteros y falta hacer lo de las funciones
                resType = int(res)
                ip += 1
@@ -184,8 +208,7 @@ class VirtualMachine:
                 self.memoryStack[-1].set_value(int(res), result)
                 ip += 1
             elif opr == '==':
-                value1 = self.find_value(op1)
-                value2 = self.find_value(op2)
+                value1, value2 = self.pointer_values(op1, op2)
                 result = value1 == value2 #bool
                 self.memoryStack[-1].set_value(int(res), result)
                 ip += 1

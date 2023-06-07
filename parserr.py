@@ -61,8 +61,8 @@ def print_control(p, nonterminal: str, max_symbols: int):
 def p_begin(p):
     ''' begin : BEGIN pointCreateMainCuac OPAREN ID CPAREN classDef fxDef  main end'''
     print_control(p,"begin",8)
-    funcsDirectory.print_dict()
-    newCuac.print1()
+    #funcsDirectory.print_dict()
+    #newCuac.print1()
     output_file = open("pato.txt", "w") #txt file con lista de cuádruplos
     cuacs_list = newCuac.getCuac()
     for cuac in cuacs_list:
@@ -609,7 +609,6 @@ def p_varCte(p):
     if len(p) == 2:
         if funcsDirectory.exists_var(p[1], internalScope):
             if funcsDirectory.get_varDim(p[1], internalScope) != 1:
-                print('var dim2: ', funcsDirectory.get_varDim(p[1], internalScope))
                 pTypes.append(funcsDirectory.get_varType(p[1], internalScope))
                 pOprnd.append(funcsDirectory.get_varDirV(p[1], internalScope))
         else:
@@ -749,13 +748,13 @@ runParser = yacc.yacc()
 
 # comentar para cuando se use archivo fly
 # Probar Archivo
-try:
-    f = open('../Compilador/test/test_arreglo.fk')
-    data = f.read()
-    f.close()
-except EOFError:
-    quit()
+# try:
+#     f = open('../Compilador/test/array_find.fk')
+#     data = f.read()
+#     f.close()
+# except EOFError:
+#     quit()
 #comentar para cuando se use archivo fly
-yacc.parse(data)
+#yacc.parse(data)
 
 #print("CÓDIGO CORRECTO")
